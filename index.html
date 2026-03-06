@@ -1,1 +1,565 @@
-<h1>M14 Studio</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="M14 Studio - Productora audiovisual de primer nivel · Santiago, Chile">
+    <title>M14 Studio | Productora Audiovisual</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none !important; /* Ocultar cursor nativo */
+        }
+
+        :root {
+            --negro: #0A0A0A;
+            --vino: #7A0012;
+            --crema: #F5F0E8;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: auto; /* Lenis maneja el smooth scroll */
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--negro);
+            color: var(--crema);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           CURSOR CUSTOM
+           ============================================ */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--crema);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            will-change: transform;
+        }
+
+        .cursor-circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--crema);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+            will-change: transform;
+        }
+
+        .cursor-circle.hover {
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--vino);
+            background: rgba(122, 0, 18, 0.1);
+        }
+
+        /* ============================================
+           LAYOUT BASE
+           ============================================ */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ============================================
+           TIPOGRAFÍA
+           ============================================ */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 300;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-style: italic;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 6vw, 5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        /* ============================================
+           COMPONENTES UI
+           ============================================ */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--crema);
+            background: transparent;
+            color: var(--crema);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-family: var(--font-body);
+        }
+
+        .btn:hover {
+            background: var(--crema);
+            color: var(--negro);
+        }
+
+        .btn-vino {
+            border-color: var(--vino);
+            color: var(--vino);
+        }
+
+        .btn-vino:hover {
+            background: var(--vino);
+            color: var(--crema);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        #home {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .hero-video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 10, 10, 0.4) 0%,
+                rgba(10, 10, 10, 0.6) 50%,
+                rgba(10, 10, 10, 0.8) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            will-change: transform, opacity;
+        }
+
+        .hero-logo {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 2rem;
+            clip-path: inset(100% 0 0 0);
+            will-change: clip-path;
+        }
+
+        .hero-logo .m14 {
+            color: var(--crema);
+        }
+
+        .hero-logo .studio {
+            color: var(--vino);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 3vw, 2.5rem);
+            font-style: italic;
+            font-weight: 300;
+            max-width: 800px;
+            padding: 0 2rem;
+            line-height: 1.4;
+        }
+
+        .hero-tagline .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .hero-scroll-text {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-family: var(--font-body);
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                var(--crema) 50%,
+                transparent 100%
+            );
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(10px);
+                opacity: 1;
+            }
+        }
+
+        /* ============================================
+           SECCIONES ESPECÍFICAS
+           ============================================ */
+        #portfolio {
+            background: rgba(122, 0, 18, 0.05);
+        }
+
+        #sobre-nosotros {
+            background: rgba(245, 240, 232, 0.02);
+        }
+
+        #contacto {
+            text-align: center;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CURSOR CUSTOM -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- HERO -->
+    <section id="home">
+        <!-- Video de fondo -->
+        <div class="hero-video-wrapper">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="/videos/hero-reel.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="hero-content">
+            <div class="hero-logo">
+                <span class="m14">M14</span>
+                <span class="studio"> STUDIO</span>
+            </div>
+            <div class="hero-tagline">
+                <span class="word">Nos</span>
+                <span class="word">encargamos</span>
+                <span class="word">de</span>
+                <span class="word">contar</span>
+                <span class="word">tu</span>
+                <span class="word">historia</span>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="hero-scroll-indicator">
+            <div class="hero-scroll-text">Scroll</div>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="container">
+            <h2 style="margin-bottom: 2rem;">Portfolio</h2>
+            <p style="max-width: 700px;">
+                Aquí irá el portfolio de proyectos. Moda, publicidad, corporativo, eventos, documentales.
+            </p>
+            <div style="margin-top: 2rem;">
+                <a href="#sobre-nosotros" class="btn btn-vino">Sobre Nosotros</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="sobre-nosotros">
+        <div class="container">
+            <h2 style="margin-bottom: 2rem;">Sobre Nosotros</h2>
+            <p style="max-width: 700px;">
+                Fundada en 2023 en Santiago, Chile. Expandiéndonos a Barcelona en 2025.
+                Pre-producción alineada, tecnología IA, storytelling de primer nivel.
+            </p>
+            <div style="margin-top: 2rem;">
+                <a href="#contacto" class="btn">Contacto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div class="container">
+            <h2 style="margin-bottom: 2rem;">¿Tienes una historia que contar?</h2>
+            <a href="mailto:contacto@m14studio.com" class="btn btn-vino">Hablemos</a>
+        </div>
+    </section>
+
+    <!-- LIBRERÍAS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <script>
+        // ============================================
+        // GSAP + LENIS SMOOTH SCROLL
+        // ============================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            smoothTouch: false,
+            lerp: 0.08, // Fluido y cinematográfico
+        });
+
+        // Sincronizar Lenis con GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+
+        // Smooth scroll para anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    lenis.scrollTo(target, { duration: 1.5 });
+                }
+            });
+        });
+
+        // ============================================
+        // CURSOR CUSTOM
+        // ============================================
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorCircle = document.querySelector('.cursor-circle');
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let dotX = 0;
+        let dotY = 0;
+        let circleX = 0;
+        let circleY = 0;
+
+        // Seguimiento del mouse
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Animación con lerp
+        function animateCursor() {
+            // Punto pequeño - seguimiento exacto
+            dotX = mouseX;
+            dotY = mouseY;
+
+            // Círculo exterior - seguimiento con delay
+            const lerpFactor = 0.15;
+            circleX += (mouseX - circleX) * lerpFactor;
+            circleY += (mouseY - circleY) * lerpFactor;
+
+            // Aplicar posiciones
+            cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+            cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // Detectar hover sobre elementos interactivos
+        const interactiveElements = document.querySelectorAll('a, button, [role="button"]');
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorCircle.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorCircle.classList.remove('hover');
+            });
+        });
+
+        // ============================================
+        // ANIMACIONES HERO
+        // ============================================
+
+        // 1. Logo clip-path reveal (de arriba a abajo)
+        gsap.to('.hero-logo', {
+            clipPath: 'inset(0% 0 0 0)',
+            duration: 1.4,
+            ease: 'power3.out',
+            delay: 0.5
+        });
+
+        // 2. Tagline - fade in palabra por palabra
+        gsap.to('.hero-tagline .word', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            stagger: 0.08,
+            delay: 1.2
+        });
+
+        // 3. Parallax del video (más lento que el contenido)
+        gsap.to('.hero-video', {
+            y: '30%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        // 4. Hero content - scale down + fade out al scrollear
+        gsap.to('.hero-content', {
+            scale: 0.8,
+            opacity: 0,
+            y: -100,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        // 5. Scroll indicator fade out
+        gsap.to('.hero-scroll-indicator', {
+            opacity: 0,
+            y: -20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: '20% top',
+                scrub: 1
+            }
+        });
+    </script>
+
+</body>
+</html>
