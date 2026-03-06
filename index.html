@@ -656,54 +656,6 @@
         }
 
         /* ============================================
-           CLIENTES MARQUEE
-           ============================================ */
-        #clientes {
-            padding: 8rem 0;
-            overflow: hidden;
-            background: rgba(245, 240, 232, 0.02);
-        }
-
-        .clientes-label {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .marquee {
-            display: flex;
-            overflow: hidden;
-            user-select: none;
-            gap: 4rem;
-        }
-
-        .marquee-content {
-            display: flex;
-            gap: 4rem;
-            animation: marqueeScroll 30s linear infinite;
-            will-change: transform;
-        }
-
-        @keyframes marqueeScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .cliente-logo {
-            flex-shrink: 0;
-            font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 200;
-            color: var(--crema);
-            opacity: 0.4;
-            transition: opacity 0.3s ease;
-            letter-spacing: -0.01em;
-        }
-
-        .cliente-logo:hover {
-            opacity: 1;
-        }
-
-        /* ============================================
            PORTFOLIO SECTION
            ============================================ */
         #portfolio {
@@ -1334,33 +1286,6 @@
                     <h3 class="servicio-titulo">Post-Producción & VFX</h3>
                     <p class="servicio-desc">Color grading, efectos visuales, motion graphics y audio diseñado para llevar tu proyecto al siguiente nivel.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CLIENTES MARQUEE -->
-    <section id="clientes">
-        <div class="clientes-label label">Han confiado en nosotros</div>
-        <div class="marquee">
-            <div class="marquee-content">
-                <div class="cliente-logo">Saville Row</div>
-                <div class="cliente-logo">Banco Nacional</div>
-                <div class="cliente-logo">Lollapalooza Chile</div>
-                <div class="cliente-logo">TechCorp</div>
-                <div class="cliente-logo">Andes Outdoor</div>
-                <div class="cliente-logo">Festival Internacional</div>
-                <div class="cliente-logo">Marca Global</div>
-                <div class="cliente-logo">Innovación SA</div>
-            </div>
-            <div class="marquee-content" aria-hidden="true">
-                <div class="cliente-logo">Saville Row</div>
-                <div class="cliente-logo">Banco Nacional</div>
-                <div class="cliente-logo">Lollapalooza Chile</div>
-                <div class="cliente-logo">TechCorp</div>
-                <div class="cliente-logo">Andes Outdoor</div>
-                <div class="cliente-logo">Festival Internacional</div>
-                <div class="cliente-logo">Marca Global</div>
-                <div class="cliente-logo">Innovación SA</div>
             </div>
         </div>
     </section>
