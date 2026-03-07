@@ -2251,77 +2251,84 @@
         // SCROLL-DRIVEN MAP ANIMATION
         // ============================================
         const mapCanvas = document.getElementById('mapCanvas');
-        const mapCtx = mapCanvas.getContext('2d');
+        if (mapCanvas) {
+            const mapCtx = mapCanvas.getContext('2d');
 
-        const frameCount = 50;
-        const currentFrame = index => (
-            `./videos/scroll-animation/Movimiento_sutil_de_el_mapa_do_Kling_30__10243_${index.toString().padStart(3, '0')}.jpg`
-        );
+            const frameCount = 50;
+            const currentFrame = index => (
+                `./videos/scroll-animation/Movimiento_sutil_de_el_mapa_do_Kling_30__10243_${index.toString().padStart(3, '0')}.jpg`
+            );
 
-        const images = [];
-        const mapAnimation = {
-            frame: 0
-        };
+            const images = [];
+            const mapAnimation = {
+                frame: 0
+            };
 
-        // Set canvas size
-        function resizeMapCanvas() {
-            const wrapper = document.querySelector('.map-canvas-wrapper');
-            mapCanvas.width = wrapper.offsetWidth;
-            mapCanvas.height = wrapper.offsetHeight;
-            render();
-        }
-
-        // Render current frame
-        function render() {
-            const frameIndex = Math.round(mapAnimation.frame);
-            const img = images[frameIndex];
-            if (img && img.complete) {
-                mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
-                mapCtx.drawImage(img, 0, 0, mapCanvas.width, mapCanvas.height);
+            // Set canvas size
+            function resizeMapCanvas() {
+                const wrapper = document.querySelector('.map-canvas-wrapper');
+                if (wrapper) {
+                    mapCanvas.width = wrapper.offsetWidth;
+                    mapCanvas.height = wrapper.offsetHeight;
+                    render();
+                }
             }
-        }
 
-        // Preload all frames with Promise
-        let loadedImages = 0;
-        const preloadPromises = [];
+            // Render current frame
+            function render() {
+                const frameIndex = Math.floor(mapAnimation.frame);
+                const img = images[frameIndex];
+                if (img && img.complete && img.naturalWidth > 0) {
+                    mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
+                    mapCtx.drawImage(img, 0, 0, mapCanvas.width, mapCanvas.height);
+                    console.log('Rendering frame:', frameIndex);
+                } else {
+                    console.log('Frame not ready:', frameIndex);
+                }
+            }
 
-        for (let i = 0; i < frameCount; i++) {
-            const promise = new Promise((resolve, reject) => {
+            // Preload all frames
+            let loadedImages = 0;
+
+            for (let i = 0; i < frameCount; i++) {
                 const img = new Image();
                 img.onload = () => {
                     loadedImages++;
-                    resolve();
+                    console.log('Loaded image', i, '- Total:', loadedImages);
+
+                    // When all images are loaded, initialize animation
+                    if (loadedImages === frameCount) {
+                        console.log('All frames loaded! Initializing animation...');
+                        resizeMapCanvas();
+                        window.addEventListener('resize', resizeMapCanvas);
+
+                        // Create scroll-triggered animation
+                        gsap.to(mapAnimation, {
+                            frame: frameCount - 1,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: '.map-animation-section',
+                                start: 'top top',
+                                end: '+=300%',
+                                scrub: 1,
+                                pin: true,
+                                onUpdate: (self) => {
+                                    console.log('Progress:', self.progress, 'Frame:', Math.floor(mapAnimation.frame));
+                                }
+                            },
+                            onUpdate: render
+                        });
+                    }
                 };
-                img.onerror = reject;
+
+                img.onerror = (e) => {
+                    console.error('Error loading image', i, e);
+                };
+
                 img.src = currentFrame(i);
                 images[i] = img;
-            });
-            preloadPromises.push(promise);
+            }
         }
-
-        // Wait for all images to load
-        Promise.all(preloadPromises).then(() => {
-            console.log('All frames loaded:', loadedImages);
-            resizeMapCanvas();
-            window.addEventListener('resize', resizeMapCanvas);
-
-            // Create scroll-triggered animation
-            gsap.to(mapAnimation, {
-                frame: frameCount - 1,
-                snap: 'frame',
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '.map-animation-section',
-                    start: 'top top',
-                    end: '+=200%',
-                    scrub: 0.5,
-                    pin: true,
-                },
-                onUpdate: render
-            });
-        }).catch(err => {
-            console.error('Error loading frames:', err);
-        });
 
         // ============================================
         // ANIMATED PARTICLE BACKGROUND
