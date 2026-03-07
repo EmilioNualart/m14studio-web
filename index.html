@@ -966,46 +966,106 @@
         }
 
         /* ============================================
-           SCROLL ANIMATION MAP
+           UBICACIONES SPLIT
            ============================================ */
-        .map-animation-section {
+        .ubicaciones-split {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 2rem;
+            padding: 8rem 2rem;
             position: relative;
         }
 
-        .map-animation-container {
+        .ubicaciones-split-container {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .ubicaciones-split-title {
             text-align: center;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .map-animation-title {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 200;
-            margin-bottom: 3rem;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 100;
+            margin-bottom: 6rem;
             letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .map-video-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            aspect-ratio: 16 / 9;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #000;
+        .ubicaciones-grid-split {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 4rem;
+            align-items: center;
         }
 
-        #mapVideo {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
+        .ubicacion-split {
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .ubicacion-split.left {
+            transform: translateX(-50px) scale(0.9);
+        }
+
+        .ubicacion-split.right {
+            transform: translateX(50px) scale(0.9);
+        }
+
+        .ubicacion-ciudad {
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: 100;
+            line-height: 1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        .ubicacion-pais {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            opacity: 0.5;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .ubicacion-year {
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            border-top: 1px solid rgba(245, 240, 232, 0.2);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .ubicaciones-divider {
+            width: 1px;
+            height: 200px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(122, 0, 18, 0.5) 50%,
+                transparent
+            );
+            opacity: 0;
+        }
+
+        @media (max-width: 968px) {
+            .ubicaciones-grid-split {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .ubicaciones-divider {
+                width: 100px;
+                height: 1px;
+                background: linear-gradient(
+                    to right,
+                    transparent,
+                    rgba(122, 0, 18, 0.5) 50%,
+                    transparent
+                );
+            }
         }
 
         /* ============================================
@@ -1656,14 +1716,25 @@
                 </div>
             </div>
 
-            <!-- Map Animation -->
-            <div class="map-animation-section">
-                <div class="map-animation-container">
-                    <h2 class="map-animation-title">Dos ciudades, una visión</h2>
-                    <div class="map-video-wrapper">
-                        <video id="mapVideo" muted playsinline preload="auto">
-                            <source src="./videos/map-animation.mp4" type="video/mp4">
-                        </video>
+            <!-- Ubicaciones Split -->
+            <div class="ubicaciones-split">
+                <div class="ubicaciones-split-container">
+                    <h2 class="ubicaciones-split-title">Dos ciudades, una visión</h2>
+
+                    <div class="ubicaciones-grid-split">
+                        <div class="ubicacion-split left">
+                            <div class="ubicacion-ciudad">Santiago</div>
+                            <div class="ubicacion-pais">Chile</div>
+                            <div class="ubicacion-year">Desde 2023</div>
+                        </div>
+
+                        <div class="ubicaciones-divider"></div>
+
+                        <div class="ubicacion-split right">
+                            <div class="ubicacion-ciudad">Barcelona</div>
+                            <div class="ubicacion-pais">España</div>
+                            <div class="ubicacion-year">Desde Julio 2025</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2247,52 +2318,63 @@
         });
 
         // ============================================
-        // SCROLL-DRIVEN MAP VIDEO
+        // UBICACIONES SPLIT REVEAL
         // ============================================
-        const mapVideo = document.getElementById('mapVideo');
 
-        if (mapVideo) {
-            // Ensure video is ready
-            mapVideo.addEventListener('loadedmetadata', () => {
-                console.log('✅ Video loaded - Duration:', mapVideo.duration + 's');
+        // Animate title
+        gsap.to('.ubicaciones-split-title', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.ubicaciones-split',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
+        });
 
-                // Set initial frame
-                mapVideo.currentTime = 0;
-            });
+        // Animate cities
+        gsap.to('.ubicacion-split.left', {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.ubicaciones-grid-split',
+                start: 'top 75%',
+                toggleActions: 'play none none none'
+            },
+            delay: 0.3
+        });
 
-            // Wait for video to be ready to play
-            mapVideo.addEventListener('canplaythrough', () => {
-                console.log('🎬 Video ready to play');
+        gsap.to('.ubicacion-split.right', {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.ubicaciones-grid-split',
+                start: 'top 75%',
+                toggleActions: 'play none none none'
+            },
+            delay: 0.5
+        });
 
-                // Use a proxy object to control video currentTime
-                const videoProgress = { value: 0 };
-
-                gsap.to(videoProgress, {
-                    value: 1,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '.map-animation-section',
-                        start: 'center center',
-                        end: '+=150%',
-                        scrub: 1,
-                        pin: true,
-                        pinSpacing: true,
-                        anticipatePin: 1,
-                        invalidateOnRefresh: true,
-                    },
-                    onUpdate: function() {
-                        const time = videoProgress.value * mapVideo.duration;
-                        mapVideo.currentTime = time;
-                        console.log('📍 Progress:', (videoProgress.value * 100).toFixed(1) + '%', 'Time:', time.toFixed(2) + 's');
-                    }
-                });
-            }, { once: true });
-
-            // Error handling
-            mapVideo.addEventListener('error', (e) => {
-                console.error('❌ Error loading video:', e);
-            });
-        }
+        // Animate divider
+        gsap.to('.ubicaciones-divider', {
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.ubicaciones-grid-split',
+                start: 'top 75%',
+                toggleActions: 'play none none none'
+            },
+            delay: 0.7
+        });
 
         // ============================================
         // ANIMATED PARTICLE BACKGROUND
