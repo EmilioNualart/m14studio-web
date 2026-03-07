@@ -2260,15 +2260,19 @@
             mapVideo.addEventListener('loadedmetadata', () => {
                 console.log('✅ Video loaded - Duration:', mapVideo.duration + 's');
 
-                // Create scroll-triggered video animation (sin pin)
+                // Create scroll-triggered video animation con pin
                 gsap.to(mapVideo, {
                     currentTime: mapVideo.duration,
                     ease: 'none',
                     scrollTrigger: {
                         trigger: '.map-animation-section',
-                        start: 'top bottom',
-                        end: 'bottom top',
+                        start: 'center center',
+                        end: '+=150%',
                         scrub: 1,
+                        pin: true,
+                        pinSpacing: true,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
                         onUpdate: (self) => {
                             const currentTime = mapVideo.duration * self.progress;
                             mapVideo.currentTime = currentTime;
