@@ -576,33 +576,44 @@
         }
 
         .reel-play-btn {
-            width: 80px;
-            height: 80px;
-            border: 2px solid var(--crema);
-            border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reel-play-icon {
+            width: 0;
+            height: 0;
+            border-left: 30px solid var(--crema);
+            border-top: 18px solid transparent;
+            border-bottom: 18px solid transparent;
+            margin-left: 6px;
             transition: all 0.4s ease;
         }
 
-        .reel-play-btn::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 20px solid var(--crema);
-            border-top: 12px solid transparent;
-            border-bottom: 12px solid transparent;
-            margin-left: 4px;
+        .reel-play-text {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            font-weight: 300;
+            transition: all 0.4s ease;
         }
 
         .reel-thumbnail:hover .reel-play-btn {
-            transform: scale(1.1);
-            border-color: var(--vino);
+            transform: scale(1.05);
         }
 
-        .reel-thumbnail:hover .reel-play-btn::after {
+        .reel-thumbnail:hover .reel-play-icon {
             border-left-color: var(--vino);
+            transform: scale(1.1);
+        }
+
+        .reel-thumbnail:hover .reel-play-text {
+            opacity: 1;
+            color: var(--vino);
         }
 
         .reel-iframe {
@@ -1501,7 +1512,10 @@
                 <div class="reel-frame"></div>
                 <div class="reel-video">
                     <div class="reel-thumbnail" id="reelThumbnail">
-                        <div class="reel-play-btn"></div>
+                        <div class="reel-play-btn">
+                            <div class="reel-play-icon"></div>
+                            <div class="reel-play-text">Reproducir</div>
+                        </div>
                     </div>
                     <iframe id="reelIframe" class="reel-iframe" src="https://www.youtube.com/embed/F6D0G5v2lB8?autoplay=1&controls=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
