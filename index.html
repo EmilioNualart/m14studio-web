@@ -928,7 +928,16 @@
             margin: 0 auto 2rem;
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(122, 0, 18, 0.1), rgba(10, 10, 10, 0.05));
-            border: 1px solid rgba(10, 10, 10, 0.15);
+            border: 2px solid rgba(10, 10, 10, 0.15);
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .fundador:hover .fundador-foto {
+            transform: scale(1.05);
+            border-color: var(--vino);
         }
 
         .fundador-nombre {
@@ -1649,21 +1658,21 @@
             <!-- Fundadores -->
             <div class="fundadores-grid">
                 <div class="fundador">
-                    <div class="fundador-foto"></div>
+                    <div class="fundador-foto" style="background-image: url('./imagenes/Emilio.jpg');"></div>
                     <h3 class="fundador-nombre">Emilio Nualart</h3>
                     <div class="fundador-rol">Co-founder</div>
                     <p class="fundador-bio">Gestión estratégica y relaciones con clientes. Transforma visiones en realidades producibles.</p>
                 </div>
 
                 <div class="fundador">
-                    <div class="fundador-foto"></div>
+                    <div class="fundador-foto" style="background-image: url('./imagenes/Domingo.jpg');"></div>
                     <h3 class="fundador-nombre">Domingo</h3>
                     <div class="fundador-rol">Co-founder & Director</div>
                     <p class="fundador-bio">Visión creativa y dirección cinematográfica. Cada frame cuenta una historia.</p>
                 </div>
 
                 <div class="fundador">
-                    <div class="fundador-foto"></div>
+                    <div class="fundador-foto" style="background-image: url('./imagenes/Lucas.jpg');"></div>
                     <h3 class="fundador-nombre">Lucas</h3>
                     <div class="fundador-rol">Productor Ejecutivo</div>
                     <p class="fundador-bio">Producción ejecutiva y coordinación de proyectos. La logística se vuelve arte.</p>
