@@ -38,21 +38,6 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            position: relative;
-        }
-
-        /* ============================================
-           BACKGROUND TRANSITION OVERLAY
-           ============================================ */
-        .bg-transition {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0A0A0A;
-            z-index: -2;
-            will-change: background-color;
         }
 
         /* ============================================
@@ -672,16 +657,9 @@
         #servicios {
             padding: 8rem 2rem;
             background: transparent;
-            color: var(--negro);
+            color: var(--crema);
             position: relative;
             overflow: hidden;
-        }
-
-        #servicios .label,
-        #servicios h2,
-        #servicios h3,
-        #servicios p {
-            color: var(--negro);
         }
 
         .servicios-header {
@@ -698,8 +676,8 @@
 
         .servicio-item {
             padding: 2.5rem;
-            border: 1px solid rgba(10, 10, 10, 0.1);
-            background: rgba(10, 10, 10, 0.02);
+            border: 1px solid rgba(245, 240, 232, 0.1);
+            background: rgba(245, 240, 232, 0.02);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(60px) scale(0.95);
@@ -715,9 +693,9 @@
 
         .servicio-item:hover {
             border-color: var(--vino);
-            background: rgba(122, 0, 18, 0.03);
+            background: rgba(122, 0, 18, 0.08);
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(10, 10, 10, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .servicio-numero {
@@ -755,14 +733,7 @@
         #portfolio {
             padding: 12rem 2rem;
             background: transparent;
-            color: var(--negro);
-        }
-
-        #portfolio .label,
-        #portfolio h2,
-        #portfolio h3,
-        #portfolio p {
-            color: var(--negro);
+            color: var(--crema);
         }
 
         .portfolio-header {
@@ -780,8 +751,8 @@
 
         .filter-btn {
             background: transparent;
-            border: 1px solid rgba(10, 10, 10, 0.2);
-            color: var(--negro);
+            border: 1px solid rgba(245, 240, 232, 0.2);
+            color: var(--crema);
             padding: 0.75rem 2rem;
             font-size: 0.7rem;
             letter-spacing: 0.15em;
@@ -794,7 +765,7 @@
         .filter-btn:hover,
         .filter-btn.active {
             border-color: var(--vino);
-            background: rgba(122, 0, 18, 0.05);
+            background: rgba(122, 0, 18, 0.15);
             color: var(--vino);
         }
 
@@ -880,15 +851,7 @@
         #sobre-nosotros {
             padding: 12rem 2rem;
             background: transparent;
-            color: var(--negro);
-        }
-
-        #sobre-nosotros .label,
-        #sobre-nosotros h2,
-        #sobre-nosotros h3,
-        #sobre-nosotros h4,
-        #sobre-nosotros p {
-            color: var(--negro);
+            color: var(--crema);
         }
 
         .manifiesto {
@@ -927,8 +890,8 @@
             height: 200px;
             margin: 0 auto 2rem;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(122, 0, 18, 0.1), rgba(10, 10, 10, 0.05));
-            border: 2px solid rgba(10, 10, 10, 0.15);
+            background: linear-gradient(135deg, rgba(122, 0, 18, 0.2), rgba(245, 240, 232, 0.1));
+            border: 2px solid rgba(245, 240, 232, 0.2);
             overflow: hidden;
             background-size: cover;
             background-position: center;
@@ -1051,17 +1014,11 @@
         #contacto {
             padding: 12rem 2rem;
             background: transparent;
-            color: var(--negro);
-        }
-
-        #contacto .label,
-        #contacto h2,
-        #contacto p {
-            color: var(--negro);
+            color: var(--crema);
         }
 
         #contacto a {
-            color: var(--negro);
+            color: var(--crema);
         }
 
         .contacto-split {
@@ -1129,9 +1086,9 @@
         .form-group input,
         .form-group select,
         .form-group textarea {
-            background: rgba(10, 10, 10, 0.03);
-            border: 1px solid rgba(10, 10, 10, 0.15);
-            color: var(--negro);
+            background: rgba(245, 240, 232, 0.05);
+            border: 1px solid rgba(245, 240, 232, 0.2);
+            color: var(--crema);
             padding: 1rem;
             font-family: var(--font-body);
             font-size: 1rem;
@@ -1143,11 +1100,11 @@
         .form-group textarea:focus {
             outline: none;
             border-color: var(--vino);
-            background: rgba(10, 10, 10, 0.05);
+            background: rgba(245, 240, 232, 0.08);
         }
 
         .form-group label {
-            color: var(--negro);
+            color: var(--crema);
         }
 
         .form-group textarea {
@@ -1171,16 +1128,16 @@
            ============================================ */
         footer {
             background: transparent;
-            border-top: 1px solid rgba(10, 10, 10, 0.1);
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
             padding: 4rem 2rem 2rem;
-            color: var(--negro);
+            color: var(--crema);
         }
 
         footer .footer-logo,
         footer h4,
         footer p,
         footer a {
-            color: var(--negro);
+            color: var(--crema);
         }
 
         footer .footer-logo .studio-text {
@@ -1230,7 +1187,7 @@
         }
 
         .footer-links a {
-            color: var(--negro);
+            color: var(--crema);
             text-decoration: none;
             font-size: 0.9rem;
             opacity: 0.6;
@@ -1243,7 +1200,7 @@
         }
 
         .footer-links li {
-            color: var(--negro);
+            color: var(--crema);
             opacity: 0.6;
         }
 
@@ -1251,13 +1208,13 @@
             max-width: 1400px;
             margin: 0 auto;
             padding-top: 2rem;
-            border-top: 1px solid rgba(10, 10, 10, 0.1);
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.75rem;
             opacity: 0.5;
-            color: var(--negro);
+            color: var(--crema);
         }
 
         .footer-social {
@@ -1266,7 +1223,7 @@
         }
 
         .footer-social a {
-            color: var(--negro);
+            color: var(--crema);
             text-decoration: none;
             transition: color 0.3s ease;
             opacity: 1;
@@ -1388,9 +1345,6 @@
     </style>
 </head>
 <body>
-
-    <!-- BACKGROUND TRANSITION -->
-    <div class="bg-transition"></div>
 
     <!-- FILM GRAIN -->
     <div class="film-grain"></div>
@@ -2043,20 +1997,6 @@
             duration: 0.8,
             ease: 'power2.out'
         }, '-=0.6');
-
-        // ============================================
-        // BACKGROUND TRANSITION: NEGRO → BLANCO
-        // ============================================
-        gsap.to('.bg-transition', {
-            backgroundColor: '#FFFFFF',
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '#servicios',
-                start: 'top bottom',
-                end: 'top center',
-                scrub: 1,
-            }
-        });
 
         // ============================================
         // VIDEO MODAL
