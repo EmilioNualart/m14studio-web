@@ -38,6 +38,21 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        /* ============================================
+           BACKGROUND TRANSITION OVERLAY
+           ============================================ */
+        .bg-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0A0A0A;
+            z-index: -2;
+            will-change: background-color;
         }
 
         /* ============================================
@@ -98,10 +113,30 @@
         }
 
         nav.scrolled {
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             padding: 1.5rem 4rem;
-            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        nav.scrolled .nav-logo {
+            color: var(--negro);
+        }
+
+        nav.scrolled .nav-logo .studio-text {
+            color: var(--vino);
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--negro);
+        }
+
+        nav.scrolled .nav-links a:hover {
+            color: var(--vino);
+        }
+
+        nav.scrolled .nav-menu-toggle span {
+            background: var(--negro);
         }
 
         .nav-logo {
@@ -111,11 +146,13 @@
             letter-spacing: 0.05em;
             color: var(--crema);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .nav-logo .studio-text {
             color: var(--vino);
             font-weight: 300;
+            transition: color 0.3s ease;
         }
 
         .nav-links {
@@ -473,44 +510,48 @@
            REEL SECTION
            ============================================ */
         #reel {
-            min-height: 150vh;
-            padding: 10rem 2rem;
+            min-height: 120vh;
+            padding: 0;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .reel-container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
+            padding: 0 4rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3rem;
+            gap: 4rem;
         }
 
         .reel-video-wrapper {
             position: relative;
             width: 100%;
-            max-width: 900px;
+            max-width: 1400px;
             aspect-ratio: 16 / 9;
         }
 
-        /* Frame SVG animado */
+        /* Frame profesional y limpio */
         .reel-frame {
             position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
             pointer-events: none;
             z-index: 2;
+            border: 1px solid rgba(245, 240, 232, 0.15);
+            opacity: 0;
+            transition: opacity 0.8s ease;
         }
 
-        .reel-frame line {
-            stroke: var(--crema);
-            stroke-width: 1;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            opacity: 0.6;
+        .reel-frame.visible {
+            opacity: 1;
         }
 
         /* Video container */
@@ -520,7 +561,9 @@
             height: 100%;
             background: var(--negro);
             overflow: hidden;
-            clip-path: inset(100% 0 0 0);
+            clip-path: inset(50% 50% 50% 50%);
+            transform: scale(0.8);
+            opacity: 0;
         }
 
         .reel-thumbnail {
@@ -595,19 +638,49 @@
             gap: 2rem;
         }
 
+        .reel-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
         .reel-title {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 200;
-            letter-spacing: -0.01em;
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-weight: 100;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .reel-subtitle {
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            opacity: 0.6;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .reel-container {
+                padding: 0 1.5rem;
+            }
         }
 
         /* ============================================
            SERVICIOS SECTION
            ============================================ */
         #servicios {
-            padding: 12rem 2rem;
-            background: linear-gradient(180deg, rgba(10, 10, 10, 1) 0%, rgba(10, 10, 10, 0.95) 100%);
+            padding: 8rem 2rem;
+            background: transparent;
+            color: var(--negro);
+            position: relative;
+        }
+
+        #servicios .label,
+        #servicios h2,
+        #servicios h3,
+        #servicios p {
+            color: var(--negro);
         }
 
         .servicios-grid {
@@ -619,8 +692,8 @@
 
         .servicio-item {
             padding: 2.5rem;
-            border: 1px solid rgba(245, 240, 232, 0.1);
-            background: rgba(245, 240, 232, 0.02);
+            border: 1px solid rgba(10, 10, 10, 0.1);
+            background: rgba(10, 10, 10, 0.02);
             transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(30px);
@@ -628,7 +701,7 @@
 
         .servicio-item:hover {
             border-color: var(--vino);
-            background: rgba(122, 0, 18, 0.05);
+            background: rgba(122, 0, 18, 0.03);
             transform: translateY(-5px);
         }
 
@@ -660,7 +733,15 @@
            ============================================ */
         #portfolio {
             padding: 12rem 2rem;
-            background: rgba(10, 10, 10, 1);
+            background: transparent;
+            color: var(--negro);
+        }
+
+        #portfolio .label,
+        #portfolio h2,
+        #portfolio h3,
+        #portfolio p {
+            color: var(--negro);
         }
 
         .portfolio-header {
@@ -678,8 +759,8 @@
 
         .filter-btn {
             background: transparent;
-            border: 1px solid rgba(245, 240, 232, 0.2);
-            color: var(--crema);
+            border: 1px solid rgba(10, 10, 10, 0.2);
+            color: var(--negro);
             padding: 0.75rem 2rem;
             font-size: 0.7rem;
             letter-spacing: 0.15em;
@@ -692,13 +773,13 @@
         .filter-btn:hover,
         .filter-btn.active {
             border-color: var(--vino);
-            background: rgba(122, 0, 18, 0.1);
+            background: rgba(122, 0, 18, 0.05);
             color: var(--vino);
         }
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 5rem;
         }
@@ -709,49 +790,12 @@
             cursor: pointer;
             opacity: 0;
             transform: scale(0.9);
-        }
-
-        .portfolio-item.show {
-            opacity: 1;
-            transform: scale(1);
-            transition: all 0.6s ease;
-        }
-
-        /* Bento Grid Layout - Asimétrico */
-        .portfolio-item:nth-child(1) {
-            grid-column: span 7;
-            grid-row: span 2;
-        }
-
-        .portfolio-item:nth-child(2) {
-            grid-column: span 5;
-            grid-row: span 1;
-        }
-
-        .portfolio-item:nth-child(3) {
-            grid-column: span 5;
-            grid-row: span 1;
-        }
-
-        .portfolio-item:nth-child(4) {
-            grid-column: span 4;
-            grid-row: span 1;
-        }
-
-        .portfolio-item:nth-child(5) {
-            grid-column: span 8;
-            grid-row: span 2;
-        }
-
-        .portfolio-item:nth-child(6) {
-            grid-column: span 4;
-            grid-row: span 1;
+            aspect-ratio: 16 / 9;
         }
 
         .portfolio-item-image {
             width: 100%;
             height: 100%;
-            min-height: 300px;
             background: linear-gradient(135deg, rgba(122, 0, 18, 0.3), rgba(10, 10, 10, 0.8));
             display: flex;
             align-items: center;
@@ -784,23 +828,28 @@
             font-weight: 400;
             margin-bottom: 0.5rem;
             letter-spacing: -0.01em;
+            color: #FFFFFF !important;
         }
 
         .portfolio-item-category {
             font-size: 0.7rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--vino);
+            color: #FFFFFF !important;
+            opacity: 0.9;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
             .portfolio-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .portfolio-item {
-                grid-column: span 1 !important;
-                grid-row: span 1 !important;
+                gap: 1.5rem;
             }
         }
 
@@ -809,7 +858,16 @@
            ============================================ */
         #sobre-nosotros {
             padding: 12rem 2rem;
-            background: rgba(245, 240, 232, 0.02);
+            background: transparent;
+            color: var(--negro);
+        }
+
+        #sobre-nosotros .label,
+        #sobre-nosotros h2,
+        #sobre-nosotros h3,
+        #sobre-nosotros h4,
+        #sobre-nosotros p {
+            color: var(--negro);
         }
 
         .manifiesto {
@@ -848,8 +906,8 @@
             height: 200px;
             margin: 0 auto 2rem;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(122, 0, 18, 0.3), rgba(245, 240, 232, 0.1));
-            border: 1px solid rgba(245, 240, 232, 0.2);
+            background: linear-gradient(135deg, rgba(122, 0, 18, 0.1), rgba(10, 10, 10, 0.05));
+            border: 1px solid rgba(10, 10, 10, 0.15);
         }
 
         .fundador-nombre {
@@ -915,11 +973,64 @@
         }
 
         /* ============================================
+           SCROLL ANIMATION MAP
+           ============================================ */
+        .map-animation-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .map-animation-container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .map-animation-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 200;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+        }
+
+        .map-canvas-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #mapCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ============================================
            CONTACTO SECTION
            ============================================ */
         #contacto {
             padding: 12rem 2rem;
-            background: rgba(10, 10, 10, 1);
+            background: transparent;
+            color: var(--negro);
+        }
+
+        #contacto .label,
+        #contacto h2,
+        #contacto p {
+            color: var(--negro);
+        }
+
+        #contacto a {
+            color: var(--negro);
         }
 
         .contacto-split {
@@ -987,9 +1098,9 @@
         .form-group input,
         .form-group select,
         .form-group textarea {
-            background: rgba(245, 240, 232, 0.05);
-            border: 1px solid rgba(245, 240, 232, 0.2);
-            color: var(--crema);
+            background: rgba(10, 10, 10, 0.03);
+            border: 1px solid rgba(10, 10, 10, 0.15);
+            color: var(--negro);
             padding: 1rem;
             font-family: var(--font-body);
             font-size: 1rem;
@@ -1001,7 +1112,11 @@
         .form-group textarea:focus {
             outline: none;
             border-color: var(--vino);
-            background: rgba(245, 240, 232, 0.08);
+            background: rgba(10, 10, 10, 0.05);
+        }
+
+        .form-group label {
+            color: var(--negro);
         }
 
         .form-group textarea {
@@ -1024,9 +1139,21 @@
            FOOTER
            ============================================ */
         footer {
-            background: rgba(10, 10, 10, 1);
-            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            background: transparent;
+            border-top: 1px solid rgba(10, 10, 10, 0.1);
             padding: 4rem 2rem 2rem;
+            color: var(--negro);
+        }
+
+        footer .footer-logo,
+        footer h4,
+        footer p,
+        footer a {
+            color: var(--negro);
+        }
+
+        footer .footer-logo .studio-text {
+            color: var(--vino);
         }
 
         .footer-content {
@@ -1072,10 +1199,10 @@
         }
 
         .footer-links a {
-            color: var(--crema);
+            color: var(--negro);
             text-decoration: none;
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.6;
             transition: all 0.3s ease;
         }
 
@@ -1084,16 +1211,22 @@
             color: var(--vino);
         }
 
+        .footer-links li {
+            color: var(--negro);
+            opacity: 0.6;
+        }
+
         .footer-bottom {
             max-width: 1400px;
             margin: 0 auto;
             padding-top: 2rem;
-            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            border-top: 1px solid rgba(10, 10, 10, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.75rem;
             opacity: 0.5;
+            color: var(--negro);
         }
 
         .footer-social {
@@ -1102,9 +1235,10 @@
         }
 
         .footer-social a {
-            color: var(--crema);
+            color: var(--negro);
             text-decoration: none;
             transition: color 0.3s ease;
+            opacity: 1;
         }
 
         .footer-social a:hover {
@@ -1159,9 +1293,73 @@
             transform: translateY(0);
             transition: opacity 1s ease, transform 1s ease;
         }
+
+        /* ============================================
+           VIDEO MODAL
+           ============================================ */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .video-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+
+        .video-modal.active .video-modal-content {
+            transform: scale(1);
+        }
+
+        .video-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--crema);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+            font-family: var(--font-body);
+            font-weight: 200;
+        }
+
+        .video-modal-close:hover {
+            color: var(--vino);
+        }
     </style>
 </head>
 <body>
+
+    <!-- BACKGROUND TRANSITION -->
+    <div class="bg-transition"></div>
 
     <!-- FILM GRAIN -->
     <div class="film-grain"></div>
@@ -1195,7 +1393,7 @@
         <!-- Video de fondo -->
         <div class="hero-video-wrapper">
             <video class="hero-video" autoplay muted loop playsinline>
-                <source src="/videos/hero-reel.mp4" type="video/mp4">
+                <source src="./videos/hero-reel.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay"></div>
         </div>
@@ -1226,15 +1424,16 @@
     <!-- REEL -->
     <section id="reel">
         <div class="reel-container">
+            <!-- Header -->
+            <div class="reel-header">
+                <div class="reel-subtitle">Nuestro trabajo</div>
+                <h2 class="reel-title">Showreel 2025</h2>
+            </div>
+
             <!-- Video wrapper con frame -->
             <div class="reel-video-wrapper">
-                <!-- Frame SVG animado -->
-                <svg class="reel-frame" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <line x1="0" y1="0" x2="100" y2="0" class="frame-top" />
-                    <line x1="100" y1="0" x2="100" y2="100" class="frame-right" />
-                    <line x1="100" y1="100" x2="0" y2="100" class="frame-bottom" />
-                    <line x1="0" y1="100" x2="0" y2="0" class="frame-left" />
-                </svg>
+                <!-- Frame limpio y profesional -->
+                <div class="reel-frame"></div>
                 <div class="reel-video">
                     <div class="reel-thumbnail" id="reelThumbnail">
                         <div class="reel-play-btn"></div>
@@ -1243,8 +1442,7 @@
                 </div>
             </div>
             <div class="reel-info">
-                <h2 class="reel-title">Showreel 2025</h2>
-                <a href="https://youtu.be/F6D0G5v2lB8" target="_blank" class="btn btn-vino">Ver reel completo</a>
+                <a href="https://youtu.be/F6D0G5v2lB8" target="_blank" class="btn btn-vino">Ver reel completo en YouTube</a>
             </div>
         </div>
     </section>
@@ -1299,72 +1497,111 @@
 
                 <div class="portfolio-filters">
                     <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="publicidad">Publicidad</button>
                     <button class="filter-btn" data-filter="moda">Moda</button>
+                    <button class="filter-btn" data-filter="publicidad">Publicidad</button>
                     <button class="filter-btn" data-filter="corporativo">Corporativo</button>
-                    <button class="filter-btn" data-filter="documental">Documental</button>
                     <button class="filter-btn" data-filter="eventos">Eventos</button>
                 </div>
             </div>
 
             <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="moda">
-                    <div class="portfolio-item-image">
-                        <div style="font-family: var(--font-display); font-size: 3rem; opacity: 0.3;">SR</div>
-                    </div>
+                <!-- MODA -->
+                <div class="portfolio-item" data-category="moda" data-video="F6D0G5v2lB8">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/F6D0G5v2lB8/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="portfolio-item-overlay">
-                        <h3 class="portfolio-item-title">Saville Row — Campaign AW25</h3>
+                        <h3 class="portfolio-item-title">Saville Row — Denim</h3>
                         <div class="portfolio-item-category">Moda</div>
                     </div>
                 </div>
 
-                <div class="portfolio-item" data-category="publicidad">
-                    <div class="portfolio-item-image" style="background: linear-gradient(135deg, rgba(245, 240, 232, 0.2), rgba(10, 10, 10, 0.9));">
-                        <div style="font-family: var(--font-display); font-size: 3rem; opacity: 0.3;">BN</div>
-                    </div>
+                <div class="portfolio-item" data-category="moda" data-video="kAJUvbIvbYQ">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/kAJUvbIvbYQ/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="portfolio-item-overlay">
-                        <h3 class="portfolio-item-title">Banco Nacional — Reimagina</h3>
+                        <h3 class="portfolio-item-title">EMG</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="moda" data-video="GxtIgjfuSls">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/GxtIgjfuSls/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Ochi and Co</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="moda" data-video="4WeqGIVEQfI">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/4WeqGIVEQfI/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">NARISSA</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="moda" data-video="4Ja8VoRkUbk">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/4Ja8VoRkUbk/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">More Amor</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <!-- PUBLICIDAD -->
+                <div class="portfolio-item" data-category="publicidad" data-video="B4a6Ur85Rng">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/B4a6Ur85Rng/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">La Birra Bar</h3>
                         <div class="portfolio-item-category">Publicidad</div>
                     </div>
                 </div>
 
-                <div class="portfolio-item" data-category="eventos">
-                    <div class="portfolio-item-image" style="background: linear-gradient(135deg, rgba(122, 0, 18, 0.4), rgba(10, 10, 10, 0.7));">
-                        <div style="font-family: var(--font-display); font-size: 3rem; opacity: 0.3;">L</div>
-                    </div>
+                <div class="portfolio-item" data-category="publicidad" data-video="sW-V_S2G1VY">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/sW-V_S2G1VY/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="portfolio-item-overlay">
-                        <h3 class="portfolio-item-title">Festival Lollapalooza Chile</h3>
-                        <div class="portfolio-item-category">Eventos</div>
+                        <h3 class="portfolio-item-title">Fika</h3>
+                        <div class="portfolio-item-category">Publicidad</div>
                     </div>
                 </div>
 
-                <div class="portfolio-item" data-category="documental">
-                    <div class="portfolio-item-image" style="background: linear-gradient(135deg, rgba(245, 240, 232, 0.15), rgba(10, 10, 10, 0.85));">
-                        <div style="font-family: var(--font-display); font-size: 3rem; opacity: 0.3;">TA</div>
-                    </div>
+                <div class="portfolio-item" data-category="publicidad" data-video="ehPwlTP4uvs">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/ehPwlTP4uvs/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="portfolio-item-overlay">
-                        <h3 class="portfolio-item-title">Tierra Austral</h3>
-                        <div class="portfolio-item-category">Documental</div>
+                        <h3 class="portfolio-item-title">Saville Row — Día de la Madre</h3>
+                        <div class="portfolio-item-category">Publicidad</div>
                     </div>
                 </div>
 
-                <div class="portfolio-item" data-category="corporativo">
-                    <div class="portfolio-item-image" style="background: linear-gradient(135deg, rgba(122, 0, 18, 0.25), rgba(10, 10, 10, 0.9));">
-                        <div style="font-family: var(--font-display); font-size: 3rem; opacity: 0.3;">TC</div>
-                    </div>
+                <!-- CORPORATIVO -->
+                <div class="portfolio-item" data-category="corporativo" data-video="ACM5XZTjt6o">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/ACM5XZTjt6o/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="portfolio-item-overlay">
-                        <h3 class="portfolio-item-title">TechCorp — Cultura Interna</h3>
+                        <h3 class="portfolio-item-title">BK Servicios Financieros</h3>
                         <div class="portfolio-item-category">Corporativo</div>
                     </div>
                 </div>
 
-                <div class="portfolio-item" data-category="publicidad">
-                    <div class="portfolio-item-image" style="background: linear-gradient(135deg, rgba(245, 240, 232, 0.25), rgba(10, 10, 10, 0.8));">
-                        <div style="font-family: var(--font-display); font-size: 3rem; opacity: 0.3;">AO</div>
-                    </div>
+                <div class="portfolio-item" data-category="corporativo" data-video="pZ17GkAcsR0">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/pZ17GkAcsR0/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="portfolio-item-overlay">
-                        <h3 class="portfolio-item-title">Andes Outdoor — Cumbres</h3>
-                        <div class="portfolio-item-category">Publicidad</div>
+                        <h3 class="portfolio-item-title">Capasite</h3>
+                        <div class="portfolio-item-category">Corporativo</div>
+                    </div>
+                </div>
+
+                <!-- EVENTOS -->
+                <div class="portfolio-item" data-category="eventos" data-video="M5xpDkovSJY">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/M5xpDkovSJY/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">OSSO</h3>
+                        <div class="portfolio-item-category">Eventos</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="eventos" data-video="z6nIPo5FPD4">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/z6nIPo5FPD4/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Valle Luna</h3>
+                        <div class="portfolio-item-category">Eventos</div>
                     </div>
                 </div>
             </div>
@@ -1432,17 +1669,12 @@
                 </div>
             </div>
 
-            <!-- Ubicaciones -->
-            <div class="ubicaciones">
-                <h2 style="margin-bottom: 3rem;">Dos ciudades, una visión</h2>
-                <div class="ubicaciones-grid">
-                    <div class="ubicacion">
-                        <h4>Santiago, Chile</h4>
-                        <p style="opacity: 0.6;">Desde 2023</p>
-                    </div>
-                    <div class="ubicacion">
-                        <h4>Barcelona, España</h4>
-                        <p style="opacity: 0.6;">Desde julio 2025</p>
+            <!-- Map Animation -->
+            <div class="map-animation-section">
+                <div class="map-animation-container">
+                    <h2 class="map-animation-title">Dos ciudades, una visión</h2>
+                    <div class="map-canvas-wrapper">
+                        <canvas id="mapCanvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -1564,6 +1796,14 @@
             </div>
         </div>
     </footer>
+
+    <!-- VIDEO MODAL -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="modalClose">✕</button>
+            <iframe id="modalVideo" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
 
     <!-- LIBRERÍAS CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1722,39 +1962,108 @@
         // REEL SECTION ANIMATIONS
         // ============================================
 
-        // Frame lines drawing animation
-        const frameLines = gsap.utils.toArray('.reel-frame line');
+        // Set initial states
+        gsap.set('.reel-info', { opacity: 0, y: 50 });
 
-        gsap.timeline({
+        // Animate header on entry
+        gsap.to('.reel-header', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out',
             scrollTrigger: {
                 trigger: '#reel',
-                start: 'top center',
-                end: 'center center',
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1,
+                start: 'top 70%',
+                toggleActions: 'play none none none'
             }
-        })
-        .to(frameLines, {
-            strokeDashoffset: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: 'none'
+        });
+
+        // Create dramatic opening animation for video
+        const reelTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.reel-video-wrapper',
+                start: 'top 65%',
+                end: 'center 45%',
+                scrub: 1.5,
+            }
+        });
+
+        // Expand video from center with scale and show frame
+        reelTimeline.to('.reel-frame', {
+            opacity: 1,
+            duration: 0.5,
+            ease: 'power2.out'
         })
         .to('.reel-video', {
-            clipPath: 'inset(0% 0 0 0)',
-            duration: 0.8,
-            ease: 'power2.out'
-        }, '-=0.2')
+            clipPath: 'inset(0% 0% 0% 0%)',
+            scale: 1,
+            opacity: 1,
+            duration: 1.5,
+            ease: 'power3.out'
+        }, '-=0.3')
+        // Finally reveal info
         .to('.reel-info', {
             opacity: 1,
             y: 0,
-            duration: 0.6,
+            duration: 0.8,
             ease: 'power2.out'
-        }, '-=0.3');
+        }, '-=0.6');
 
-        // Set initial state for reel info
-        gsap.set('.reel-info', { opacity: 0, y: 30 });
+        // ============================================
+        // BACKGROUND TRANSITION: NEGRO → BLANCO
+        // ============================================
+        gsap.to('.bg-transition', {
+            backgroundColor: '#FFFFFF',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#servicios',
+                start: 'top bottom',
+                end: 'top center',
+                scrub: 1,
+            }
+        });
+
+        // ============================================
+        // VIDEO MODAL
+        // ============================================
+        const videoModal = document.getElementById('videoModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalClose = document.getElementById('modalClose');
+
+        // Open modal when clicking portfolio item
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const videoId = item.dataset.video;
+                if (videoId) {
+                    modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                    videoModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                }
+            });
+        });
+
+        // Close modal
+        function closeModal() {
+            videoModal.classList.remove('active');
+            modalVideo.src = ''; // Stop video
+            document.body.style.overflow = ''; // Enable scrolling
+        }
+
+        modalClose.addEventListener('click', closeModal);
+
+        // Close when clicking outside video
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeModal();
+            }
+        });
+
+        // Close with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
 
         // Thumbnail click to show iframe
         document.getElementById('reelThumbnail').addEventListener('click', function() {
@@ -1846,26 +2155,34 @@
 
                 const filter = btn.dataset.filter;
 
-                portfolioItems.forEach(item => {
-                    const category = item.dataset.category;
-
-                    if (filter === 'all' || category === filter) {
-                        gsap.to(item, {
-                            opacity: 1,
-                            scale: 1,
-                            display: 'block',
-                            duration: 0.4,
-                            ease: 'power2.out'
-                        });
-                    } else {
-                        gsap.to(item, {
-                            opacity: 0,
-                            scale: 0.9,
-                            duration: 0.3,
-                            ease: 'power2.in',
-                            onComplete: () => {
+                // First, fade out all items quickly
+                gsap.to(portfolioItems, {
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.3,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        // Then show/hide based on filter
+                        portfolioItems.forEach(item => {
+                            const category = item.dataset.category;
+                            if (filter === 'all' || category === filter) {
+                                item.style.display = 'block';
+                            } else {
                                 item.style.display = 'none';
                             }
+                        });
+
+                        // Finally, fade in visible items with stagger
+                        const visibleItems = Array.from(portfolioItems).filter(item =>
+                            item.style.display !== 'none'
+                        );
+
+                        gsap.to(visibleItems, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.5,
+                            stagger: 0.08,
+                            ease: 'power3.out'
                         });
                     }
                 });
@@ -1928,6 +2245,82 @@
                     scrub: 1
                 }
             });
+        });
+
+        // ============================================
+        // SCROLL-DRIVEN MAP ANIMATION
+        // ============================================
+        const mapCanvas = document.getElementById('mapCanvas');
+        const mapCtx = mapCanvas.getContext('2d');
+
+        const frameCount = 50;
+        const currentFrame = index => (
+            `./videos/scroll-animation/Movimiento_sutil_de_el_mapa_do_Kling_30__10243_${index.toString().padStart(3, '0')}.jpg`
+        );
+
+        const images = [];
+        const mapAnimation = {
+            frame: 0
+        };
+
+        // Set canvas size
+        function resizeMapCanvas() {
+            const wrapper = document.querySelector('.map-canvas-wrapper');
+            mapCanvas.width = wrapper.offsetWidth;
+            mapCanvas.height = wrapper.offsetHeight;
+            render();
+        }
+
+        // Render current frame
+        function render() {
+            const frameIndex = Math.round(mapAnimation.frame);
+            const img = images[frameIndex];
+            if (img && img.complete) {
+                mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
+                mapCtx.drawImage(img, 0, 0, mapCanvas.width, mapCanvas.height);
+            }
+        }
+
+        // Preload all frames with Promise
+        let loadedImages = 0;
+        const preloadPromises = [];
+
+        for (let i = 0; i < frameCount; i++) {
+            const promise = new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    loadedImages++;
+                    resolve();
+                };
+                img.onerror = reject;
+                img.src = currentFrame(i);
+                images[i] = img;
+            });
+            preloadPromises.push(promise);
+        }
+
+        // Wait for all images to load
+        Promise.all(preloadPromises).then(() => {
+            console.log('All frames loaded:', loadedImages);
+            resizeMapCanvas();
+            window.addEventListener('resize', resizeMapCanvas);
+
+            // Create scroll-triggered animation
+            gsap.to(mapAnimation, {
+                frame: frameCount - 1,
+                snap: 'frame',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.map-animation-section',
+                    start: 'top top',
+                    end: '+=200%',
+                    scrub: 0.5,
+                    pin: true,
+                },
+                onUpdate: render
+            });
+        }).catch(err => {
+            console.error('Error loading frames:', err);
         });
 
         // ============================================
