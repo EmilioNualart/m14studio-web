@@ -2260,18 +2260,19 @@
             mapVideo.addEventListener('loadedmetadata', () => {
                 console.log('✅ Video loaded - Duration:', mapVideo.duration + 's');
 
-                // Create scroll-triggered video animation
+                // Create scroll-triggered video animation (sin pin)
                 gsap.to(mapVideo, {
                     currentTime: mapVideo.duration,
                     ease: 'none',
                     scrollTrigger: {
                         trigger: '.map-animation-section',
-                        start: 'top top',
-                        end: '+=200%',
+                        start: 'top bottom',
+                        end: 'bottom top',
                         scrub: 1,
-                        pin: true,
                         onUpdate: (self) => {
-                            console.log('📍 Progress:', (self.progress * 100).toFixed(1) + '%', 'Time:', mapVideo.currentTime.toFixed(2) + 's');
+                            const currentTime = mapVideo.duration * self.progress;
+                            mapVideo.currentTime = currentTime;
+                            console.log('📍 Progress:', (self.progress * 100).toFixed(1) + '%', 'Time:', currentTime.toFixed(2) + 's');
                         }
                     }
                 });
