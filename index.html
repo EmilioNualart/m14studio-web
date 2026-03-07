@@ -2276,15 +2276,21 @@
 
             // Render current frame
             function render() {
-                const frameIndex = Math.floor(mapAnimation.frame);
-                const img = images[frameIndex];
-                if (img && img.complete && img.naturalWidth > 0) {
-                    mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
-                    mapCtx.drawImage(img, 0, 0, mapCanvas.width, mapCanvas.height);
-                    console.log('Rendering frame:', frameIndex);
-                } else {
-                    console.log('Frame not ready:', frameIndex);
-                }
+                requestAnimationFrame(() => {
+                    const frameIndex = Math.min(
+                        Math.floor(mapAnimation.frame),
+                        frameCount - 1
+                    );
+                    const img = images[frameIndex];
+
+                    if (img) {
+                        mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
+                        mapCtx.drawImage(img, 0, 0, mapCanvas.width, mapCanvas.height);
+                        console.log('✓ Rendered frame:', frameIndex);
+                    } else {
+                        console.log('✗ Missing frame:', frameIndex);
+                    }
+                });
             }
 
             // Preload all frames
@@ -2313,10 +2319,10 @@
                                 scrub: 1,
                                 pin: true,
                                 onUpdate: (self) => {
-                                    console.log('Progress:', self.progress, 'Frame:', Math.floor(mapAnimation.frame));
+                                    console.log('📍 Progress:', (self.progress * 100).toFixed(1) + '%', 'Frame:', Math.floor(mapAnimation.frame));
+                                    render();
                                 }
-                            },
-                            onUpdate: render
+                            }
                         });
                     }
                 };
