@@ -483,51 +483,62 @@
         }
 
         /* ============================================
-           REEL SECTION
+           REEL SECTION - INMERSIVA
            ============================================ */
         #reel {
-            min-height: 120vh;
+            min-height: 100vh;
             padding: 0;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(
+                135deg,
+                rgba(122, 0, 18, 0.03) 0%,
+                rgba(10, 10, 10, 1) 50%,
+                rgba(122, 0, 18, 0.03) 100%
+            );
         }
 
         .reel-container {
             width: 100%;
-            max-width: 1600px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 4rem;
+            padding: 4rem 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4rem;
+            gap: 3rem;
         }
 
         .reel-video-wrapper {
             position: relative;
-            width: 100%;
-            max-width: 1400px;
+            width: 95%;
+            max-width: 1600px;
             aspect-ratio: 16 / 9;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
         }
 
-        /* Frame profesional y limpio */
+        /* Frame sutil */
         .reel-frame {
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
             pointer-events: none;
             z-index: 2;
-            border: 1px solid rgba(245, 240, 232, 0.15);
+            border: 1px solid rgba(122, 0, 18, 0.3);
             opacity: 0;
             transition: opacity 0.8s ease;
         }
 
         .reel-frame.visible {
             opacity: 1;
+        }
+
+        .reel-video-wrapper:hover .reel-frame {
+            border-color: rgba(122, 0, 18, 0.6);
         }
 
         /* Video container */
@@ -616,29 +627,45 @@
 
         .reel-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(30px);
+            max-width: 900px;
+        }
+
+        .reel-subtitle {
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            opacity: 0.4;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
         }
 
         .reel-title {
             font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-size: clamp(3rem, 6vw, 6rem);
             font-weight: 100;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            line-height: 1;
         }
 
-        .reel-subtitle {
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            opacity: 0.6;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+        .reel-description {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            opacity: 0.7;
+            line-height: 1.6;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         @media (max-width: 768px) {
             .reel-container {
-                padding: 0 1.5rem;
+                padding: 3rem 1.5rem;
+            }
+
+            .reel-video-wrapper {
+                width: 100%;
             }
         }
 
@@ -1465,11 +1492,12 @@
             <div class="reel-header">
                 <div class="reel-subtitle">Nuestro trabajo</div>
                 <h2 class="reel-title">Showreel 2025</h2>
+                <p class="reel-description">Una selección de nuestros mejores proyectos. Historias que conectan, producción que inspira.</p>
             </div>
 
             <!-- Video wrapper con frame -->
             <div class="reel-video-wrapper">
-                <!-- Frame limpio y profesional -->
+                <!-- Frame sutil -->
                 <div class="reel-frame"></div>
                 <div class="reel-video">
                     <div class="reel-thumbnail" id="reelThumbnail">
@@ -1477,9 +1505,6 @@
                     </div>
                     <iframe id="reelIframe" class="reel-iframe" src="https://www.youtube.com/embed/F6D0G5v2lB8?autoplay=1&controls=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
-            </div>
-            <div class="reel-info">
-                <a href="https://youtu.be/F6D0G5v2lB8" target="_blank" class="btn btn-vino">Ver reel completo en YouTube</a>
             </div>
         </div>
     </section>
@@ -2011,55 +2036,60 @@
         });
 
         // ============================================
-        // REEL SECTION ANIMATIONS
+        // REEL SECTION ANIMATIONS - INMERSIVA
         // ============================================
-
-        // Set initial states
-        gsap.set('.reel-info', { opacity: 0, y: 50 });
 
         // Animate header on entry
         gsap.to('.reel-header', {
             opacity: 1,
             y: 0,
-            duration: 1,
+            duration: 1.2,
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: '#reel',
-                start: 'top 70%',
+                start: 'top 60%',
                 toggleActions: 'play none none none'
             }
         });
 
-        // Create dramatic opening animation for video
-        const reelTimeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.reel-video-wrapper',
-                start: 'top 65%',
-                end: 'center 45%',
-                scrub: 1.5,
+        // Animate video wrapper with dramatic entrance
+        gsap.fromTo('.reel-video-wrapper',
+            {
+                opacity: 0,
+                scale: 0.9,
+                y: 50
+            },
+            {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.reel-video-wrapper',
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                },
+                onComplete: () => {
+                    document.querySelector('.reel-frame').classList.add('visible');
+                }
             }
-        });
+        );
 
-        // Expand video from center with scale and show frame
-        reelTimeline.to('.reel-frame', {
-            opacity: 1,
-            duration: 0.5,
-            ease: 'power2.out'
-        })
-        .to('.reel-video', {
+        // Reveal video content
+        gsap.to('.reel-video', {
             clipPath: 'inset(0% 0% 0% 0%)',
             scale: 1,
             opacity: 1,
-            duration: 1.5,
-            ease: 'power3.out'
-        }, '-=0.3')
-        // Finally reveal info
-        .to('.reel-info', {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power2.out'
-        }, '-=0.6');
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.reel-video-wrapper',
+                start: 'top 65%',
+                toggleActions: 'play none none none'
+            },
+            delay: 0.3
+        });
 
         // ============================================
         // VIDEO MODAL
