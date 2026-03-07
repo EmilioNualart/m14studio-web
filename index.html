@@ -674,6 +674,7 @@
             background: transparent;
             color: var(--negro);
             position: relative;
+            overflow: hidden;
         }
 
         #servicios .label,
@@ -681,6 +682,19 @@
         #servicios h3,
         #servicios p {
             color: var(--negro);
+        }
+
+        .servicios-header {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .servicios-header .label {
+            display: inline-block;
+        }
+
+        .servicios-header h2 {
+            display: inline-block;
         }
 
         .servicios-grid {
@@ -694,24 +708,39 @@
             padding: 2.5rem;
             border: 1px solid rgba(10, 10, 10, 0.1);
             background: rgba(10, 10, 10, 0.02);
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(60px) scale(0.95);
+            filter: blur(10px);
+            will-change: transform, opacity, filter;
+        }
+
+        .servicio-item.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
         }
 
         .servicio-item:hover {
             border-color: var(--vino);
             background: rgba(122, 0, 18, 0.03);
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(10, 10, 10, 0.1);
         }
 
         .servicio-numero {
             font-family: var(--font-display);
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 100;
             color: var(--vino);
-            opacity: 0.3;
+            opacity: 0.2;
             margin-bottom: 1rem;
+            transition: all 0.4s ease;
+        }
+
+        .servicio-item:hover .servicio-numero {
+            opacity: 0.5;
+            transform: scale(1.1);
         }
 
         .servicio-titulo {
@@ -1451,8 +1480,10 @@
     <!-- SERVICIOS -->
     <section id="servicios">
         <div class="container">
-            <div class="label">Servicios</div>
-            <h2 style="margin-top: 1rem; max-width: 800px;">Producción audiovisual completa desde la idea hasta la entrega final</h2>
+            <div class="servicios-header">
+                <div class="label">Servicios</div>
+                <h2 style="margin-top: 1rem; max-width: 800px;">Producción audiovisual completa desde la idea hasta la entrega final</h2>
+            </div>
 
             <div class="servicios-grid">
                 <div class="servicio-item" data-category="servicio">
@@ -2113,21 +2144,45 @@
         });
 
         // ============================================
-        // SERVICIOS REVEAL
+        // SERVICIOS REVEAL CINEMATOGRÁFICO
         // ============================================
-        gsap.utils.toArray('.servicio-item').forEach((item, index) => {
-            gsap.to(item, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                delay: index * 0.1
-            });
+
+        // Animate header first
+        gsap.to('.servicios-header', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '#servicios',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Then reveal services with stagger
+        const servicioItems = gsap.utils.toArray('.servicio-item');
+
+        ScrollTrigger.create({
+            trigger: '.servicios-grid',
+            start: 'top 75%',
+            onEnter: () => {
+                servicioItems.forEach((item, index) => {
+                    gsap.to(item, {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        filter: 'blur(0px)',
+                        duration: 1,
+                        ease: 'power3.out',
+                        delay: 0.6 + (index * 0.15),
+                        onStart: () => {
+                            item.classList.add('revealed');
+                        }
+                    });
+                });
+            },
+            once: true
         });
 
         // ============================================
