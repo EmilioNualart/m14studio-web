@@ -502,21 +502,21 @@
 
         .reel-container {
             width: 100%;
-            max-width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 2rem;
-            display: flex;
-            flex-direction: column;
+            padding: 6rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 4rem;
             align-items: center;
-            gap: 3rem;
         }
 
         .reel-video-wrapper {
             position: relative;
-            width: 95%;
-            max-width: 1600px;
+            width: 100%;
             aspect-ratio: 16 / 9;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            will-change: transform, clip-path;
         }
 
         /* Frame sutil */
@@ -637,11 +637,10 @@
         }
 
         .reel-header {
-            text-align: center;
-            margin-bottom: 3rem;
+            text-align: left;
+            margin-bottom: 0;
             opacity: 0;
-            transform: translateY(30px);
-            max-width: 900px;
+            transform: translateX(-40px);
         }
 
         .reel-subtitle {
@@ -654,7 +653,7 @@
 
         .reel-title {
             font-family: var(--font-display);
-            font-size: clamp(3rem, 6vw, 6rem);
+            font-size: clamp(2.5rem, 5vw, 5rem);
             font-weight: 100;
             letter-spacing: -0.03em;
             margin-bottom: 1.5rem;
@@ -662,21 +661,26 @@
         }
 
         .reel-description {
-            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            font-size: clamp(0.95rem, 1.3vw, 1.2rem);
             opacity: 0.7;
-            line-height: 1.6;
+            line-height: 1.7;
             font-weight: 300;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 450px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             .reel-container {
-                padding: 3rem 1.5rem;
+                grid-template-columns: 1fr;
+                padding: 4rem 2rem;
+                gap: 3rem;
             }
 
-            .reel-video-wrapper {
-                width: 100%;
+            .reel-header {
+                text-align: center;
+            }
+
+            .reel-description {
+                max-width: 100%;
             }
         }
 
@@ -995,106 +999,43 @@
         }
 
         /* ============================================
-           UBICACIONES SPLIT
+           UBICACIONES - SCROLL ANIMATION
            ============================================ */
-        .ubicaciones-split {
-            min-height: 100vh;
+        .ubicaciones-scroll {
+            position: relative;
+            background: var(--negro);
+        }
+
+        .ubicaciones-scroll-inner {
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 8rem 2rem;
+            gap: 2rem;
+            overflow: hidden;
             position: relative;
         }
 
-        .ubicaciones-split-container {
-            width: 100%;
-            max-width: 1400px;
+        .ubicaciones-canvas {
+            width: auto;
+            height: 60vh;
+            max-width: 90vw;
         }
 
-        .ubicaciones-split-title {
+        .ubicaciones-overlay {
             text-align: center;
+            pointer-events: none;
+        }
+
+        .ubicaciones-scroll-title {
             font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 100;
-            margin-bottom: 6rem;
             letter-spacing: -0.02em;
             opacity: 0;
             transform: translateY(30px);
-        }
-
-        .ubicaciones-grid-split {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .ubicacion-split {
-            text-align: center;
-            opacity: 0;
-            transform: scale(0.9);
-        }
-
-        .ubicacion-split.left {
-            transform: translateX(-50px) scale(0.9);
-        }
-
-        .ubicacion-split.right {
-            transform: translateX(50px) scale(0.9);
-        }
-
-        .ubicacion-ciudad {
-            font-size: clamp(3rem, 6vw, 6rem);
-            font-weight: 100;
-            line-height: 1;
-            margin-bottom: 1rem;
-            letter-spacing: -0.03em;
-        }
-
-        .ubicacion-pais {
-            font-size: clamp(1.2rem, 2vw, 1.8rem);
-            opacity: 0.5;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .ubicacion-year {
-            font-size: 0.9rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            opacity: 0.4;
-            border-top: 1px solid rgba(245, 240, 232, 0.2);
-            padding-top: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .ubicaciones-divider {
-            width: 1px;
-            height: 200px;
-            background: linear-gradient(
-                to bottom,
-                transparent,
-                rgba(122, 0, 18, 0.5) 50%,
-                transparent
-            );
-            opacity: 0;
-        }
-
-        @media (max-width: 968px) {
-            .ubicaciones-grid-split {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .ubicaciones-divider {
-                width: 100px;
-                height: 1px;
-                background: linear-gradient(
-                    to right,
-                    transparent,
-                    rgba(122, 0, 18, 0.5) 50%,
-                    transparent
-                );
-            }
+            color: var(--crema);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
         }
 
         /* ============================================
@@ -1354,7 +1295,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.15;
+            opacity: 0.4;
             pointer-events: none;
         }
 
@@ -1432,9 +1373,104 @@
         .video-modal-close:hover {
             color: var(--vino);
         }
+        /* ============================================
+           SCROLL PROGRESS BAR
+           ============================================ */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--vino), #c4003a, var(--vino));
+            z-index: 10002;
+        }
+
+        /* ============================================
+           SECTION DIVIDERS
+           ============================================ */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-divider .divider-line {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(122, 0, 18, 0.5) 50%, transparent 100%);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section-divider.revealed .divider-line {
+            transform: scaleX(1);
+        }
+
+        /* ============================================
+           3D EFFECTS
+           ============================================ */
+        .fundador-foto {
+            transform-style: preserve-3d;
+        }
+
+        /* ============================================
+           TOUCH DEVICE CURSOR FIX
+           ============================================ */
+        @media (hover: none) and (pointer: coarse) {
+            * {
+                cursor: auto !important;
+            }
+            .cursor-dot,
+            .cursor-circle {
+                display: none !important;
+            }
+        }
+
+        /* ============================================
+           ANIMATION READY STATES
+           ============================================ */
+        .valor-item {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        .fundador {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .portfolio-header {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .contacto-info {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        .contacto-form {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+
+        #servicios,
+        #portfolio,
+        #sobre-nosotros,
+        #contacto {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div class="scroll-progress"></div>
 
     <!-- FILM GRAIN -->
     <div class="film-grain"></div>
@@ -1499,14 +1535,14 @@
     <!-- REEL -->
     <section id="reel">
         <div class="reel-container">
-            <!-- Header -->
+            <!-- Texto lado izquierdo -->
             <div class="reel-header">
                 <div class="reel-subtitle">Nuestro trabajo</div>
-                <h2 class="reel-title">Showreel 2025</h2>
+                <h2 class="reel-title">Showreel<br>2025</h2>
                 <p class="reel-description">Una selección de nuestros mejores proyectos. Historias que conectan, producción que inspira.</p>
             </div>
 
-            <!-- Video wrapper con frame -->
+            <!-- Video lado derecho -->
             <div class="reel-video-wrapper">
                 <!-- Frame sutil -->
                 <div class="reel-frame"></div>
@@ -1522,6 +1558,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider"><div class="divider-line"></div></div>
 
     <!-- SERVICIOS -->
     <section id="servicios">
@@ -1565,6 +1603,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider"><div class="divider-line"></div></div>
 
     <!-- PORTFOLIO -->
     <section id="portfolio">
@@ -1686,6 +1726,8 @@
         </div>
     </section>
 
+    <div class="section-divider"><div class="divider-line"></div></div>
+
     <!-- SOBRE NOSOTROS -->
     <section id="sobre-nosotros">
         <div class="container">
@@ -1747,30 +1789,18 @@
                 </div>
             </div>
 
-            <!-- Ubicaciones Split -->
-            <div class="ubicaciones-split">
-                <div class="ubicaciones-split-container">
-                    <h2 class="ubicaciones-split-title">Dos ciudades, una visión</h2>
-
-                    <div class="ubicaciones-grid-split">
-                        <div class="ubicacion-split left">
-                            <div class="ubicacion-ciudad">Santiago</div>
-                            <div class="ubicacion-pais">Chile</div>
-                            <div class="ubicacion-year">Desde 2023</div>
-                        </div>
-
-                        <div class="ubicaciones-divider"></div>
-
-                        <div class="ubicacion-split right">
-                            <div class="ubicacion-ciudad">Barcelona</div>
-                            <div class="ubicacion-pais">España</div>
-                            <div class="ubicacion-year">Desde Julio 2025</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
+
+    <!-- UBICACIONES - Scroll Frame Animation -->
+    <div class="ubicaciones-scroll" id="ubicacionesSection">
+        <div class="ubicaciones-scroll-inner">
+            <canvas class="ubicaciones-canvas" id="ubicacionesCanvas" width="2810" height="2160"></canvas>
+            <h2 class="ubicaciones-scroll-title">Dos ciudades, una visión</h2>
+        </div>
+    </div>
+
+    <div class="section-divider"><div class="divider-line"></div></div>
 
     <!-- CONTACTO -->
     <section id="contacto">
@@ -1790,7 +1820,7 @@
 
                         <div class="contacto-item">
                             <div class="label">Instagram</div>
-                            <a href="https://instagram.com/m14studio" target="_blank">@m14studio</a>
+                            <a href="https://www.instagram.com/m14studio/" target="_blank">@m14studio</a>
                         </div>
 
                         <div class="contacto-item">
@@ -1872,7 +1902,7 @@
             <div class="footer-section">
                 <h4>Síguenos</h4>
                 <ul class="footer-links">
-                    <li><a href="https://instagram.com/m14studio" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/m14studio/" target="_blank">Instagram</a></li>
                     <li><a href="https://vimeo.com/m14studio" target="_blank">Vimeo</a></li>
                     <li><a href="mailto:contacto@m14studio.com">Email</a></li>
                 </ul>
@@ -1882,7 +1912,7 @@
         <div class="footer-bottom">
             <div>&copy; 2025 M14 Studio. Todos los derechos reservados.</div>
             <div class="footer-social">
-                <a href="https://instagram.com/m14studio" target="_blank">Instagram</a>
+                <a href="https://www.instagram.com/m14studio/" target="_blank">Instagram</a>
                 <a href="https://vimeo.com/m14studio" target="_blank">Vimeo</a>
             </div>
         </div>
@@ -1903,6 +1933,11 @@
 
     <script>
         // ============================================
+        // TOUCH DETECTION
+        // ============================================
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        // ============================================
         // GSAP + LENIS SMOOTH SCROLL
         // ============================================
         gsap.registerPlugin(ScrollTrigger);
@@ -1914,16 +1949,11 @@
             smoothWheel: true,
             wheelMultiplier: 1,
             smoothTouch: false,
-            lerp: 0.08, // Fluido y cinematográfico
+            lerp: 0.08,
         });
 
-        // Sincronizar Lenis con GSAP ScrollTrigger
         lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
         // Smooth scroll para anchor links
@@ -1938,69 +1968,65 @@
         });
 
         // ============================================
-        // CURSOR CUSTOM
+        // SCROLL PROGRESS BAR
+        // ============================================
+        const progressBar = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (scrollTop / docHeight) * 100 + '%';
+        });
+
+        // ============================================
+        // CURSOR CUSTOM (Desktop only)
         // ============================================
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorCircle = document.querySelector('.cursor-circle');
 
-        let mouseX = 0;
-        let mouseY = 0;
-        let dotX = 0;
-        let dotY = 0;
-        let circleX = 0;
-        let circleY = 0;
+        if (!isTouchDevice) {
+            let mouseX = 0, mouseY = 0;
+            let circleX = 0, circleY = 0;
 
-        // Seguimiento del mouse
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
 
-        // Animación con lerp
-        function animateCursor() {
-            // Punto pequeño - seguimiento exacto
-            dotX = mouseX;
-            dotY = mouseY;
+            function animateCursor() {
+                const lerpFactor = 0.15;
+                circleX += (mouseX - circleX) * lerpFactor;
+                circleY += (mouseY - circleY) * lerpFactor;
+                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+                cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
 
-            // Círculo exterior - seguimiento con delay
-            const lerpFactor = 0.15;
-            circleX += (mouseX - circleX) * lerpFactor;
-            circleY += (mouseY - circleY) * lerpFactor;
-
-            // Aplicar posiciones
-            cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
-            cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
-
-            requestAnimationFrame(animateCursor);
+            const interactiveElements = document.querySelectorAll('a, button, [role="button"], .portfolio-item, .servicio-item, .filter-btn, input, select, textarea');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursorCircle.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursorCircle.classList.remove('hover'));
+            });
+        } else {
+            cursorDot.style.display = 'none';
+            cursorCircle.style.display = 'none';
         }
 
-        animateCursor();
-
-        // Detectar hover sobre elementos interactivos
-        const interactiveElements = document.querySelectorAll('a, button, [role="button"], .portfolio-item, .servicio-item, .filter-btn, input, select, textarea');
-
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorCircle.classList.add('hover');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorCircle.classList.remove('hover');
-            });
-        });
-
         // ============================================
-        // ANIMACIONES HERO
+        // ANIMACIONES HERO - CINEMATIC
         // ============================================
+        document.getElementById('home').style.opacity = '1';
+        document.getElementById('home').style.transform = 'translateY(0)';
 
-        // 1. Logo clip-path reveal (de arriba a abajo)
+        // Logo clip-path reveal
         gsap.to('.hero-logo', {
             clipPath: 'inset(0% 0 0 0)',
-            duration: 1.4,
-            ease: 'power3.out',
-            delay: 0.5
+            duration: 1.8,
+            ease: 'power4.out',
+            delay: 0.3
         });
 
-        // 2. Tagline - fade in palabra por palabra
+        // Tagline words staggered
         gsap.to('.hero-tagline .word', {
             opacity: 1,
             y: 0,
@@ -2010,9 +2036,10 @@
             delay: 1.2
         });
 
-        // 3. Parallax del video (más lento que el contenido)
+        // Video parallax (más lento que el contenido)
         gsap.to('.hero-video', {
             y: '30%',
+            scale: 1.1,
             ease: 'none',
             scrollTrigger: {
                 trigger: '#home',
@@ -2022,11 +2049,12 @@
             }
         });
 
-        // 4. Hero content - scale down + fade out al scrollear
+        // Hero content - scale down + fade + blur on scroll
         gsap.to('.hero-content', {
             scale: 0.8,
             opacity: 0,
             y: -100,
+            filter: 'blur(10px)',
             ease: 'none',
             scrollTrigger: {
                 trigger: '#home',
@@ -2036,7 +2064,19 @@
             }
         });
 
-        // 5. Scroll indicator fade out
+        // Overlay darkens as you scroll
+        gsap.to('.hero-overlay', {
+            opacity: 1.5,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        // Scroll indicator fade out
         gsap.to('.hero-scroll-indicator', {
             opacity: 0,
             y: -20,
@@ -2050,59 +2090,97 @@
         });
 
         // ============================================
-        // REEL SECTION ANIMATIONS - INMERSIVA
+        // SECTION DIVIDERS - ANIMATED LINES
+        // ============================================
+        gsap.utils.toArray('.section-divider').forEach(divider => {
+            ScrollTrigger.create({
+                trigger: divider,
+                start: 'top 90%',
+                onEnter: () => divider.classList.add('revealed'),
+                once: true
+            });
+        });
+
+        // ============================================
+        // REEL SECTION - SPLIT LAYOUT REVEAL
         // ============================================
 
-        // Animate header on entry
+        // Header slides in from left
         gsap.to('.reel-header', {
             opacity: 1,
-            y: 0,
+            x: 0,
             duration: 1.2,
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: '#reel',
-                start: 'top 60%',
+                start: 'top 65%',
                 toggleActions: 'play none none none'
             }
         });
 
-        // Animate video wrapper with dramatic entrance
-        gsap.fromTo('.reel-video-wrapper',
-            {
-                opacity: 0,
-                scale: 0.9,
-                y: 50
-            },
-            {
-                opacity: 1,
-                scale: 1,
-                y: 0,
-                duration: 1.5,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: '.reel-video-wrapper',
-                    start: 'top 70%',
-                    toggleActions: 'play none none none'
-                },
-                onComplete: () => {
+        // Video slides in from right with cinematic reveal
+        const reelTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.reel-video-wrapper',
+                start: 'top 80%',
+                end: 'top 30%',
+                scrub: 0.8,
+                onEnter: () => {
                     document.querySelector('.reel-frame').classList.add('visible');
                 }
             }
-        );
+        });
 
-        // Reveal video content
-        gsap.to('.reel-video', {
-            clipPath: 'inset(0% 0% 0% 0%)',
-            scale: 1,
-            opacity: 1,
-            duration: 1,
-            ease: 'power2.out',
+        reelTl
+            .fromTo('.reel-video-wrapper',
+                {
+                    x: 80,
+                    opacity: 0,
+                    scale: 0.9
+                },
+                {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    ease: 'power2.out'
+                }
+            )
+            .fromTo('.reel-video',
+                {
+                    clipPath: 'inset(30% 30% 30% 30%)',
+                    scale: 1.2,
+                    opacity: 0
+                },
+                {
+                    clipPath: 'inset(0% 0% 0% 0%)',
+                    scale: 1,
+                    opacity: 1,
+                    ease: 'power2.out'
+                },
+                0.1
+            );
+
+        // Parallax: text and video move at different speeds
+        gsap.to('.reel-header', {
+            y: -30,
+            ease: 'none',
             scrollTrigger: {
-                trigger: '.reel-video-wrapper',
-                start: 'top 65%',
-                toggleActions: 'play none none none'
-            },
-            delay: 0.3
+                trigger: '#reel',
+                start: 'top center',
+                end: 'bottom top',
+                scrub: 1.5
+            }
+        });
+
+        gsap.to('.reel-video-wrapper', {
+            y: -60,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#reel',
+                start: 'top center',
+                end: 'bottom top',
+                scrub: 1.5
+            }
         });
 
         // ============================================
@@ -2119,7 +2197,7 @@
                 if (videoId) {
                     modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
                     videoModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    lenis.stop();
                 }
             });
         });
@@ -2127,8 +2205,8 @@
         // Close modal
         function closeModal() {
             videoModal.classList.remove('active');
-            modalVideo.src = ''; // Stop video
-            document.body.style.overflow = ''; // Enable scrolling
+            modalVideo.src = '';
+            lenis.start();
         }
 
         modalClose.addEventListener('click', closeModal);
@@ -2158,18 +2236,13 @@
         // NAVBAR SCROLL EFFECT
         // ============================================
         const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
 
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll > 100) {
+            if (window.pageYOffset > 100) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-
-            lastScroll = currentScroll;
         });
 
         // ============================================
@@ -2192,10 +2265,8 @@
         });
 
         // ============================================
-        // SERVICIOS REVEAL CINEMATOGRÁFICO
+        // SERVICIOS - CINEMATIC REVEAL
         // ============================================
-
-        // Animate header first
         gsap.to('.servicios-header', {
             opacity: 1,
             y: 0,
@@ -2208,109 +2279,171 @@
             }
         });
 
-        // Then reveal services with stagger
+        // Staggered from alternating sides with parallax (total ~3s)
         const servicioItems = gsap.utils.toArray('.servicio-item');
+        servicioItems.forEach((item, index) => {
+            const fromLeft = index % 2 === 0;
+            gsap.fromTo(item,
+                {
+                    opacity: 0,
+                    x: fromLeft ? -60 : 60,
+                    y: 30,
+                    scale: 0.92,
+                    rotateY: fromLeft ? -4 : 4,
+                    filter: 'blur(6px)'
+                },
+                {
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    rotateY: 0,
+                    filter: 'blur(0px)',
+                    duration: 0.7,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.servicios-grid',
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: index * 0.08,
+                    onStart: () => item.classList.add('revealed')
+                }
+            );
 
-        ScrollTrigger.create({
-            trigger: '.servicios-grid',
-            start: 'top 75%',
-            onEnter: () => {
-                servicioItems.forEach((item, index) => {
-                    gsap.to(item, {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        filter: 'blur(0px)',
-                        duration: 1,
-                        ease: 'power3.out',
-                        delay: 0.6 + (index * 0.15),
-                        onStart: () => {
-                            item.classList.add('revealed');
-                        }
-                    });
-                });
-            },
-            once: true
+            // Individual parallax at different speeds
+            gsap.to(item, {
+                y: -15 - (index % 3) * 12,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1.5
+                }
+            });
         });
 
         // ============================================
-        // PORTFOLIO FILTERING
+        // PORTFOLIO - DYNAMIC REVEAL + FILTERING
         // ============================================
         const filterButtons = document.querySelectorAll('.filter-btn');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-        // Show all items initially
-        gsap.to(portfolioItems, {
+        // Portfolio header reveal
+        gsap.to('.portfolio-header', {
             opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.1,
+            y: 0,
+            duration: 1,
             ease: 'power3.out',
             scrollTrigger: {
-                trigger: '.portfolio-grid',
+                trigger: '#portfolio',
                 start: 'top 70%',
                 toggleActions: 'play none none none'
             }
         });
 
+        // Staggered grid reveal with rotation + parallax
+        gsap.utils.toArray('.portfolio-item').forEach((item, index) => {
+            const row = Math.floor(index / 3);
+            const col = index % 3;
+
+            gsap.fromTo(item,
+                {
+                    opacity: 0,
+                    scale: 0.8,
+                    y: 80,
+                    rotateX: 8
+                },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    rotateX: 0,
+                    duration: 0.9,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.portfolio-grid',
+                        start: 'top 78%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: (row * 0.15) + (col * 0.1)
+                }
+            );
+
+            // Per-item parallax at varied speeds
+            gsap.to(item, {
+                y: -25 + (col * 15),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 2
+                }
+            });
+        });
+
+        // Filter functionality
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active button
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 const filter = btn.dataset.filter;
 
-                // First, fade out all items quickly
                 gsap.to(portfolioItems, {
                     opacity: 0,
                     scale: 0.95,
+                    y: 20,
                     duration: 0.3,
                     ease: 'power2.in',
                     onComplete: () => {
-                        // Then show/hide based on filter
                         portfolioItems.forEach(item => {
                             const category = item.dataset.category;
-                            if (filter === 'all' || category === filter) {
-                                item.style.display = 'block';
-                            } else {
-                                item.style.display = 'none';
+                            item.style.display = (filter === 'all' || category === filter) ? 'block' : 'none';
+                        });
+
+                        const visibleItems = Array.from(portfolioItems).filter(item => item.style.display !== 'none');
+                        gsap.fromTo(visibleItems,
+                            { opacity: 0, scale: 0.9, y: 30 },
+                            {
+                                opacity: 1,
+                                scale: 1,
+                                y: 0,
+                                duration: 0.6,
+                                stagger: 0.08,
+                                ease: 'power3.out',
+                                onComplete: () => ScrollTrigger.refresh()
                             }
-                        });
-
-                        // Finally, fade in visible items with stagger
-                        const visibleItems = Array.from(portfolioItems).filter(item =>
-                            item.style.display !== 'none'
                         );
-
-                        gsap.to(visibleItems, {
-                            opacity: 1,
-                            scale: 1,
-                            duration: 0.5,
-                            stagger: 0.08,
-                            ease: 'power3.out'
-                        });
                     }
                 });
             });
         });
 
         // ============================================
-        // MANIFIESTO SCROLL REVEAL
+        // MANIFIESTO - SCRUB TEXT REVEAL (cinematográfico)
         // ============================================
         gsap.utils.toArray('.manifiesto-texto .line').forEach((line, index) => {
-            gsap.to(line, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: '.manifiesto',
-                    start: 'top 60%',
-                    toggleActions: 'play none none none'
+            gsap.fromTo(line,
+                {
+                    opacity: 0,
+                    y: 30,
+                    filter: 'blur(8px)'
                 },
-                delay: index * 0.2
-            });
+                {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '.manifiesto',
+                        start: `${15 + index * 18}% 70%`,
+                        end: `${35 + index * 18}% 50%`,
+                        scrub: 1
+                    }
+                }
+            );
         });
 
         // ============================================
@@ -2336,81 +2469,186 @@
         });
 
         // ============================================
-        // PARALLAX EFFECTS
+        // FUNDADORES - 3D TILT + STAGGER
         // ============================================
+        gsap.utils.toArray('.fundador').forEach((fundador, index) => {
+            gsap.fromTo(fundador,
+                { opacity: 0, y: 60, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.fundadores-grid',
+                        start: 'top 75%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: index * 0.2
+                }
+            );
 
-        // Fundadores photos parallax
-        gsap.utils.toArray('.fundador-foto').forEach(foto => {
-            gsap.to(foto, {
-                y: 50,
+            // Parallax at different speeds
+            gsap.to(fundador, {
+                y: -20 - (index * 10),
                 ease: 'none',
                 scrollTrigger: {
-                    trigger: foto,
+                    trigger: fundador,
                     start: 'top bottom',
                     end: 'bottom top',
-                    scrub: 1
+                    scrub: 1.5
                 }
             });
         });
 
-        // ============================================
-        // UBICACIONES SPLIT REVEAL
-        // ============================================
+        // 3D tilt on founder photos (desktop only)
+        if (!isTouchDevice) {
+            document.querySelectorAll('.fundador-foto').forEach(foto => {
+                foto.addEventListener('mousemove', (e) => {
+                    const rect = foto.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    foto.style.transform = `scale(1.05) rotateY(${x * 15}deg) rotateX(${-y * 15}deg)`;
+                    foto.style.transition = 'none';
+                });
+                foto.addEventListener('mouseleave', () => {
+                    foto.style.transform = 'scale(1) rotateY(0) rotateX(0)';
+                    foto.style.transition = 'transform 0.5s ease';
+                });
+            });
+        }
 
-        // Animate title
-        gsap.to('.ubicaciones-split-title', {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: 'power3.out',
+        // ============================================
+        // VALORES - STAGGERED SLIDE IN
+        // ============================================
+        gsap.utils.toArray('.valor-item').forEach((item, index) => {
+            gsap.fromTo(item,
+                { opacity: 0, x: -40, borderLeftColor: 'transparent' },
+                {
+                    opacity: 1,
+                    x: 0,
+                    borderLeftColor: '#7A0012',
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.valores-grid',
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: index * 0.15
+                }
+            );
+        });
+
+        // ============================================
+        // UBICACIONES - SCROLL FRAME ANIMATION
+        // ============================================
+        const frameCount = 55;
+        const frameImages = [];
+        const ubicacionesCanvas = document.getElementById('ubicacionesCanvas');
+        const ubicacionesCtx = ubicacionesCanvas.getContext('2d');
+        let loadedFrames = 0;
+
+        // Preload all frames
+        for (let i = 0; i < frameCount; i++) {
+            const img = new Image();
+            const num = String(i + 1).padStart(2, '0');
+            img.src = `./videos/V2/${num}.png`;
+            img.onload = () => {
+                loadedFrames++;
+                if (loadedFrames === 1) {
+                    ubicacionesCtx.drawImage(frameImages[0], 0, 0, ubicacionesCanvas.width, ubicacionesCanvas.height);
+                }
+            };
+            frameImages.push(img);
+        }
+
+        // Draw frame based on scroll progress
+        function drawFrame(index) {
+            const safeIndex = Math.max(0, Math.min(frameCount - 1, Math.round(index)));
+            const img = frameImages[safeIndex];
+            if (img && img.complete) {
+                ubicacionesCtx.clearRect(0, 0, ubicacionesCanvas.width, ubicacionesCanvas.height);
+                ubicacionesCtx.drawImage(img, 0, 0, ubicacionesCanvas.width, ubicacionesCanvas.height);
+            }
+        }
+
+        // Pin the section and play frames while pinned
+        gsap.to({ frame: 0 }, {
+            frame: frameCount - 1,
+            snap: 'frame',
+            ease: 'none',
             scrollTrigger: {
-                trigger: '.ubicaciones-split',
-                start: 'top 70%',
-                toggleActions: 'play none none none'
+                trigger: '.ubicaciones-scroll',
+                start: 'top top',
+                end: '+=200%',
+                pin: '.ubicaciones-scroll-inner',
+                scrub: 0.5,
+                pinSpacing: true
+            },
+            onUpdate: function() {
+                drawFrame(this.targets()[0].frame);
             }
         });
 
-        // Animate cities
-        gsap.to('.ubicacion-split.left', {
+        // Title appears in first 15% of the pinned scroll
+        gsap.to('.ubicaciones-scroll-title', {
             opacity: 1,
-            x: 0,
-            scale: 1,
-            duration: 1,
-            ease: 'power3.out',
+            y: 0,
             scrollTrigger: {
-                trigger: '.ubicaciones-grid-split',
-                start: 'top 75%',
-                toggleActions: 'play none none none'
-            },
-            delay: 0.3
+                trigger: '.ubicaciones-scroll',
+                start: 'top top',
+                end: '+=15%',
+                scrub: 1
+            }
         });
 
-        gsap.to('.ubicacion-split.right', {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            duration: 1,
-            ease: 'power3.out',
+        // Title fades out in last 20%
+        gsap.to('.ubicaciones-scroll-title', {
+            opacity: 0,
+            y: -30,
             scrollTrigger: {
-                trigger: '.ubicaciones-grid-split',
-                start: 'top 75%',
-                toggleActions: 'play none none none'
-            },
-            delay: 0.5
+                trigger: '.ubicaciones-scroll',
+                start: '+=160%',
+                end: '+=200%',
+                scrub: 1
+            }
         });
 
-        // Animate divider
-        gsap.to('.ubicaciones-divider', {
-            opacity: 1,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '.ubicaciones-grid-split',
-                start: 'top 75%',
-                toggleActions: 'play none none none'
-            },
-            delay: 0.7
-        });
+        // ============================================
+        // CONTACTO - SPLIT HALVES REVEAL
+        // ============================================
+        gsap.fromTo('.contacto-info',
+            { opacity: 0, x: -60 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#contacto',
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        gsap.fromTo('.contacto-form',
+            { opacity: 0, x: 60 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#contacto',
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                },
+                delay: 0.2
+            }
+        );
 
         // ============================================
         // ANIMATED PARTICLE BACKGROUND
@@ -2428,20 +2666,21 @@
 
         // Particle system
         const particles = [];
-        const particleCount = 40;
-        const maxDistance = 120;
+        const particleCount = isTouchDevice ? 20 : 50;
+        const maxDistance = 160;
         const mouse = { x: null, y: null, radius: 100 };
 
-        // Mouse tracking
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
+        // Mouse tracking (desktop only)
+        if (!isTouchDevice) {
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+            window.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+        }
 
         // Particle class
         class Particle {
@@ -2450,7 +2689,7 @@
                 this.y = Math.random() * canvas.height;
                 this.vx = (Math.random() - 0.5) * 0.3;
                 this.vy = (Math.random() - 0.5) * 0.3;
-                this.size = Math.random() * 1.2 + 0.5;
+                this.size = Math.random() * 1.8 + 0.8;
             }
 
             update() {
@@ -2507,7 +2746,7 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < maxDistance) {
-                        const opacity = (1 - distance / maxDistance) * 0.15;
+                        const opacity = (1 - distance / maxDistance) * 0.35;
                         // Mix of cream and wine colors
                         const gradient = ctx.createLinearGradient(
                             particles[i].x, particles[i].y,
@@ -2517,7 +2756,7 @@
                         gradient.addColorStop(1, `rgba(122, 0, 18, ${opacity * 0.3})`);
 
                         ctx.strokeStyle = gradient;
-                        ctx.lineWidth = 0.3;
+                        ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -2546,34 +2785,22 @@
         // SECTION TRANSITIONS
         // ============================================
 
-        // Set home section visible immediately
-        document.getElementById('home').style.opacity = '1';
-        document.getElementById('home').style.transform = 'translateY(0)';
-
-        // Animate all other sections when they come into view
-        const sections = gsap.utils.toArray('section:not(#home)');
-
-        sections.forEach((section) => {
-            gsap.fromTo(section,
-                {
-                    opacity: 0,
-                    y: 60
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.2,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: section,
-                        start: 'top 75%',
-                        end: 'top 25%',
-                        toggleActions: 'play none none none',
-                        // markers: true // Descomentar para debug
-                    }
+        // Sections with custom child animations are already visible via CSS
+        // Only apply generic fade-up to #reel (other sections have individual child animations)
+        gsap.fromTo('#reel',
+            { opacity: 0, y: 60 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#reel',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
                 }
-            );
-        });
+            }
+        );
     </script>
 
 </body>
