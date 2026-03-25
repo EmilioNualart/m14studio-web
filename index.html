@@ -1030,14 +1030,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10rem 4rem;
+            padding: 8rem 4rem;
             background: var(--negro);
             overflow: hidden;
         }
 
         .ubicaciones-content {
             width: 100%;
-            max-width: 1200px;
+            max-width: 900px;
             text-align: center;
         }
 
@@ -1056,71 +1056,63 @@
             letter-spacing: -0.02em;
             color: var(--crema);
             opacity: 0;
-            margin-bottom: 5rem;
+            margin-bottom: 2rem;
+        }
+
+        .ub-globe-wrapper {
+            width: min(460px, 80vw);
+            height: min(460px, 80vw);
+            margin: 0 auto 2.5rem;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+
+        .ub-globe-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+            touch-action: none;
+            border-radius: 50%;
         }
 
         .ub-cities {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
-            gap: 0;
+            gap: 4rem;
         }
 
         .ub-city {
-            flex: 1;
             opacity: 0;
+            text-align: center;
         }
 
-        .ub-city--left { text-align: right; padding-right: 5rem; }
-        .ub-city--right { text-align: left; padding-left: 5rem; }
-
         .ub-city-name {
-            font-size: clamp(4rem, 9vw, 8rem);
-            font-weight: 100;
-            letter-spacing: -0.04em;
-            line-height: 1;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
             color: var(--crema);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .ub-city-country {
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: 0.7rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
             color: var(--vino);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .ub-city-coords {
-            font-size: clamp(0.65rem, 0.9vw, 0.75rem);
-            letter-spacing: 0.15em;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
             opacity: 0.35;
             font-family: 'Courier New', monospace;
         }
 
-        .ub-divider-line {
-            width: 1px;
-            height: 10rem;
-            background: linear-gradient(to bottom, transparent, var(--vino), transparent);
-            flex-shrink: 0;
-            opacity: 0;
-            transform: scaleY(0);
-        }
-
         @media (max-width: 768px) {
-            .ubicaciones-section { padding: 7rem 2rem; }
-            .ub-cities { flex-direction: column; gap: 3rem; }
-            .ub-city--left, .ub-city--right {
-                text-align: center;
-                padding: 0;
-            }
-            .ub-divider-line {
-                width: 4rem;
-                height: 1px;
-                background: linear-gradient(to right, transparent, var(--vino), transparent);
-                transform: scaleX(0);
-            }
-            .ub-title { margin-bottom: 3rem; }
+            .ubicaciones-section { padding: 5rem 2rem; }
+            .ub-cities { gap: 2rem; }
         }
 
         /* ============================================
@@ -1889,14 +1881,16 @@
         <div class="ubicaciones-content">
             <div class="ub-label">Presencia</div>
             <h2 class="ub-title">Dos ciudades, una visión</h2>
+            <div class="ub-globe-wrapper">
+                <canvas id="ubicacionesGlobe"></canvas>
+            </div>
             <div class="ub-cities">
-                <div class="ub-city ub-city--left">
+                <div class="ub-city">
                     <div class="ub-city-name">Santiago</div>
                     <div class="ub-city-country">Chile</div>
                     <div class="ub-city-coords">33°27'S · 70°40'W</div>
                 </div>
-                <div class="ub-divider-line"></div>
-                <div class="ub-city ub-city--right">
+                <div class="ub-city">
                     <div class="ub-city-name">Barcelona</div>
                     <div class="ub-city-country">España</div>
                     <div class="ub-city-coords">41°23'N · 2°10'E</div>
@@ -2617,21 +2611,12 @@
             scrollTrigger: ubTrigger
         });
 
-        gsap.fromTo('.ub-city--left',
-            { opacity: 0, x: -60 },
-            { opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: 0.3,
-              scrollTrigger: ubTrigger }
-        );
-
-        gsap.fromTo('.ub-city--right',
-            { opacity: 0, x: 60 },
-            { opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: 0.3,
-              scrollTrigger: ubTrigger }
-        );
-
-        gsap.to('.ub-divider-line', {
-            opacity: 1, scaleY: 1, scaleX: 1, duration: 1, ease: 'power2.out', delay: 0.5,
-            scrollTrigger: ubTrigger
+        gsap.utils.toArray('.ub-city').forEach((city, i) => {
+            gsap.fromTo(city,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.4 + i * 0.1,
+                  scrollTrigger: ubTrigger }
+            );
         });
 
         // ============================================
@@ -2819,6 +2804,87 @@
                 }
             }
         );
+    </script>
+
+    <!-- COBE GLOBE -->
+    <script type="module">
+        import createGlobe from 'https://cdn.jsdelivr.net/npm/cobe@0.6.3/build/index.mjs';
+
+        const canvas = document.getElementById('ubicacionesGlobe');
+        const wrapper = canvas.parentElement;
+
+        let phi = 2.0; // centra el Atlántico entre Santiago y Barcelona
+        let globe = null;
+        let pointerDown = null;
+        let phiOffset = 0;
+        let thetaOffset = 0;
+        let dragPhi = 0;
+        let dragTheta = 0;
+
+        function initGlobe() {
+            const size = canvas.offsetWidth;
+            if (size === 0 || globe) return;
+
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            globe = createGlobe(canvas, {
+                devicePixelRatio: dpr,
+                width: size * dpr,
+                height: size * dpr,
+                phi: phi,
+                theta: 0.15,
+                dark: 1,
+                diffuse: 1.5,
+                mapSamples: 16000,
+                mapBrightness: 4,
+                baseColor: [0.06, 0.06, 0.06],
+                markerColor: [0.478, 0, 0.071], // vino
+                glowColor: [0.12, 0.12, 0.12],
+                markers: [
+                    { location: [-33.45, -70.66], size: 0.06 }, // Santiago
+                    { location: [41.39, 2.15],    size: 0.06 }, // Barcelona
+                ],
+                onRender: (state) => {
+                    if (!pointerDown) phi += 0.003;
+                    state.phi   = phi + phiOffset + dragPhi;
+                    state.theta = 0.15 + thetaOffset + dragTheta;
+                    state.width  = canvas.offsetWidth * dpr;
+                    state.height = canvas.offsetWidth * dpr;
+                }
+            });
+
+            // Fade in globe once initialized
+            setTimeout(() => { wrapper.style.opacity = '1'; }, 100);
+        }
+
+        // Init cuando la sección sea visible
+        const ro = new ResizeObserver(() => {
+            if (canvas.offsetWidth > 0) { ro.disconnect(); initGlobe(); }
+        });
+        ro.observe(canvas);
+        initGlobe();
+
+        // Drag interaction
+        canvas.addEventListener('pointerdown', (e) => {
+            pointerDown = { x: e.clientX, y: e.clientY };
+            canvas.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!pointerDown) return;
+            dragPhi   = (e.clientX - pointerDown.x) / 200;
+            dragTheta = (e.clientY - pointerDown.y) / 600;
+        }, { passive: true });
+
+        window.addEventListener('pointerup', () => {
+            if (pointerDown) {
+                phiOffset   += dragPhi;
+                thetaOffset += dragTheta;
+                dragPhi = dragTheta = 0;
+            }
+            pointerDown = null;
+            canvas.style.cursor = 'grab';
+        }, { passive: true });
     </script>
 
 </body>
