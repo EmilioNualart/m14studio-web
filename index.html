@@ -361,19 +361,34 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            pointer-events: none; /* Evita que el iframe capture eventos de scroll */
         }
 
         .hero-video {
             position: absolute;
             top: 50%;
             left: 50%;
+            /* 16:9 ratio, scaled to always cover */
+            width: 177.78vh; /* 100vh * 16/9 */
+            height: 56.25vw; /* 100vw * 9/16 */
             min-width: 100%;
             min-height: 100%;
-            width: auto;
-            height: auto;
             transform: translate(-50%, -50%);
-            object-fit: cover;
-            will-change: transform;
+            pointer-events: none;
+        }
+
+        /* Thumbnail fallback para mobile (YouTube bloquea autoplay) */
+        .hero-video-mobile-fallback {
+            display: none;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://img.youtube.com/vi/2qByFoSHahI/maxresdefault.jpg') center/cover no-repeat;
+        }
+
+        @media (max-width: 768px) {
+            .hero-video { display: none; }
+            .hero-video-mobile-fallback { display: block; }
         }
 
         .hero-overlay {
@@ -999,43 +1014,104 @@
         }
 
         /* ============================================
-           UBICACIONES - SCROLL ANIMATION
+           UBICACIONES
            ============================================ */
-        .ubicaciones-scroll {
-            position: relative;
-            background: var(--negro);
-        }
-
-        .ubicaciones-scroll-inner {
-            height: 100vh;
+        .ubicaciones-section {
+            min-height: 80vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2rem;
+            padding: 10rem 4rem;
+            background: var(--negro);
             overflow: hidden;
-            position: relative;
         }
 
-        .ubicaciones-canvas {
-            width: auto;
-            height: 60vh;
-            max-width: 90vw;
-        }
-
-        .ubicaciones-overlay {
+        .ubicaciones-content {
+            width: 100%;
+            max-width: 1200px;
             text-align: center;
-            pointer-events: none;
         }
 
-        .ubicaciones-scroll-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+        .ub-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--vino);
+            opacity: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .ub-title {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
             font-weight: 100;
             letter-spacing: -0.02em;
-            opacity: 0;
-            transform: translateY(30px);
             color: var(--crema);
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            margin-bottom: 5rem;
+        }
+
+        .ub-cities {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .ub-city {
+            flex: 1;
+            opacity: 0;
+        }
+
+        .ub-city--left { text-align: right; padding-right: 5rem; }
+        .ub-city--right { text-align: left; padding-left: 5rem; }
+
+        .ub-city-name {
+            font-size: clamp(4rem, 9vw, 8rem);
+            font-weight: 100;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--crema);
+            margin-bottom: 0.5rem;
+        }
+
+        .ub-city-country {
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--vino);
+            margin-bottom: 0.5rem;
+        }
+
+        .ub-city-coords {
+            font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+            letter-spacing: 0.15em;
+            opacity: 0.35;
+            font-family: 'Courier New', monospace;
+        }
+
+        .ub-divider-line {
+            width: 1px;
+            height: 10rem;
+            background: linear-gradient(to bottom, transparent, var(--vino), transparent);
+            flex-shrink: 0;
+            opacity: 0;
+            transform: scaleY(0);
+        }
+
+        @media (max-width: 768px) {
+            .ubicaciones-section { padding: 7rem 2rem; }
+            .ub-cities { flex-direction: column; gap: 3rem; }
+            .ub-city--left, .ub-city--right {
+                text-align: center;
+                padding: 0;
+            }
+            .ub-divider-line {
+                width: 4rem;
+                height: 1px;
+                background: linear-gradient(to right, transparent, var(--vino), transparent);
+                transform: scaleX(0);
+            }
+            .ub-title { margin-bottom: 3rem; }
         }
 
         /* ============================================
@@ -1460,7 +1536,8 @@
         #servicios,
         #portfolio,
         #sobre-nosotros,
-        #contacto {
+        #contacto,
+        .ubicaciones-section {
             opacity: 1 !important;
             transform: none !important;
         }
@@ -1503,9 +1580,15 @@
     <section id="home">
         <!-- Video de fondo -->
         <div class="hero-video-wrapper">
-            <video class="hero-video" autoplay muted loop playsinline>
-                <source src="./videos/hero-reel.mp4" type="video/mp4">
-            </video>
+            <iframe
+                class="hero-video"
+                src="https://www.youtube.com/embed/2qByFoSHahI?autoplay=1&mute=1&loop=1&playlist=2qByFoSHahI&controls=0&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                frameborder="0"
+                title="Hero background video"
+            ></iframe>
+            <div class="hero-video-mobile-fallback"></div>
             <div class="hero-overlay"></div>
         </div>
 
@@ -1792,13 +1875,26 @@
         </div>
     </section>
 
-    <!-- UBICACIONES - Scroll Frame Animation -->
-    <div class="ubicaciones-scroll" id="ubicacionesSection">
-        <div class="ubicaciones-scroll-inner">
-            <canvas class="ubicaciones-canvas" id="ubicacionesCanvas" width="2810" height="2160"></canvas>
-            <h2 class="ubicaciones-scroll-title">Dos ciudades, una visión</h2>
+    <!-- UBICACIONES -->
+    <section class="ubicaciones-section" id="ubicacionesSection">
+        <div class="ubicaciones-content">
+            <div class="ub-label">Presencia</div>
+            <h2 class="ub-title">Dos ciudades, una visión</h2>
+            <div class="ub-cities">
+                <div class="ub-city ub-city--left">
+                    <div class="ub-city-name">Santiago</div>
+                    <div class="ub-city-country">Chile</div>
+                    <div class="ub-city-coords">33°27'S · 70°40'W</div>
+                </div>
+                <div class="ub-divider-line"></div>
+                <div class="ub-city ub-city--right">
+                    <div class="ub-city-name">Barcelona</div>
+                    <div class="ub-city-country">España</div>
+                    <div class="ub-city-coords">41°23'N · 2°10'E</div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
     <div class="section-divider"><div class="divider-line"></div></div>
 
@@ -2542,78 +2638,35 @@
         });
 
         // ============================================
-        // UBICACIONES - SCROLL FRAME ANIMATION
+        // UBICACIONES - REVEAL ANIMATION
         // ============================================
-        const frameCount = 55;
-        const frameImages = [];
-        const ubicacionesCanvas = document.getElementById('ubicacionesCanvas');
-        const ubicacionesCtx = ubicacionesCanvas.getContext('2d');
-        let loadedFrames = 0;
+        const ubTrigger = { trigger: '.ubicaciones-section', start: 'top 75%' };
 
-        // Preload all frames
-        for (let i = 0; i < frameCount; i++) {
-            const img = new Image();
-            const num = String(i + 1).padStart(2, '0');
-            img.src = `./videos/V2/${num}.png`;
-            img.onload = () => {
-                loadedFrames++;
-                if (loadedFrames === 1) {
-                    ubicacionesCtx.drawImage(frameImages[0], 0, 0, ubicacionesCanvas.width, ubicacionesCanvas.height);
-                }
-            };
-            frameImages.push(img);
-        }
-
-        // Draw frame based on scroll progress
-        function drawFrame(index) {
-            const safeIndex = Math.max(0, Math.min(frameCount - 1, Math.round(index)));
-            const img = frameImages[safeIndex];
-            if (img && img.complete) {
-                ubicacionesCtx.clearRect(0, 0, ubicacionesCanvas.width, ubicacionesCanvas.height);
-                ubicacionesCtx.drawImage(img, 0, 0, ubicacionesCanvas.width, ubicacionesCanvas.height);
-            }
-        }
-
-        // Pin the section and play frames while pinned
-        gsap.to({ frame: 0 }, {
-            frame: frameCount - 1,
-            snap: 'frame',
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.ubicaciones-scroll',
-                start: 'top top',
-                end: '+=200%',
-                pin: '.ubicaciones-scroll-inner',
-                scrub: 0.5,
-                pinSpacing: true
-            },
-            onUpdate: function() {
-                drawFrame(this.targets()[0].frame);
-            }
+        gsap.to('.ub-label', {
+            opacity: 1, duration: 0.8, ease: 'power2.out',
+            scrollTrigger: ubTrigger
         });
 
-        // Title appears in first 15% of the pinned scroll
-        gsap.to('.ubicaciones-scroll-title', {
-            opacity: 1,
-            y: 0,
-            scrollTrigger: {
-                trigger: '.ubicaciones-scroll',
-                start: 'top top',
-                end: '+=15%',
-                scrub: 1
-            }
+        gsap.to('.ub-title', {
+            opacity: 1, duration: 1, ease: 'power2.out', delay: 0.15,
+            scrollTrigger: ubTrigger
         });
 
-        // Title fades out in last 20%
-        gsap.to('.ubicaciones-scroll-title', {
-            opacity: 0,
-            y: -30,
-            scrollTrigger: {
-                trigger: '.ubicaciones-scroll',
-                start: '+=160%',
-                end: '+=200%',
-                scrub: 1
-            }
+        gsap.fromTo('.ub-city--left',
+            { opacity: 0, x: -60 },
+            { opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: 0.3,
+              scrollTrigger: ubTrigger }
+        );
+
+        gsap.fromTo('.ub-city--right',
+            { opacity: 0, x: 60 },
+            { opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: 0.3,
+              scrollTrigger: ubTrigger }
+        );
+
+        gsap.to('.ub-divider-line', {
+            opacity: 1, scaleY: 1, scaleX: 1, duration: 1, ease: 'power2.out', delay: 0.5,
+            scrollTrigger: ubTrigger
         });
 
         // ============================================
