@@ -2808,7 +2808,7 @@
 
     <!-- COBE GLOBE -->
     <script type="module">
-        import createGlobe from 'https://esm.sh/cobe';
+        import createGlobe from 'https://unpkg.com/cobe/build/index.mjs';
 
         const canvas = document.getElementById('ubicacionesGlobe');
         const wrapper = canvas.parentElement;
@@ -2840,14 +2840,13 @@
                 height: size * dpr,
                 phi: phi,
                 theta: 0.2,
-                dark: 0,
-                diffuse: 1.5,
+                dark: 1,
+                diffuse: 1.2,
                 mapSamples: 16000,
-                mapBrightness: 10,
-                baseColor: [1, 1, 1],
-                markerColor: [0, 0, 0],
-                glowColor: [0.94, 0.93, 0.91],
-                markerElevation: 0.02,
+                mapBrightness: 1.2,
+                baseColor: [0.3, 0.3, 0.3],
+                markerColor: [0.9, 0.1, 0.07],
+                glowColor: [0.15, 0.15, 0.15],
                 markers: [
                     { location: [-33.45, -70.66], size: 0.07 }, // Santiago
                     { location: [41.39, 2.15],    size: 0.07 }, // Barcelona
