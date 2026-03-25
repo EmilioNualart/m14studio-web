@@ -2808,12 +2808,12 @@
 
     <!-- COBE GLOBE -->
     <script type="module">
-        import createGlobe from 'https://cdn.jsdelivr.net/npm/cobe@0.6.3/build/index.mjs';
+        import createGlobe from 'https://esm.sh/cobe';
 
         const canvas = document.getElementById('ubicacionesGlobe');
         const wrapper = canvas.parentElement;
 
-        let phi = 2.0; // centra el Atlántico entre Santiago y Barcelona
+        let phi = 2.0;
         let globe = null;
         let pointerDown = null;
         let phiOffset = 0;
@@ -2822,10 +2822,17 @@
         let dragTheta = 0;
 
         function initGlobe() {
-            const size = canvas.offsetWidth;
-            if (size === 0 || globe) return;
+            if (globe) return;
+            // Forzar dimensiones explícitas desde el wrapper
+            const size = wrapper.offsetWidth;
+            if (size === 0) return;
+
+            canvas.style.width  = size + 'px';
+            canvas.style.height = size + 'px';
 
             const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width  = size * dpr;
+            canvas.height = size * dpr;
 
             globe = createGlobe(canvas, {
                 devicePixelRatio: dpr,
@@ -2838,7 +2845,7 @@
                 mapSamples: 16000,
                 mapBrightness: 4,
                 baseColor: [0.06, 0.06, 0.06],
-                markerColor: [0.478, 0, 0.071], // vino
+                markerColor: [0.478, 0, 0.071],
                 glowColor: [0.12, 0.12, 0.12],
                 markers: [
                     { location: [-33.45, -70.66], size: 0.06 }, // Santiago
@@ -2848,21 +2855,22 @@
                     if (!pointerDown) phi += 0.003;
                     state.phi   = phi + phiOffset + dragPhi;
                     state.theta = 0.15 + thetaOffset + dragTheta;
-                    state.width  = canvas.offsetWidth * dpr;
-                    state.height = canvas.offsetWidth * dpr;
                 }
             });
 
-            // Fade in globe once initialized
-            setTimeout(() => { wrapper.style.opacity = '1'; }, 100);
+            wrapper.style.opacity = '1';
         }
 
-        // Init cuando la sección sea visible
-        const ro = new ResizeObserver(() => {
-            if (canvas.offsetWidth > 0) { ro.disconnect(); initGlobe(); }
+        // Esperar a que el layout esté listo
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => requestAnimationFrame(initGlobe));
         });
-        ro.observe(canvas);
-        initGlobe();
+
+        // Fallback con ResizeObserver si load ya pasó
+        const ro = new ResizeObserver(() => {
+            if (wrapper.offsetWidth > 0 && !globe) { ro.disconnect(); initGlobe(); }
+        });
+        ro.observe(wrapper);
 
         // Drag interaction
         canvas.addEventListener('pointerdown', (e) => {
