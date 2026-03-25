@@ -703,76 +703,85 @@
            SERVICIOS SECTION
            ============================================ */
         #servicios {
-            padding: 8rem 2rem;
+            padding: 6rem 2rem;
             background: transparent;
             color: var(--crema);
-            position: relative;
-            overflow: hidden;
         }
 
         .servicios-header {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
         }
 
-        .servicios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 5rem;
+        .servicios-list {
+            margin-top: 3rem;
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
         }
 
         .servicio-item {
-            padding: 2.5rem;
-            border: 1px solid rgba(245, 240, 232, 0.1);
-            background: rgba(245, 240, 232, 0.02);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: grid;
+            grid-template-columns: 3rem 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.6rem 0;
+            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+            cursor: default;
+            transition: background 0.3s ease;
             opacity: 0;
-            transform: translateY(60px) scale(0.95);
-            filter: blur(10px);
-            will-change: transform, opacity, filter;
-        }
-
-        .servicio-item.revealed {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0px);
+            transform: translateY(16px);
         }
 
         .servicio-item:hover {
-            border-color: var(--vino);
-            background: rgba(122, 0, 18, 0.08);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding-left: 1rem;
+            background: rgba(122, 0, 18, 0.05);
         }
 
-        .servicio-numero {
-            font-family: var(--font-display);
-            font-size: 4rem;
-            font-weight: 100;
-            color: var(--vino);
-            opacity: 0.2;
-            margin-bottom: 1rem;
-            transition: all 0.4s ease;
+        .servicio-item:hover .servicio-titulo {
+            color: var(--crema);
         }
 
         .servicio-item:hover .servicio-numero {
-            opacity: 0.5;
-            transform: scale(1.1);
+            color: var(--vino);
+            opacity: 1;
+        }
+
+        .servicio-numero {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--crema);
+            opacity: 0.3;
+            transition: all 0.3s ease;
         }
 
         .servicio-titulo {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 300;
             letter-spacing: -0.01em;
+            transition: color 0.3s ease;
         }
 
         .servicio-desc {
-            font-size: 0.9rem;
-            line-height: 1.8;
-            opacity: 0.7;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            opacity: 0;
+            max-width: 320px;
+            text-align: right;
+            color: rgba(245, 240, 232, 0.6);
+            transition: opacity 0.3s ease;
+        }
+
+        .servicio-item:hover .servicio-desc {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .servicio-item {
+                grid-template-columns: 2.5rem 1fr;
+                gap: 1rem;
+            }
+            .servicio-desc { display: none; }
+            .servicio-titulo { font-size: 1.1rem; }
         }
 
         /* ============================================
@@ -1652,36 +1661,36 @@
                 <h2 style="margin-top: 1rem; max-width: 800px;">Producción audiovisual completa desde la idea hasta la entrega final</h2>
             </div>
 
-            <div class="servicios-grid">
-                <div class="servicio-item" data-category="servicio">
-                    <div class="servicio-numero">01</div>
+            <div class="servicios-list">
+                <div class="servicio-item">
+                    <span class="servicio-numero">01</span>
                     <h3 class="servicio-titulo">Producción Publicitaria</h3>
-                    <p class="servicio-desc">Campañas cinematográficas que conectan con tu audiencia. Desde concepto creativo hasta post-producción.</p>
+                    <p class="servicio-desc">Campañas cinematográficas desde concepto hasta post-producción.</p>
                 </div>
-                <div class="servicio-item" data-category="servicio">
-                    <div class="servicio-numero">02</div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">02</span>
                     <h3 class="servicio-titulo">Moda & Lifestyle</h3>
-                    <p class="servicio-desc">Editorial de moda, lookbooks y campañas de lifestyle con estética única y dirección de arte impecable.</p>
+                    <p class="servicio-desc">Editorial, lookbooks y campañas con dirección de arte impecable.</p>
                 </div>
-                <div class="servicio-item" data-category="servicio">
-                    <div class="servicio-numero">03</div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">03</span>
                     <h3 class="servicio-titulo">Contenido Corporativo</h3>
-                    <p class="servicio-desc">Videos institucionales, cultura interna y comunicación de marca que elevan tu identidad corporativa.</p>
+                    <p class="servicio-desc">Videos institucionales que elevan tu identidad de marca.</p>
                 </div>
-                <div class="servicio-item" data-category="servicio">
-                    <div class="servicio-numero">04</div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">04</span>
                     <h3 class="servicio-titulo">Documentales</h3>
-                    <p class="servicio-desc">Narrativas profundas y auténticas que capturan historias reales con sensibilidad cinematográfica.</p>
+                    <p class="servicio-desc">Narrativas auténticas con sensibilidad cinematográfica.</p>
                 </div>
-                <div class="servicio-item" data-category="servicio">
-                    <div class="servicio-numero">05</div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">05</span>
                     <h3 class="servicio-titulo">Cobertura de Eventos</h3>
-                    <p class="servicio-desc">Festivales, conciertos, conferencias y eventos corporativos con producción multi-cámara en tiempo real.</p>
+                    <p class="servicio-desc">Producción multi-cámara en festivales, conciertos y conferencias.</p>
                 </div>
-                <div class="servicio-item" data-category="servicio">
-                    <div class="servicio-numero">06</div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">06</span>
                     <h3 class="servicio-titulo">Post-Producción & VFX</h3>
-                    <p class="servicio-desc">Color grading, efectos visuales, motion graphics y audio diseñado para llevar tu proyecto al siguiente nivel.</p>
+                    <p class="servicio-desc">Color grading, motion graphics y audio de nivel profesional.</p>
                 </div>
             </div>
         </div>
@@ -2361,62 +2370,18 @@
         });
 
         // ============================================
-        // SERVICIOS - CINEMATIC REVEAL
+        // SERVICIOS - REVEAL
         // ============================================
         gsap.to('.servicios-header', {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: '#servicios',
-                start: 'top 70%',
-                toggleActions: 'play none none none'
-            }
+            opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+            scrollTrigger: { trigger: '#servicios', start: 'top 75%' }
         });
 
-        // Staggered from alternating sides with parallax (total ~3s)
-        const servicioItems = gsap.utils.toArray('.servicio-item');
-        servicioItems.forEach((item, index) => {
-            const fromLeft = index % 2 === 0;
-            gsap.fromTo(item,
-                {
-                    opacity: 0,
-                    x: fromLeft ? -60 : 60,
-                    y: 30,
-                    scale: 0.92,
-                    rotateY: fromLeft ? -4 : 4,
-                    filter: 'blur(6px)'
-                },
-                {
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
-                    scale: 1,
-                    rotateY: 0,
-                    filter: 'blur(0px)',
-                    duration: 0.7,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '.servicios-grid',
-                        start: 'top 80%',
-                        toggleActions: 'play none none none'
-                    },
-                    delay: index * 0.08,
-                    onStart: () => item.classList.add('revealed')
-                }
-            );
-
-            // Individual parallax at different speeds
+        gsap.utils.toArray('.servicio-item').forEach((item, i) => {
             gsap.to(item, {
-                y: -15 - (index % 3) * 12,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 1.5
-                }
+                opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+                delay: i * 0.05,
+                scrollTrigger: { trigger: '.servicios-list', start: 'top 80%' }
             });
         });
 
