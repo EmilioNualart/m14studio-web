@@ -14,7 +14,7 @@ export default function MeshGradientBackground() {
     >
       <MeshGradient
         className="w-full h-full"
-        colors={["#0a0a0a", "#161616", "#0a0a0a", "#1c1c1c"]}
+        colors={["#0a0a0a", "#222222", "#0a0a0a", "#282828"]}
         speed={0.2}
         distortion={0.9}
         swirl={0.1}

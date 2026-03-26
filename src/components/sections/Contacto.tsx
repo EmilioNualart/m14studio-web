@@ -62,14 +62,24 @@ export default function Contacto() {
   return (
     <section id="contacto" ref={sectionRef}>
       <div className="container" style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
+        <div className="contacto-header-mobile">
+          <div className="label">Hablemos</div>
+          <h2>¿Tienes una historia que contar?</h2>
+          <p>
+            Estamos listos para escucharla. Cuéntanos sobre tu proyecto y
+            hagamos algo memorable juntos.
+          </p>
+        </div>
         <div className="contacto-split">
           <div className="contacto-info">
-            <div className="label">Hablemos</div>
-            <h2>¿Tienes una historia que contar?</h2>
-            <p>
-              Estamos listos para escucharla. Cuéntanos sobre tu proyecto y
-              hagamos algo memorable juntos.
-            </p>
+            <div className="contacto-header-desktop">
+              <div className="label">Hablemos</div>
+              <h2>¿Tienes una historia que contar?</h2>
+              <p>
+                Estamos listos para escucharla. Cuéntanos sobre tu proyecto y
+                hagamos algo memorable juntos.
+              </p>
+            </div>
 
             <div className="contacto-detalles">
               <div className="contacto-item">

@@ -1098,8 +1098,9 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
   align-items: start;
 }
 
-.contacto-info h2 { margin-bottom: 2rem; }
-.contacto-info p { margin-bottom: 3rem; max-width: 500px; }
+.contacto-header-mobile { display: none; }
+.contacto-header-desktop h2 { margin-bottom: 2rem; }
+.contacto-header-desktop p { margin-bottom: 3rem; max-width: 500px; }
 
 .contacto-detalles {
   display: flex;
@@ -1429,12 +1430,22 @@ section.visible {
     margin-top: 4rem;
   }
 
-  /* 4. Ubicaciones: ensure city labels visible */
+  /* 4. Ubicaciones: hide floating labels on mobile */
   .ubicaciones-section {
     padding: 4rem 1rem;
   }
+  .globe-label {
+    display: none !important;
+  }
 
-  /* 5. Contacto: form first, info below, less spacing */
+  /* 5. Contacto: title + form first, info below, less spacing */
+  .contacto-header-mobile {
+    display: block;
+    margin-bottom: 2rem;
+  }
+  .contacto-header-mobile h2 { margin-bottom: 1rem; }
+  .contacto-header-mobile p { margin-bottom: 0; max-width: 100%; }
+  .contacto-header-desktop { display: none; }
   .contacto-split {
     grid-template-columns: 1fr;
     gap: 2rem;

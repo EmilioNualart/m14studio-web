@@ -242,6 +242,7 @@ export function Globe({
       {markers.map((m) => (
         <div
           key={m.id}
+          className="globe-label"
           style={{
             position: "absolute",
             // @ts-ignore CSS Anchor Positioning
