@@ -52,16 +52,6 @@ export default function Portfolio() {
           }
         );
 
-        gsap.to(item, {
-          y: -25 + col * 15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: item,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 2,
-          },
-        });
       });
     }, sectionRef);
 
