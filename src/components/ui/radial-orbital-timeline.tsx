@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 
 interface TimelineItem {
   id: number;
@@ -8,7 +8,7 @@ interface TimelineItem {
   date: string;
   content: string;
   category: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
   relatedIds: number[];
   status: "completed" | "in-progress" | "pending";
   energy: number;
@@ -234,7 +234,7 @@ export default function RadialOrbitalTimeline({
                   ${isExpanded ? "scale-150" : ""}
                 `}
                 >
-                  <Icon size={16} />
+                  <Icon size={16} strokeWidth={2} />
                 </div>
 
                 <div

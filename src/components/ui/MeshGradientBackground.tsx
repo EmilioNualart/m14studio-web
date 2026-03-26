@@ -20,7 +20,6 @@ export default function MeshGradientBackground() {
         swirl={0.1}
         grainMixer={0}
         grainOverlay={0}
-        backgroundColor="#0a0a0a"
       />
     </div>
   );
