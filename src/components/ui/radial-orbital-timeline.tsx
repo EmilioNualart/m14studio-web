@@ -34,6 +34,7 @@ export default function RadialOrbitalTimeline({
   });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -82,6 +83,7 @@ export default function RadialOrbitalTimeline({
 
   useEffect(() => {
     setMounted(true);
+    setIsMobileView(window.innerWidth < 768);
   }, []);
 
   useEffect(() => {
@@ -116,7 +118,7 @@ export default function RadialOrbitalTimeline({
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const radius = isMobile ? 130 : 200;
+    const radius = isMobile ? 130 : 280;
     const radian = (angle * Math.PI) / 180;
 
     const x = radius * Math.cos(radian) + centerOffset.x;
@@ -179,7 +181,7 @@ export default function RadialOrbitalTimeline({
             <div className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md"></div>
           </div>
 
-          <div className="absolute w-96 h-96 rounded-full border border-white/10"></div>
+          <div className="absolute rounded-full border border-white/10" style={{ width: isMobileView ? 260 : 560, height: isMobileView ? 260 : 560 }}></div>
 
           {mounted && timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
