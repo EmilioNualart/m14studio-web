@@ -1384,6 +1384,81 @@ section.visible {
   .cursor-circle { display: none !important; }
 }
 
+/* ============================================
+   MOBILE FIXES
+   ============================================ */
+@media (max-width: 768px) {
+  /* 1. Hero: show video on mobile with playsinline */
+  .hero-video {
+    display: block !important;
+    width: 300%;
+    height: 100%;
+    min-width: 300%;
+  }
+  .hero-video-mobile-fallback { display: none !important; }
+
+  /* 2. Servicios: scale down orbital timeline */
+  #servicios {
+    padding: 4rem 1rem;
+    min-height: auto;
+  }
+  .orbital-wrapper {
+    --orbital-scale: 0.7;
+    height: 400px;
+  }
+
+  /* 3. Sobre Nosotros: fix text and spacing */
+  #sobre-nosotros {
+    padding: 6rem 1.5rem;
+  }
+  .manifiesto {
+    margin: 0 auto 4rem;
+  }
+  .manifiesto-texto {
+    font-size: clamp(1.1rem, 5vw, 1.5rem);
+    line-height: 1.6;
+  }
+  .fundadores-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin: 4rem 0;
+  }
+  .valores-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  /* 4. Ubicaciones: ensure city labels visible */
+  .ubicaciones-section {
+    padding: 4rem 1rem;
+  }
+
+  /* 5. Contacto: form first, info below, less spacing */
+  .contacto-split {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .contacto-form {
+    order: 1;
+  }
+  .contacto-info {
+    order: 2;
+  }
+  .contacto-detalles {
+    gap: 1rem;
+  }
+  .contacto-item {
+    gap: 0.25rem;
+  }
+  .contacto-item .label {
+    margin-bottom: 0;
+  }
+  #contacto {
+    padding: 6rem 1.5rem;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

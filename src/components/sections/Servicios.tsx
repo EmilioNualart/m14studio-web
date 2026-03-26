@@ -106,7 +106,7 @@ export default function Servicios() {
           </h2>
         </div>
 
-        <div style={{ width: "100%", height: "600px", marginTop: "2rem" }}>
+        <div style={{ width: "100%", height: "500px", marginTop: "2rem", transform: "scale(var(--orbital-scale, 1))", transformOrigin: "center center" }} className="orbital-wrapper">
           <RadialOrbitalTimeline timelineData={serviciosTimeline} />
         </div>
       </div>
