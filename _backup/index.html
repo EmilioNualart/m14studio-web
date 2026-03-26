@@ -1,0 +1,2906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="M14 Studio - Productora audiovisual de primer nivel · Santiago, Chile">
+    <title>M14 Studio | Productora Audiovisual</title>
+
+
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none !important; /* Ocultar cursor nativo */
+        }
+
+        :root {
+            --negro: #0A0A0A;
+            --vino: #7A0012;
+            --crema: #F5F0E8;
+            --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: auto; /* Lenis maneja el smooth scroll */
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--negro);
+            color: var(--crema);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           CURSOR CUSTOM
+           ============================================ */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--crema);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            will-change: transform;
+        }
+
+        .cursor-circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--crema);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+            will-change: transform;
+        }
+
+        .cursor-circle.hover {
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--vino);
+            background: rgba(122, 0, 18, 0.1);
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 4rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        nav.scrolled .nav-logo {
+            color: var(--negro);
+        }
+
+        nav.scrolled .nav-logo .studio-text {
+            color: var(--vino);
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--negro);
+        }
+
+        nav.scrolled .nav-links a:hover {
+            color: var(--vino);
+        }
+
+        nav.scrolled .nav-menu-toggle span {
+            background: var(--negro);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: var(--crema);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-logo .studio-text {
+            color: var(--vino);
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--crema);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--vino);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--vino);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .nav-menu-toggle span {
+            width: 30px;
+            height: 1px;
+            background: var(--crema);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            nav.scrolled {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(30px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+
+            .nav-menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .nav-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .nav-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .nav-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+        }
+
+        /* ============================================
+           LAYOUT BASE
+           ============================================ */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ============================================
+           FILM GRAIN OVERLAY
+           ============================================ */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="1"/></svg>');
+        }
+
+        /* ============================================
+           TIPOGRAFÍA
+           ============================================ */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 100;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 200;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 300;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        /* ============================================
+           COMPONENTES UI
+           ============================================ */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--crema);
+            background: transparent;
+            color: var(--crema);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-family: var(--font-body);
+        }
+
+        .btn:hover {
+            background: var(--crema);
+            color: var(--negro);
+        }
+
+        .btn-vino {
+            border-color: var(--vino);
+            color: var(--vino);
+        }
+
+        .btn-vino:hover {
+            background: var(--vino);
+            color: var(--crema);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        #home {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .hero-video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Evita que el iframe capture eventos de scroll */
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* 16:9 ratio, scaled to always cover */
+            width: 177.78vh; /* 100vh * 16/9 */
+            height: 56.25vw; /* 100vw * 9/16 */
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* Thumbnail fallback para mobile (YouTube bloquea autoplay) */
+        .hero-video-mobile-fallback {
+            display: none;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://img.youtube.com/vi/2qByFoSHahI/maxresdefault.jpg') center/cover no-repeat;
+        }
+
+        @media (max-width: 768px) {
+            .hero-video { display: none; }
+            .hero-video-mobile-fallback { display: block; }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 10, 10, 0.4) 0%,
+                rgba(10, 10, 10, 0.6) 50%,
+                rgba(10, 10, 10, 0.8) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            will-change: transform, opacity;
+        }
+
+        .hero-logo {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 100;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 2rem;
+            clip-path: inset(100% 0 0 0);
+            will-change: clip-path;
+        }
+
+        .hero-logo .m14 {
+            color: var(--crema);
+        }
+
+        .hero-logo .studio {
+            color: var(--vino);
+            font-weight: 200;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 3vw, 2.5rem);
+            font-weight: 300;
+            max-width: 800px;
+            padding: 0 2rem;
+            line-height: 1.5;
+        }
+
+        .hero-tagline .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .hero-scroll-text {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-family: var(--font-body);
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                var(--crema) 50%,
+                transparent 100%
+            );
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(10px);
+                opacity: 1;
+            }
+        }
+
+        /* ============================================
+           REEL SECTION - INMERSIVA
+           ============================================ */
+        #reel {
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(
+                135deg,
+                rgba(122, 0, 18, 0.03) 0%,
+                rgba(10, 10, 10, 1) 50%,
+                rgba(122, 0, 18, 0.03) 100%
+            );
+        }
+
+        .reel-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .reel-video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            will-change: transform, clip-path;
+        }
+
+        /* Frame sutil */
+        .reel-frame {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            pointer-events: none;
+            z-index: 2;
+            border: 1px solid rgba(122, 0, 18, 0.3);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .reel-frame.visible {
+            opacity: 1;
+        }
+
+        .reel-video-wrapper:hover .reel-frame {
+            border-color: rgba(122, 0, 18, 0.6);
+        }
+
+        /* Video container */
+        .reel-video {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: var(--negro);
+            overflow: hidden;
+            clip-path: inset(50% 50% 50% 50%);
+            transform: scale(0.8);
+            opacity: 0;
+        }
+
+        .reel-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.3)), url("https://img.youtube.com/vi/F6D0G5v2lB8/maxresdefault.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .reel-thumbnail.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .reel-play-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reel-play-icon {
+            width: 0;
+            height: 0;
+            border-left: 30px solid var(--crema);
+            border-top: 18px solid transparent;
+            border-bottom: 18px solid transparent;
+            margin-left: 6px;
+            transition: all 0.4s ease;
+        }
+
+        .reel-play-text {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            font-weight: 300;
+            transition: all 0.4s ease;
+        }
+
+        .reel-thumbnail:hover .reel-play-btn {
+            transform: scale(1.05);
+        }
+
+        .reel-thumbnail:hover .reel-play-icon {
+            border-left-color: var(--vino);
+            transform: scale(1.1);
+        }
+
+        .reel-thumbnail:hover .reel-play-text {
+            opacity: 1;
+            color: var(--vino);
+        }
+
+        .reel-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+
+        .reel-iframe.active {
+            display: block;
+        }
+
+        /* Texto y botón */
+        .reel-info {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .reel-header {
+            text-align: left;
+            margin-bottom: 0;
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        .reel-subtitle {
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            opacity: 0.4;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .reel-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-weight: 100;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+
+        .reel-description {
+            font-size: clamp(0.95rem, 1.3vw, 1.2rem);
+            opacity: 0.7;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 450px;
+        }
+
+        @media (max-width: 968px) {
+            .reel-container {
+                grid-template-columns: 1fr;
+                padding: 4rem 2rem;
+                gap: 3rem;
+            }
+
+            .reel-header {
+                text-align: center;
+            }
+
+            .reel-description {
+                max-width: 100%;
+            }
+        }
+
+        /* ============================================
+           SERVICIOS SECTION
+           ============================================ */
+        #servicios {
+            padding: 6rem 2rem;
+            background: transparent;
+            color: var(--crema);
+        }
+
+        .servicios-header {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .servicios-list {
+            margin-top: 3rem;
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+        }
+
+        .servicio-item {
+            display: grid;
+            grid-template-columns: 3rem 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.6rem 0;
+            border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+            cursor: default;
+            transition: background 0.3s ease;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .servicio-item:hover {
+            padding-left: 1rem;
+            background: rgba(122, 0, 18, 0.05);
+        }
+
+        .servicio-item:hover .servicio-titulo {
+            color: var(--crema);
+        }
+
+        .servicio-item:hover .servicio-numero {
+            color: var(--vino);
+            opacity: 1;
+        }
+
+        .servicio-numero {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--crema);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .servicio-titulo {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            transition: color 0.3s ease;
+        }
+
+        .servicio-desc {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            opacity: 0;
+            max-width: 320px;
+            text-align: right;
+            color: rgba(245, 240, 232, 0.6);
+            transition: opacity 0.3s ease;
+        }
+
+        .servicio-item:hover .servicio-desc {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .servicio-item {
+                grid-template-columns: 2.5rem 1fr;
+                gap: 1rem;
+            }
+            .servicio-desc { display: none; }
+            .servicio-titulo { font-size: 1.1rem; }
+        }
+
+        /* ============================================
+           PORTFOLIO SECTION
+           ============================================ */
+        #portfolio {
+            padding: 12rem 2rem;
+            background: transparent;
+            color: var(--crema);
+        }
+
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(245, 240, 232, 0.2);
+            color: var(--crema);
+            padding: 0.75rem 2rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--vino);
+            background: rgba(122, 0, 18, 0.15);
+            color: var(--vino);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            aspect-ratio: 16 / 9;
+        }
+
+        .portfolio-item-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(122, 0, 18, 0.3), rgba(10, 10, 10, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-item-image {
+            transform: scale(1.05);
+        }
+
+        .portfolio-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-item-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-item-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+            color: #FFFFFF !important;
+        }
+
+        .portfolio-item-category {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #FFFFFF !important;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 968px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* ============================================
+           SOBRE NOSOTROS SECTION
+           ============================================ */
+        #sobre-nosotros {
+            padding: 12rem 2rem;
+            background: transparent;
+            color: var(--crema);
+        }
+
+        .manifiesto {
+            max-width: 900px;
+            margin: 0 auto 8rem;
+            text-align: center;
+        }
+
+        .manifiesto-texto {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 200;
+            line-height: 1.7;
+            letter-spacing: -0.01em;
+        }
+
+        .manifiesto-texto .line {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .fundadores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            margin: 8rem 0;
+        }
+
+        .fundador {
+            text-align: center;
+        }
+
+        .fundador-foto {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(122, 0, 18, 0.2), rgba(245, 240, 232, 0.1));
+            border: 2px solid rgba(245, 240, 232, 0.2);
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .fundador:hover .fundador-foto {
+            transform: scale(1.05);
+            border-color: var(--vino);
+        }
+
+        .fundador-nombre {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .fundador-rol {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--vino);
+            margin-bottom: 1rem;
+        }
+
+        .fundador-bio {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            opacity: 0.7;
+        }
+
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 8rem;
+        }
+
+        .valor-item {
+            padding: 2rem;
+            border-left: 2px solid var(--vino);
+        }
+
+        .valor-titulo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .ubicaciones {
+            margin-top: 8rem;
+            text-align: center;
+        }
+
+        .ubicaciones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .ubicacion h4 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* ============================================
+           UBICACIONES
+           ============================================ */
+        .ubicaciones-section {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 4rem;
+            background: var(--negro);
+            overflow: hidden;
+        }
+
+        .ubicaciones-content {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .ub-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--vino);
+            opacity: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .ub-title {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 100;
+            letter-spacing: -0.02em;
+            color: var(--crema);
+            opacity: 0;
+            margin-bottom: 2rem;
+        }
+
+        .ub-globe-wrapper {
+            width: min(460px, 80vw);
+            height: min(460px, 80vw);
+            margin: 0 auto 2.5rem;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+
+        .ub-globe-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+            touch-action: none;
+            border-radius: 50%;
+        }
+
+        .ub-cities {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 4rem;
+        }
+
+        .ub-city {
+            opacity: 0;
+            text-align: center;
+        }
+
+        .ub-city-name {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            color: var(--crema);
+            margin-bottom: 0.3rem;
+        }
+
+        .ub-city-country {
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--vino);
+            margin-bottom: 0.4rem;
+        }
+
+        .ub-city-coords {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            opacity: 0.35;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .ubicaciones-section { padding: 5rem 2rem; }
+            .ub-cities { gap: 2rem; }
+        }
+
+        /* ============================================
+           CONTACTO SECTION
+           ============================================ */
+        #contacto {
+            padding: 12rem 2rem;
+            background: transparent;
+            color: var(--crema);
+        }
+
+        #contacto a {
+            color: var(--crema);
+        }
+
+        .contacto-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .contacto-info h2 {
+            margin-bottom: 2rem;
+        }
+
+        .contacto-info p {
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .contacto-detalles {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contacto-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contacto-item .label {
+            margin-bottom: 0.5rem;
+        }
+
+        .contacto-item a {
+            color: var(--crema);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .contacto-item a:hover {
+            color: var(--vino);
+        }
+
+        .contacto-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: rgba(245, 240, 232, 0.05);
+            border: 1px solid rgba(245, 240, 232, 0.2);
+            color: var(--crema);
+            padding: 1rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--vino);
+            background: rgba(245, 240, 232, 0.08);
+        }
+
+        .form-group label {
+            color: var(--crema);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 968px) {
+            .contacto-split {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: transparent;
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            padding: 4rem 2rem 2rem;
+            color: var(--crema);
+        }
+
+        footer .footer-logo,
+        footer h4,
+        footer p,
+        footer a {
+            color: var(--crema);
+        }
+
+        footer .footer-logo .studio-text {
+            color: var(--vino);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-logo .studio-text {
+            color: var(--vino);
+        }
+
+        .footer-tagline {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            font-weight: 300;
+            font-family: var(--font-display);
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--crema);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--vino);
+        }
+
+        .footer-links li {
+            color: var(--crema);
+            opacity: 0.6;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            color: var(--crema);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-social a {
+            color: var(--crema);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            opacity: 1;
+        }
+
+        .footer-social a:hover {
+            color: var(--vino);
+        }
+
+        @media (max-width: 968px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        /* ============================================
+           BACKGROUND CANVAS
+           ============================================ */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ============================================
+           SECTION TRANSITIONS
+           ============================================ */
+        section {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        /* ============================================
+           VIDEO MODAL
+           ============================================ */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .video-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+
+        .video-modal.active .video-modal-content {
+            transform: scale(1);
+        }
+
+        .video-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--crema);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+            font-family: var(--font-body);
+            font-weight: 200;
+        }
+
+        .video-modal-close:hover {
+            color: var(--vino);
+        }
+        /* ============================================
+           SCROLL PROGRESS BAR
+           ============================================ */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--vino), #c4003a, var(--vino));
+            z-index: 10002;
+        }
+
+        /* ============================================
+           SECTION DIVIDERS
+           ============================================ */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-divider .divider-line {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(122, 0, 18, 0.5) 50%, transparent 100%);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section-divider.revealed .divider-line {
+            transform: scaleX(1);
+        }
+
+        /* ============================================
+           3D EFFECTS
+           ============================================ */
+        .fundador-foto {
+            transform-style: preserve-3d;
+        }
+
+        /* ============================================
+           TOUCH DEVICE CURSOR FIX
+           ============================================ */
+        @media (hover: none) and (pointer: coarse) {
+            * {
+                cursor: auto !important;
+            }
+            .cursor-dot,
+            .cursor-circle {
+                display: none !important;
+            }
+        }
+
+        /* ============================================
+           ANIMATION READY STATES
+           ============================================ */
+        .valor-item {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        .fundador {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .portfolio-header {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .contacto-info {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        .contacto-form {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+
+        #servicios,
+        #portfolio,
+        #sobre-nosotros,
+        #contacto,
+        .ubicaciones-section {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div class="scroll-progress"></div>
+
+    <!-- FILM GRAIN -->
+    <div class="film-grain"></div>
+
+    <!-- BACKGROUND CANVAS -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- CURSOR CUSTOM -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">M14 <span class="studio-text">STUDIO</span></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#sobre-nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <button class="nav-menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home">
+        <!-- Video de fondo -->
+        <div class="hero-video-wrapper">
+            <iframe
+                class="hero-video"
+                src="https://www.youtube.com/embed/2qByFoSHahI?autoplay=1&mute=1&loop=1&playlist=2qByFoSHahI&controls=0&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                frameborder="0"
+                title="Hero background video"
+            ></iframe>
+            <div class="hero-video-mobile-fallback"></div>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="hero-content">
+            <div class="hero-logo">
+                <span class="m14">M14</span>
+                <span class="studio"> STUDIO</span>
+            </div>
+            <div class="hero-tagline">
+                <span class="word">Nos</span>
+                <span class="word">encargamos</span>
+                <span class="word">de</span>
+                <span class="word">contar</span>
+                <span class="word">tu</span>
+                <span class="word">historia</span>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="hero-scroll-indicator">
+            <div class="hero-scroll-text">Scroll</div>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- REEL -->
+    <section id="reel">
+        <div class="reel-container">
+            <!-- Texto lado izquierdo -->
+            <div class="reel-header">
+                <div class="reel-subtitle">Nuestro trabajo</div>
+                <h2 class="reel-title">Showreel<br>2025</h2>
+                <p class="reel-description">Una selección de nuestros mejores proyectos. Historias que conectan, producción que inspira.</p>
+            </div>
+
+            <!-- Video lado derecho -->
+            <div class="reel-video-wrapper">
+                <!-- Frame sutil -->
+                <div class="reel-frame"></div>
+                <div class="reel-video">
+                    <div class="reel-thumbnail" id="reelThumbnail">
+                        <div class="reel-play-btn">
+                            <div class="reel-play-icon"></div>
+                            <div class="reel-play-text">Reproducir</div>
+                        </div>
+                    </div>
+                    <iframe id="reelIframe" class="reel-iframe" src="https://www.youtube.com/embed/F6D0G5v2lB8?autoplay=1&controls=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"><div class="divider-line"></div></div>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+        <div class="container">
+            <div class="servicios-header">
+                <div class="label">Servicios</div>
+                <h2 style="margin-top: 1rem; max-width: 800px;">Producción audiovisual completa desde la idea hasta la entrega final</h2>
+            </div>
+
+            <div class="servicios-list">
+                <div class="servicio-item">
+                    <span class="servicio-numero">01</span>
+                    <h3 class="servicio-titulo">Producción Publicitaria</h3>
+                    <p class="servicio-desc">Campañas cinematográficas desde concepto hasta post-producción.</p>
+                </div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">02</span>
+                    <h3 class="servicio-titulo">Moda & Lifestyle</h3>
+                    <p class="servicio-desc">Editorial, lookbooks y campañas con dirección de arte impecable.</p>
+                </div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">03</span>
+                    <h3 class="servicio-titulo">Contenido Corporativo</h3>
+                    <p class="servicio-desc">Videos institucionales que elevan tu identidad de marca.</p>
+                </div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">04</span>
+                    <h3 class="servicio-titulo">Documentales</h3>
+                    <p class="servicio-desc">Narrativas auténticas con sensibilidad cinematográfica.</p>
+                </div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">05</span>
+                    <h3 class="servicio-titulo">Cobertura de Eventos</h3>
+                    <p class="servicio-desc">Producción multi-cámara en festivales, conciertos y conferencias.</p>
+                </div>
+                <div class="servicio-item">
+                    <span class="servicio-numero">06</span>
+                    <h3 class="servicio-titulo">Post-Producción & VFX</h3>
+                    <p class="servicio-desc">Color grading, motion graphics y audio de nivel profesional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"><div class="divider-line"></div></div>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="portfolio-header">
+                <div class="label">Trabajos Seleccionados</div>
+                <h2 style="margin-top: 1rem;">Portfolio</h2>
+
+                <div class="portfolio-filters">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="moda">Moda</button>
+                    <button class="filter-btn" data-filter="publicidad">Publicidad</button>
+                    <button class="filter-btn" data-filter="corporativo">Corporativo</button>
+                    <button class="filter-btn" data-filter="eventos">Eventos</button>
+                </div>
+            </div>
+
+            <div class="portfolio-grid">
+                <!-- MODA -->
+                <div class="portfolio-item" data-category="moda" data-video="F6D0G5v2lB8">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/F6D0G5v2lB8/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Saville Row — Denim</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="moda" data-video="kAJUvbIvbYQ">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/kAJUvbIvbYQ/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">EMG</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="moda" data-video="GxtIgjfuSls">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/GxtIgjfuSls/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Ochi and Co</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="moda" data-video="4WeqGIVEQfI">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/4WeqGIVEQfI/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">NARISSA</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="moda" data-video="4Ja8VoRkUbk">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/4Ja8VoRkUbk/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">More Amor</h3>
+                        <div class="portfolio-item-category">Moda</div>
+                    </div>
+                </div>
+
+                <!-- PUBLICIDAD -->
+                <div class="portfolio-item" data-category="publicidad" data-video="B4a6Ur85Rng">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/B4a6Ur85Rng/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">La Birra Bar</h3>
+                        <div class="portfolio-item-category">Publicidad</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="publicidad" data-video="sW-V_S2G1VY">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/sW-V_S2G1VY/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Fika</h3>
+                        <div class="portfolio-item-category">Publicidad</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="publicidad" data-video="ehPwlTP4uvs">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/ehPwlTP4uvs/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Saville Row — Día de la Madre</h3>
+                        <div class="portfolio-item-category">Publicidad</div>
+                    </div>
+                </div>
+
+                <!-- CORPORATIVO -->
+                <div class="portfolio-item" data-category="corporativo" data-video="ACM5XZTjt6o">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/ACM5XZTjt6o/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">BK Servicios Financieros</h3>
+                        <div class="portfolio-item-category">Corporativo</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="corporativo" data-video="pZ17GkAcsR0">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/pZ17GkAcsR0/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Capasite</h3>
+                        <div class="portfolio-item-category">Corporativo</div>
+                    </div>
+                </div>
+
+                <!-- EVENTOS -->
+                <div class="portfolio-item" data-category="eventos" data-video="M5xpDkovSJY">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/M5xpDkovSJY/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">OSSO</h3>
+                        <div class="portfolio-item-category">Eventos</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="eventos" data-video="z6nIPo5FPD4">
+                    <div class="portfolio-item-image" style="background: linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/z6nIPo5FPD4/maxresdefault.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="portfolio-item-overlay">
+                        <h3 class="portfolio-item-title">Valle Luna</h3>
+                        <div class="portfolio-item-category">Eventos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"><div class="divider-line"></div></div>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="sobre-nosotros">
+        <div class="container">
+            <div class="label" style="text-align: center;">Sobre Nosotros</div>
+
+            <!-- Manifiesto -->
+            <div class="manifiesto">
+                <div class="manifiesto-texto">
+                    <span class="line">Creemos que cada marca tiene una historia única.</span>
+                    <span class="line">Nuestro trabajo es descubrirla, pulirla</span>
+                    <span class="line">y contarla de forma inolvidable.</span>
+                </div>
+            </div>
+
+            <!-- Fundadores -->
+            <div class="fundadores-grid">
+                <div class="fundador">
+                    <div class="fundador-foto" style="background-image: url('./imagenes/Emilio.jpg');"></div>
+                    <h3 class="fundador-nombre">Emilio Nualart</h3>
+                    <div class="fundador-rol">Co-founder</div>
+                    <p class="fundador-bio">Gestión estratégica y relaciones con clientes. Transforma visiones en realidades producibles.</p>
+                </div>
+
+                <div class="fundador">
+                    <div class="fundador-foto" style="background-image: url('./imagenes/Domingo.jpg');"></div>
+                    <h3 class="fundador-nombre">Domingo</h3>
+                    <div class="fundador-rol">Co-founder & Director</div>
+                    <p class="fundador-bio">Visión creativa y dirección cinematográfica. Cada frame cuenta una historia.</p>
+                </div>
+
+                <div class="fundador">
+                    <div class="fundador-foto" style="background-image: url('./imagenes/Lucas.jpg');"></div>
+                    <h3 class="fundador-nombre">Lucas</h3>
+                    <div class="fundador-rol">Productor Ejecutivo</div>
+                    <p class="fundador-bio">Producción ejecutiva y coordinación de proyectos. La logística se vuelve arte.</p>
+                </div>
+            </div>
+
+            <!-- Valores -->
+            <div class="valores-grid">
+                <div class="valor-item">
+                    <h3 class="valor-titulo">Pre-producción alineada</h3>
+                    <p class="servicio-desc">Trabajamos mano a mano contigo desde el día uno. Tu visión es nuestro punto de partida.</p>
+                </div>
+
+                <div class="valor-item">
+                    <h3 class="valor-titulo">Tiempos de entrega</h3>
+                    <p class="servicio-desc">Cumplimos. Siempre. Porque entendemos que tu calendario es tan importante como el nuestro.</p>
+                </div>
+
+                <div class="valor-item">
+                    <h3 class="valor-titulo">Vanguardia tecnológica</h3>
+                    <p class="servicio-desc">Integramos IA, nuevas cámaras y técnicas de post-producción de última generación.</p>
+                </div>
+
+                <div class="valor-item">
+                    <h3 class="valor-titulo">Fácil trabajar con nosotros</h3>
+                    <p class="servicio-desc">Comunicación transparente, procesos claros, ambiente profesional pero humano.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- UBICACIONES -->
+    <section class="ubicaciones-section" id="ubicacionesSection">
+        <div class="ubicaciones-content">
+            <div class="ub-label">Presencia</div>
+            <h2 class="ub-title">Dos ciudades, una visión</h2>
+            <div class="ub-globe-wrapper">
+                <canvas id="ubicacionesGlobe"></canvas>
+            </div>
+            <div class="ub-cities">
+                <div class="ub-city">
+                    <div class="ub-city-name">Santiago</div>
+                    <div class="ub-city-country">Chile</div>
+                    <div class="ub-city-coords">33°27'S · 70°40'W</div>
+                </div>
+                <div class="ub-city">
+                    <div class="ub-city-name">Barcelona</div>
+                    <div class="ub-city-country">España</div>
+                    <div class="ub-city-coords">41°23'N · 2°10'E</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"><div class="divider-line"></div></div>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div class="container">
+            <div class="contacto-split">
+                <!-- Info -->
+                <div class="contacto-info">
+                    <div class="label">Hablemos</div>
+                    <h2>¿Tienes una historia que contar?</h2>
+                    <p>Estamos listos para escucharla. Cuéntanos sobre tu proyecto y hagamos algo memorable juntos.</p>
+
+                    <div class="contacto-detalles">
+                        <div class="contacto-item">
+                            <div class="label">Email</div>
+                            <a href="mailto:contacto@m14studio.com">contacto@m14studio.com</a>
+                        </div>
+
+                        <div class="contacto-item">
+                            <div class="label">Instagram</div>
+                            <a href="https://www.instagram.com/m14studio/" target="_blank">@m14studio</a>
+                        </div>
+
+                        <div class="contacto-item">
+                            <div class="label">Santiago, Chile</div>
+                            <p style="opacity: 0.7;">Oficina disponible bajo petición</p>
+                        </div>
+
+                        <div class="contacto-item">
+                            <div class="label">Barcelona, España</div>
+                            <p style="opacity: 0.7;">Oficina disponible bajo petición</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario -->
+                <form class="contacto-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proyecto">Tipo de proyecto</label>
+                        <select id="proyecto" name="proyecto" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="publicidad">Producción Publicitaria</option>
+                            <option value="moda">Moda & Lifestyle</option>
+                            <option value="corporativo">Contenido Corporativo</option>
+                            <option value="documental">Documental</option>
+                            <option value="eventos">Cobertura de Eventos</option>
+                            <option value="post">Post-Producción & VFX</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-vino form-submit">Enviar mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">M14 <span class="studio-text">STUDIO</span></div>
+                <p class="footer-tagline">Nos encargamos de contar tu historia</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Navegación</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#sobre-nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Ubicaciones</h4>
+                <ul class="footer-links">
+                    <li>Santiago, Chile</li>
+                    <li>Barcelona, España</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <ul class="footer-links">
+                    <li><a href="https://www.instagram.com/m14studio/" target="_blank">Instagram</a></li>
+                    <li><a href="https://vimeo.com/m14studio" target="_blank">Vimeo</a></li>
+                    <li><a href="mailto:contacto@m14studio.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; 2025 M14 Studio. Todos los derechos reservados.</div>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/m14studio/" target="_blank">Instagram</a>
+                <a href="https://vimeo.com/m14studio" target="_blank">Vimeo</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- VIDEO MODAL -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="modalClose">✕</button>
+            <iframe id="modalVideo" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- LIBRERÍAS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <script>
+        // ============================================
+        // TOUCH DETECTION
+        // ============================================
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        // ============================================
+        // GSAP + LENIS SMOOTH SCROLL
+        // ============================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            smoothTouch: false,
+            lerp: 0.08,
+        });
+
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        // Smooth scroll para anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    lenis.scrollTo(target, { duration: 1.5 });
+                }
+            });
+        });
+
+        // ============================================
+        // SCROLL PROGRESS BAR
+        // ============================================
+        const progressBar = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (scrollTop / docHeight) * 100 + '%';
+        });
+
+        // ============================================
+        // CURSOR CUSTOM (Desktop only)
+        // ============================================
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorCircle = document.querySelector('.cursor-circle');
+
+        if (!isTouchDevice) {
+            let mouseX = 0, mouseY = 0;
+            let circleX = 0, circleY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                const lerpFactor = 0.15;
+                circleX += (mouseX - circleX) * lerpFactor;
+                circleY += (mouseY - circleY) * lerpFactor;
+                cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+                cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            const interactiveElements = document.querySelectorAll('a, button, [role="button"], .portfolio-item, .servicio-item, .filter-btn, input, select, textarea');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursorCircle.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursorCircle.classList.remove('hover'));
+            });
+        } else {
+            cursorDot.style.display = 'none';
+            cursorCircle.style.display = 'none';
+        }
+
+        // ============================================
+        // ANIMACIONES HERO - CINEMATIC
+        // ============================================
+        document.getElementById('home').style.opacity = '1';
+        document.getElementById('home').style.transform = 'translateY(0)';
+
+        // Logo clip-path reveal
+        gsap.to('.hero-logo', {
+            clipPath: 'inset(0% 0 0 0)',
+            duration: 1.8,
+            ease: 'power4.out',
+            delay: 0.3
+        });
+
+        // Tagline words staggered
+        gsap.to('.hero-tagline .word', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            stagger: 0.08,
+            delay: 1.2
+        });
+
+        // Video parallax (más lento que el contenido)
+        gsap.to('.hero-video', {
+            y: '30%',
+            scale: 1.1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        // Hero content - scale down + fade + blur on scroll
+        gsap.to('.hero-content', {
+            scale: 0.8,
+            opacity: 0,
+            y: -100,
+            filter: 'blur(10px)',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        // Overlay darkens as you scroll
+        gsap.to('.hero-overlay', {
+            opacity: 1.5,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        // Scroll indicator fade out
+        gsap.to('.hero-scroll-indicator', {
+            opacity: 0,
+            y: -20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: '20% top',
+                scrub: 1
+            }
+        });
+
+        // ============================================
+        // SECTION DIVIDERS - ANIMATED LINES
+        // ============================================
+        gsap.utils.toArray('.section-divider').forEach(divider => {
+            ScrollTrigger.create({
+                trigger: divider,
+                start: 'top 90%',
+                onEnter: () => divider.classList.add('revealed'),
+                once: true
+            });
+        });
+
+        // ============================================
+        // REEL SECTION - SPLIT LAYOUT REVEAL
+        // ============================================
+
+        // Header slides in from left
+        gsap.to('.reel-header', {
+            opacity: 1,
+            x: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '#reel',
+                start: 'top 65%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Video slides in from right with cinematic reveal
+        const reelTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.reel-video-wrapper',
+                start: 'top 80%',
+                end: 'top 30%',
+                scrub: 0.8,
+                onEnter: () => {
+                    document.querySelector('.reel-frame').classList.add('visible');
+                }
+            }
+        });
+
+        reelTl
+            .fromTo('.reel-video-wrapper',
+                {
+                    x: 80,
+                    opacity: 0,
+                    scale: 0.9
+                },
+                {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    ease: 'power2.out'
+                }
+            )
+            .fromTo('.reel-video',
+                {
+                    clipPath: 'inset(30% 30% 30% 30%)',
+                    scale: 1.2,
+                    opacity: 0
+                },
+                {
+                    clipPath: 'inset(0% 0% 0% 0%)',
+                    scale: 1,
+                    opacity: 1,
+                    ease: 'power2.out'
+                },
+                0.1
+            );
+
+        // Parallax: text and video move at different speeds
+        gsap.to('.reel-header', {
+            y: -30,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#reel',
+                start: 'top center',
+                end: 'bottom top',
+                scrub: 1.5
+            }
+        });
+
+        gsap.to('.reel-video-wrapper', {
+            y: -60,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#reel',
+                start: 'top center',
+                end: 'bottom top',
+                scrub: 1.5
+            }
+        });
+
+        // ============================================
+        // VIDEO MODAL
+        // ============================================
+        const videoModal = document.getElementById('videoModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalClose = document.getElementById('modalClose');
+
+        // Open modal when clicking portfolio item
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const videoId = item.dataset.video;
+                if (videoId) {
+                    modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                    videoModal.classList.add('active');
+                    lenis.stop();
+                }
+            });
+        });
+
+        // Close modal
+        function closeModal() {
+            videoModal.classList.remove('active');
+            modalVideo.src = '';
+            lenis.start();
+        }
+
+        modalClose.addEventListener('click', closeModal);
+
+        // Close when clicking outside video
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeModal();
+            }
+        });
+
+        // Close with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Thumbnail click to show iframe
+        document.getElementById('reelThumbnail').addEventListener('click', function() {
+            this.classList.add('hidden');
+            const iframe = document.getElementById('reelIframe');
+            iframe.classList.add('active');
+        });
+
+        // ============================================
+        // NAVBAR SCROLL EFFECT
+        // ============================================
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ============================================
+        // MOBILE MENU TOGGLE
+        // ============================================
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ============================================
+        // SERVICIOS - REVEAL
+        // ============================================
+        gsap.to('.servicios-header', {
+            opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+            scrollTrigger: { trigger: '#servicios', start: 'top 75%' }
+        });
+
+        gsap.utils.toArray('.servicio-item').forEach((item, i) => {
+            gsap.to(item, {
+                opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+                delay: i * 0.05,
+                scrollTrigger: { trigger: '.servicios-list', start: 'top 80%' }
+            });
+        });
+
+        // ============================================
+        // PORTFOLIO - DYNAMIC REVEAL + FILTERING
+        // ============================================
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        // Portfolio header reveal
+        gsap.to('.portfolio-header', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '#portfolio',
+                start: 'top 70%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Staggered grid reveal with rotation + parallax
+        gsap.utils.toArray('.portfolio-item').forEach((item, index) => {
+            const row = Math.floor(index / 3);
+            const col = index % 3;
+
+            gsap.fromTo(item,
+                {
+                    opacity: 0,
+                    scale: 0.8,
+                    y: 80,
+                    rotateX: 8
+                },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    rotateX: 0,
+                    duration: 0.9,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.portfolio-grid',
+                        start: 'top 78%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: (row * 0.15) + (col * 0.1)
+                }
+            );
+
+            // Per-item parallax at varied speeds
+            gsap.to(item, {
+                y: -25 + (col * 15),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 2
+                }
+            });
+        });
+
+        // Filter functionality
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+
+                gsap.to(portfolioItems, {
+                    opacity: 0,
+                    scale: 0.95,
+                    y: 20,
+                    duration: 0.3,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        portfolioItems.forEach(item => {
+                            const category = item.dataset.category;
+                            item.style.display = (filter === 'all' || category === filter) ? 'block' : 'none';
+                        });
+
+                        const visibleItems = Array.from(portfolioItems).filter(item => item.style.display !== 'none');
+                        gsap.fromTo(visibleItems,
+                            { opacity: 0, scale: 0.9, y: 30 },
+                            {
+                                opacity: 1,
+                                scale: 1,
+                                y: 0,
+                                duration: 0.6,
+                                stagger: 0.08,
+                                ease: 'power3.out',
+                                onComplete: () => ScrollTrigger.refresh()
+                            }
+                        );
+                    }
+                });
+            });
+        });
+
+        // ============================================
+        // MANIFIESTO - SCRUB TEXT REVEAL (cinematográfico)
+        // ============================================
+        gsap.utils.toArray('.manifiesto-texto .line').forEach((line, index) => {
+            gsap.fromTo(line,
+                {
+                    opacity: 0,
+                    y: 30,
+                    filter: 'blur(8px)'
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '.manifiesto',
+                        start: `${15 + index * 18}% 70%`,
+                        end: `${35 + index * 18}% 50%`,
+                        scrub: 1
+                    }
+                }
+            );
+        });
+
+        // ============================================
+        // FORM HANDLING
+        // ============================================
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+
+            // In production, you would send this to a backend
+            console.log('Form submitted:', data);
+
+            // Show success message (you can customize this)
+            alert('¡Gracias! Hemos recibido tu mensaje. Te contactaremos pronto.');
+
+            // Reset form
+            contactForm.reset();
+        });
+
+        // ============================================
+        // FUNDADORES - 3D TILT + STAGGER
+        // ============================================
+        gsap.utils.toArray('.fundador').forEach((fundador, index) => {
+            gsap.fromTo(fundador,
+                { opacity: 0, y: 60, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.fundadores-grid',
+                        start: 'top 75%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: index * 0.2
+                }
+            );
+
+            // Parallax at different speeds
+            gsap.to(fundador, {
+                y: -20 - (index * 10),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: fundador,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1.5
+                }
+            });
+        });
+
+        // 3D tilt on founder photos (desktop only)
+        if (!isTouchDevice) {
+            document.querySelectorAll('.fundador-foto').forEach(foto => {
+                foto.addEventListener('mousemove', (e) => {
+                    const rect = foto.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    foto.style.transform = `scale(1.05) rotateY(${x * 15}deg) rotateX(${-y * 15}deg)`;
+                    foto.style.transition = 'none';
+                });
+                foto.addEventListener('mouseleave', () => {
+                    foto.style.transform = 'scale(1) rotateY(0) rotateX(0)';
+                    foto.style.transition = 'transform 0.5s ease';
+                });
+            });
+        }
+
+        // ============================================
+        // VALORES - STAGGERED SLIDE IN
+        // ============================================
+        gsap.utils.toArray('.valor-item').forEach((item, index) => {
+            gsap.fromTo(item,
+                { opacity: 0, x: -40, borderLeftColor: 'transparent' },
+                {
+                    opacity: 1,
+                    x: 0,
+                    borderLeftColor: '#7A0012',
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.valores-grid',
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: index * 0.15
+                }
+            );
+        });
+
+        // ============================================
+        // UBICACIONES - REVEAL ANIMATION
+        // ============================================
+        const ubTrigger = { trigger: '.ubicaciones-section', start: 'top 75%' };
+
+        gsap.to('.ub-label', {
+            opacity: 1, duration: 0.8, ease: 'power2.out',
+            scrollTrigger: ubTrigger
+        });
+
+        gsap.to('.ub-title', {
+            opacity: 1, duration: 1, ease: 'power2.out', delay: 0.15,
+            scrollTrigger: ubTrigger
+        });
+
+        gsap.utils.toArray('.ub-city').forEach((city, i) => {
+            gsap.fromTo(city,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.4 + i * 0.1,
+                  scrollTrigger: ubTrigger }
+            );
+        });
+
+        // ============================================
+        // CONTACTO - SPLIT HALVES REVEAL
+        // ============================================
+        gsap.fromTo('.contacto-info',
+            { opacity: 0, x: -60 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#contacto',
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        gsap.fromTo('.contacto-form',
+            { opacity: 0, x: 60 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#contacto',
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                },
+                delay: 0.2
+            }
+        );
+
+        // ============================================
+        // ANIMATED PARTICLE BACKGROUND
+        // ============================================
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d', { alpha: true });
+
+        // Resize canvas to window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle system
+        const particles = [];
+        const particleCount = isTouchDevice ? 20 : 50;
+        const maxDistance = 160;
+        const mouse = { x: null, y: null, radius: 100 };
+
+        // Mouse tracking (desktop only)
+        if (!isTouchDevice) {
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+            window.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+        }
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.size = Math.random() * 1.8 + 0.8;
+            }
+
+            update() {
+                // Mouse interaction
+                if (mouse.x != null && mouse.y != null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < mouse.radius) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const angle = Math.atan2(dy, dx);
+                        this.vx -= Math.cos(angle) * force * 0.2;
+                        this.vy -= Math.sin(angle) * force * 0.2;
+                    }
+                }
+
+                // Update position
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Damping
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+
+                // Boundaries
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                // Keep in bounds
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+
+            draw() {
+                ctx.fillStyle = '#F5F0E8';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Connect particles
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const opacity = (1 - distance / maxDistance) * 0.35;
+                        // Mix of cream and wine colors
+                        const gradient = ctx.createLinearGradient(
+                            particles[i].x, particles[i].y,
+                            particles[j].x, particles[j].y
+                        );
+                        gradient.addColorStop(0, `rgba(245, 240, 232, ${opacity})`);
+                        gradient.addColorStop(1, `rgba(122, 0, 18, ${opacity * 0.3})`);
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // ============================================
+        // SECTION TRANSITIONS
+        // ============================================
+
+        // Sections with custom child animations are already visible via CSS
+        // Only apply generic fade-up to #reel (other sections have individual child animations)
+        gsap.fromTo('#reel',
+            { opacity: 0, y: 60 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#reel',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+    </script>
+
+    <!-- COBE GLOBE -->
+    <script type="module">
+        import createGlobe from 'https://unpkg.com/cobe/build/index.mjs';
+
+        const canvas = document.getElementById('ubicacionesGlobe');
+        const wrapper = canvas.parentElement;
+
+        let phi = 2.0;
+        let globe = null;
+        let pointerDown = null;
+        let phiOffset = 0;
+        let thetaOffset = 0;
+        let dragPhi = 0;
+        let dragTheta = 0;
+
+        function initGlobe() {
+            if (globe) return;
+            // Forzar dimensiones explícitas desde el wrapper
+            const size = wrapper.offsetWidth;
+            if (size === 0) return;
+
+            canvas.style.width  = size + 'px';
+            canvas.style.height = size + 'px';
+
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width  = size * dpr;
+            canvas.height = size * dpr;
+
+            globe = createGlobe(canvas, {
+                devicePixelRatio: dpr,
+                width: size * dpr,
+                height: size * dpr,
+                phi: phi,
+                theta: 0.2,
+                dark: 0,
+                diffuse: 1.2,
+                mapSamples: 16000,
+                mapBrightness: 10,
+                baseColor: [1, 1, 1],
+                markerColor: [0.3, 0.45, 0.85],
+                glowColor: [0.94, 0.93, 0.91],
+                markers: [
+                    { location: [-33.45, -70.66], size: 0.025 }, // Santiago
+                    { location: [41.39, 2.15],    size: 0.025 }, // Barcelona
+                ],
+                arcs: [
+                    { from: [-33.45, -70.66], to: [41.39, 2.15] }
+                ],
+                arcColor: [0.3, 0.45, 0.85],
+                arcWidth: 0.5,
+                arcHeight: 0.3,
+                opacity: 0.7,
+                onRender: (state) => {
+                    if (!pointerDown) phi += 0.003;
+                    state.phi   = phi + phiOffset + dragPhi;
+                    state.theta = 0.2 + thetaOffset + dragTheta;
+                }
+            });
+
+            wrapper.style.opacity = '1';
+        }
+
+        // Esperar a que el layout esté listo
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => requestAnimationFrame(initGlobe));
+        });
+
+        // Fallback con ResizeObserver si load ya pasó
+        const ro = new ResizeObserver(() => {
+            if (wrapper.offsetWidth > 0 && !globe) { ro.disconnect(); initGlobe(); }
+        });
+        ro.observe(wrapper);
+
+        // Drag interaction
+        canvas.addEventListener('pointerdown', (e) => {
+            pointerDown = { x: e.clientX, y: e.clientY };
+            canvas.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!pointerDown) return;
+            dragPhi   = (e.clientX - pointerDown.x) / 200;
+            dragTheta = (e.clientY - pointerDown.y) / 600;
+        }, { passive: true });
+
+        window.addEventListener('pointerup', () => {
+            if (pointerDown) {
+                phiOffset   += dragPhi;
+                thetaOffset += dragTheta;
+                dragPhi = dragTheta = 0;
+            }
+            pointerDown = null;
+            canvas.style.cursor = 'grab';
+        }, { passive: true });
+    </script>
+
+</body>
+</html>

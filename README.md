@@ -1,83 +1,36 @@
-# M14 Studio
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Productora audiovisual de primer nivel · Santiago, Chile
+## Getting Started
 
-## 🚀 Stack
-
-- **HTML + CSS + JavaScript vanilla** (archivo único)
-- **Librerías CDN:**
-  - GSAP 3.12.5 + ScrollTrigger
-  - Lenis 1.1.13 (smooth scroll)
-- **Google Fonts:**
-  - Cormorant Garamond (display, headings)
-  - DM Sans (body, UI)
-
-## 🎨 Colores
-
-- `--negro`: #0A0A0A (fondo)
-- `--vino`: #7A0012 (acento)
-- `--crema`: #F5F0E8 (texto)
-
-## ✨ Características
-
-- ✅ Lenis smooth scroll cinematográfico (lerp 0.08)
-- ✅ GSAP ScrollTrigger sincronizado con Lenis
-- ✅ Cursor custom de dos capas:
-  - Punto pequeño (8px) seguimiento exacto
-  - Círculo exterior (40px) con delay suave
-  - Hover effect: crece a 64px y cambia a vino
-- ✅ Anchor links (#portfolio, #sobre-nosotros, #contacto)
-- ✅ Animaciones GSAP de entrada
-
-## 📂 Estructura
-
-```
-m14studio-web/
-└── index.html       # Archivo único (HTML + CSS + JS inline)
-```
-
-## 🌐 Despliegue (Cloudflare Pages)
-
-Repositorio: `EmilioNualart/m14studio-web` (branch: main)
-
-### Publicar cambios:
+First, run the development server:
 
 ```bash
-git add .
-git commit -m "mensaje descriptivo"
-git push
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Cloudflare Pages detecta el push y despliega automáticamente.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 💻 Desarrollo local
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Simplemente abre el archivo en tu navegador:
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-```bash
-open index.html
-```
+## Learn More
 
-O usa un servidor local:
+To learn more about Next.js, take a look at the following resources:
 
-```bash
-# Python
-python -m http.server 8000
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-# Node.js (npx)
-npx serve
-```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## 📦 Navegación
+## Deploy on Vercel
 
-Las secciones se navegan con anchor links:
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- `#home` - Hero principal
-- `#portfolio` - Portfolio de proyectos
-- `#sobre-nosotros` - Sobre M14 Studio
-- `#contacto` - Contacto
-
-## 🎯 Estado
-
-✅ Estructura base con Lenis + cursor custom
-⏳ Contenido completo pendiente
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
