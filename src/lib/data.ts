@@ -17,6 +17,9 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "Capasite", category: "corporativo", videoId: "pZ17GkAcsR0" },
   { title: "OSSO", category: "eventos", videoId: "M5xpDkovSJY" },
   { title: "Valle Luna", category: "eventos", videoId: "z6nIPo5FPD4" },
+  { title: "Black and Sand — Saville Row", category: "moda", videoId: "2qByFoSHahI" },
+  { title: "Bledford Residences", category: "corporativo", videoId: "NYUWsLpVlhQ" },
+  { title: "EMG Carina", category: "moda", videoId: "e52eqE7NLTI" },
 ];
 
 export const servicios = [
