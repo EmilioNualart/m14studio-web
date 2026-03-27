@@ -93,31 +93,35 @@ export default function Portfolio() {
   }, []);
 
   const handleFilter = (filter: string) => {
-    setActiveFilter(filter);
+    if (filter === activeFilter) return;
     const items = document.querySelectorAll<HTMLElement>(".portfolio-item");
 
     gsap.to(items, {
       opacity: 0,
       scale: 0.95,
       y: 20,
-      duration: 0.3,
+      duration: 0.25,
+      stagger: 0.03,
       ease: "power2.in",
       onComplete: () => {
+        setActiveFilter(filter);
         requestAnimationFrame(() => {
-          const visibleItems = document.querySelectorAll<HTMLElement>(".portfolio-item");
-          gsap.fromTo(
-            visibleItems,
-            { opacity: 0, scale: 0.9, y: 30 },
-            {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              duration: 0.6,
-              stagger: 0.08,
-              ease: "power3.out",
-              onComplete: () => ScrollTrigger.refresh(),
-            }
-          );
+          requestAnimationFrame(() => {
+            const newItems = document.querySelectorAll<HTMLElement>(".portfolio-item");
+            gsap.fromTo(
+              newItems,
+              { opacity: 0, scale: 0.9, y: 30 },
+              {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.5,
+                stagger: 0.06,
+                ease: "power3.out",
+                onComplete: () => ScrollTrigger.refresh(),
+              }
+            );
+          });
         });
       },
     });
