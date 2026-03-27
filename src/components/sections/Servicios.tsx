@@ -92,21 +92,49 @@ export default function Servicios() {
         toggleActions: "play none none none",
       };
 
+      // 1. Lines draw outward from center
+      gsap.to(".servicios-line-left", {
+        scaleX: 1, opacity: 1, duration: 0.8, ease: "power3.inOut",
+        scrollTrigger: st,
+      });
+      gsap.to(".servicios-line-right", {
+        scaleX: 1, opacity: 1, duration: 0.8, ease: "power3.inOut",
+        scrollTrigger: st,
+      });
+
+      // 2. Label scales up and fades in
       gsap.to(".servicios-label", {
-        opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
+        opacity: 1, y: 0, scale: 1, letterSpacing: "0.25em",
+        duration: 0.8, ease: "power3.out", delay: 0.2,
         scrollTrigger: st,
       });
 
-      gsap.to(".servicios-word", {
-        opacity: 1, y: 0, rotateX: 0,
-        duration: 0.7, ease: "power3.out",
-        stagger: 0.06, delay: 0.15,
+      // 3. Each word reveals with clip-path mask + blur + 3D rotation
+      gsap.utils.toArray<HTMLElement>(".servicios-word").forEach((word, i) => {
+        gsap.to(word, {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1,
+          ease: "power4.out",
+          delay: 0.4 + i * 0.08,
+          scrollTrigger: st,
+        });
+      });
+
+      // 4. Accent line below title draws in
+      gsap.to(".servicios-accent", {
+        scaleX: 1, opacity: 1, duration: 1, ease: "power3.inOut", delay: 1,
         scrollTrigger: st,
       });
 
+      // 5. Orbital fades in
       gsap.to(".orbital-wrapper", {
         opacity: 1, scale: 1, filter: "blur(0px)",
-        duration: 1.4, ease: "back.out(1.2)", delay: 0.5,
+        duration: 1.4, ease: "back.out(1.2)", delay: 0.8,
         scrollTrigger: st,
       });
     }, sectionRef);
@@ -118,12 +146,17 @@ export default function Servicios() {
     <section id="servicios" ref={sectionRef}>
       <div className="container" style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
         <div style={{ textAlign: "center" }}>
-          <div className="label servicios-label">Servicios</div>
-          <h2 style={{ marginTop: "1rem", maxWidth: 800, marginLeft: "auto", marginRight: "auto", perspective: "600px" }}>
+          <div className="servicios-label-row">
+            <span className="servicios-line-left" />
+            <div className="label servicios-label">Servicios</div>
+            <span className="servicios-line-right" />
+          </div>
+          <h2 style={{ marginTop: "1.5rem", maxWidth: 800, marginLeft: "auto", marginRight: "auto", perspective: "800px" }}>
             {titleWords.map((word, i) => (
               <span key={i} className="servicios-word">{word}</span>
             ))}
           </h2>
+          <div className="servicios-accent" />
         </div>
 
         <div

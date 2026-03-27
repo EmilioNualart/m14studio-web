@@ -705,17 +705,57 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
   transform: translateY(30px);
 }
 
+.servicios-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.servicios-line-left,
+.servicios-line-right {
+  display: block;
+  height: 1px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, var(--vino));
+  opacity: 0;
+}
+
+.servicios-line-left {
+  transform: scaleX(0);
+  transform-origin: right center;
+  background: linear-gradient(90deg, transparent, var(--vino));
+}
+
+.servicios-line-right {
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(270deg, transparent, var(--vino));
+}
+
 .servicios-label {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(8px) scale(0.9);
+  letter-spacing: 0.15em;
 }
 
 .servicios-word {
   display: inline-block;
   opacity: 0;
-  transform: translateY(60px) rotateX(-50deg);
+  transform: translateY(100%) rotateX(-90deg) scale(0.8);
+  filter: blur(8px);
+  clip-path: inset(100% 0% 0% 0%);
   margin-right: 0.3em;
   transform-origin: bottom center;
+}
+
+.servicios-accent {
+  width: 60px;
+  height: 2px;
+  background: var(--vino);
+  margin: 2rem auto 0;
+  transform: scaleX(0);
+  opacity: 0;
 }
 
 .orbital-wrapper {
