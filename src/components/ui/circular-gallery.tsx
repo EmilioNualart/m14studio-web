@@ -27,10 +27,6 @@ const GAP = 30;
 
 function computeRadius(count: number, cardWidth: number, gap: number): number {
   if (count <= 1) return 0;
-  // Each card subtends an angle of 2π/count.
-  // To avoid overlap: chord between adjacent centers >= cardWidth + gap
-  // chord = 2 * R * sin(π / count)
-  // R = (cardWidth + gap) / (2 * sin(π / count))
   const minRadius = (cardWidth + gap) / (2 * Math.sin(Math.PI / count));
   return Math.round(minRadius);
 }
@@ -40,16 +36,12 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
     const [rotation, setRotation] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
-    const [isSliderDragging, setIsSliderDragging] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const dragStartRef = useRef<number>(0);
     const dragRotationRef = useRef<number>(0);
-    const sliderDragStartRef = useRef<number>(0);
-    const sliderRotationRef = useRef<number>(0);
     const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const animationFrameRef = useRef<number | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const sliderTrackRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
       const check = () => setIsMobile(window.innerWidth < 768);
@@ -67,7 +59,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
     // Auto-rotation
     useEffect(() => {
       const autoRotate = () => {
-        if (!isScrolling && !isDragging && !isSliderDragging) {
+        if (!isScrolling && !isDragging) {
           setRotation(prev => prev + autoRotateSpeed);
         }
         animationFrameRef.current = requestAnimationFrame(autoRotate);
@@ -80,7 +72,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
           cancelAnimationFrame(animationFrameRef.current);
         }
       };
-    }, [isScrolling, isDragging, isSliderDragging, autoRotateSpeed]);
+    }, [isScrolling, isDragging, autoRotateSpeed]);
 
     // Drag to rotate
     useEffect(() => {
@@ -94,7 +86,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
       };
 
       const handlePointerMove = (e: PointerEvent) => {
-        if (!isDragging || isSliderDragging) return;
+        if (!isDragging) return;
         const delta = e.clientX - dragStartRef.current;
         setRotation(dragRotationRef.current + delta * 0.3);
       };
@@ -112,42 +104,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
         window.removeEventListener('pointermove', handlePointerMove);
         window.removeEventListener('pointerup', handlePointerUp);
       };
-    }, [isDragging, isSliderDragging, rotation]);
-
-    // Slider drag to rotate
-    useEffect(() => {
-      const handleSliderMove = (e: PointerEvent) => {
-        if (!isSliderDragging) return;
-        const delta = e.clientX - sliderDragStartRef.current;
-        const trackWidth = sliderTrackRef.current?.offsetWidth || 400;
-        // Map full track width to 360 degrees
-        const degreesPerPixel = 360 / trackWidth;
-        setRotation(sliderRotationRef.current + delta * degreesPerPixel);
-      };
-
-      const handleSliderUp = () => {
-        setIsSliderDragging(false);
-      };
-
-      window.addEventListener('pointermove', handleSliderMove);
-      window.addEventListener('pointerup', handleSliderUp);
-
-      return () => {
-        window.removeEventListener('pointermove', handleSliderMove);
-        window.removeEventListener('pointerup', handleSliderUp);
-      };
-    }, [isSliderDragging]);
-
-    const handleSliderDown = (e: React.PointerEvent) => {
-      e.stopPropagation();
-      e.preventDefault();
-      setIsSliderDragging(true);
-      sliderDragStartRef.current = e.clientX;
-      sliderRotationRef.current = rotation;
-    };
-
-    // Thumb position: normalize rotation to 0–1 across the track
-    const thumbPosition = ((rotation % 360 + 360) % 360) / 360;
+    }, [isDragging, rotation]);
 
     const anglePerItem = 360 / items.length;
 
@@ -252,51 +209,6 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                 </div>
               );
             })}
-          </div>
-        </div>
-
-        {/* Slider bar — positioned at bottom, outside perspective */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '80%',
-            maxWidth: '500px',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            ref={sliderTrackRef}
-            onPointerDown={handleSliderDown}
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '4px',
-              background: 'rgba(255,255,255,0.12)',
-              borderRadius: '2px',
-              cursor: isSliderDragging ? 'grabbing' : 'grab',
-              touchAction: 'none',
-              userSelect: 'none',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: `${thumbPosition * 100}%`,
-                transform: 'translate(-50%, -50%)',
-                width: '16px',
-                height: '16px',
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.8)',
-                boxShadow: '0 0 8px rgba(255,255,255,0.3)',
-                transition: isSliderDragging ? 'none' : 'left 0.05s linear',
-                pointerEvents: 'none',
-              }}
-            />
           </div>
         </div>
       </div>
