@@ -92,35 +92,30 @@ export default function Portfolio() {
     return () => ctx.revert();
   }, []);
 
-  const handleFilter = (filter: string) => {
-    if (filter === activeFilter) return;
-    const items = document.querySelectorAll<HTMLElement>(".portfolio-item");
+  const isFilteringRef = useRef(false);
 
-    gsap.to(items, {
+  const handleFilter = (filter: string) => {
+    if (filter === activeFilter || isFilteringRef.current) return;
+    isFilteringRef.current = true;
+
+    const grid = document.querySelector<HTMLElement>(".portfolio-grid");
+    if (!grid) return;
+
+    gsap.to(grid, {
       opacity: 0,
-      scale: 0.95,
-      y: 20,
-      duration: 0.25,
-      stagger: 0.03,
+      duration: 0.2,
       ease: "power2.in",
       onComplete: () => {
         setActiveFilter(filter);
         requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            const newItems = document.querySelectorAll<HTMLElement>(".portfolio-item");
-            gsap.fromTo(
-              newItems,
-              { opacity: 0, scale: 0.9, y: 30 },
-              {
-                opacity: 1,
-                scale: 1,
-                y: 0,
-                duration: 0.5,
-                stagger: 0.06,
-                ease: "power3.out",
-                onComplete: () => ScrollTrigger.refresh(),
-              }
-            );
+          gsap.to(grid, {
+            opacity: 1,
+            duration: 0.35,
+            ease: "power2.out",
+            onComplete: () => {
+              isFilteringRef.current = false;
+              ScrollTrigger.refresh();
+            },
           });
         });
       },
