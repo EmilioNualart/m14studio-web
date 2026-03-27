@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Film, Shirt, Building2, BookOpen, Music, Sparkles } from "lucide-react";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
+import { VaporizeAnimationText } from "@/components/ui/vaporize-animation-text";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -119,6 +120,16 @@ export default function Servicios() {
       <div className="container" style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
         <div style={{ textAlign: "center" }}>
           <div className="label servicios-label">Servicios</div>
+          <VaporizeAnimationText
+            texts={[
+              "Producción Publicitaria",
+              "Moda & Lifestyle",
+              "Contenido Corporativo",
+              "Documentales",
+              "Cobertura de Eventos",
+              "Post-Producción & VFX",
+            ]}
+          />
           <h2 style={{ marginTop: "1rem", maxWidth: 800, marginLeft: "auto", marginRight: "auto", perspective: "600px" }}>
             {titleWords.map((word, i) => (
               <span key={i} className="servicios-word">{word}</span>
