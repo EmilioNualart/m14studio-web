@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const FORMSPREE_ID = "mjgpgvna";
+
 export default function Contacto() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -50,13 +53,32 @@ export default function Contacto() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatus("sending");
+
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
-    console.log("Form submitted:", data);
-    alert("¡Gracias! Hemos recibido tu mensaje. Te contactaremos pronto.");
-    e.currentTarget.reset();
+    const form = e.currentTarget;
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   return (
@@ -128,9 +150,19 @@ export default function Contacto() {
               <label htmlFor="mensaje">Mensaje</label>
               <textarea id="mensaje" name="mensaje" required />
             </div>
-            <button type="submit" className="btn btn-vino form-submit">
-              Enviar mensaje
+            <button
+              type="submit"
+              className="btn btn-vino form-submit"
+              disabled={status === "sending"}
+            >
+              {status === "sending" ? "Enviando..." : "Enviar mensaje"}
             </button>
+            {status === "success" && (
+              <p className="form-status success">¡Mensaje enviado! Te contactaremos pronto.</p>
+            )}
+            {status === "error" && (
+              <p className="form-status error">Hubo un error. Intenta de nuevo o escríbenos directo al email.</p>
+            )}
           </form>
         </div>
       </div>
