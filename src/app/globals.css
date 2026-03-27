@@ -1534,35 +1534,54 @@ section.visible {
   .contacto-header-mobile {
     display: block;
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
-  .contacto-header-mobile h2 { margin-bottom: 1rem; }
-  .contacto-header-mobile p { margin-bottom: 0; max-width: 100%; opacity: 0.7; }
+  .contacto-header-mobile h2 { margin-bottom: 1rem; font-size: 1.8rem; }
+  .contacto-header-mobile p { margin-bottom: 0; max-width: 100%; opacity: 0.7; font-size: 0.9rem; }
   .contacto-header-desktop { display: none; }
   .contacto-split {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
   }
   .contacto-form {
     order: 1;
-    padding: 1.5rem;
+    padding: 1.2rem;
+    gap: 1.2rem;
+    border: none;
+    background: none;
   }
   .contacto-info {
     order: 2;
   }
   .contacto-detalles {
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 0.8rem;
   }
   .contacto-item {
-    gap: 0.25rem;
-    padding: 1rem;
+    gap: 0.2rem;
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+  .contacto-item a {
+    font-size: 0.8rem;
+    word-break: break-all;
+  }
+  .contacto-item p {
+    font-size: 0.8rem;
   }
   .contacto-item .label {
     margin-bottom: 0;
+    font-size: 0.6rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem;
+    font-size: 0.9rem;
   }
   #contacto {
-    padding: 6rem 1.5rem;
+    padding: 4rem 1rem;
+    min-height: auto;
   }
 }
 

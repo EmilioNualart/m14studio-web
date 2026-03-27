@@ -1,8 +1,32 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { MeshGradient } from "@paper-design/shaders-react";
 
 export default function MeshGradientBackground() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: -1,
+          pointerEvents: "none",
+          background: "#0a0a0a",
+        }}
+      />
+    );
+  }
+
   return (
     <div
       style={{
