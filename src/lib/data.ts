@@ -39,13 +39,13 @@ export const fundadores = [
     foto: "/imagenes/Emilio.jpg",
   },
   {
-    nombre: "Domingo",
-    rol: "Co-founder & Director",
+    nombre: "Domingo Sreeter",
+    rol: "Co-founder",
     bio: "Visión creativa y dirección cinematográfica. Cada frame cuenta una historia.",
     foto: "/imagenes/Domingo.jpg",
   },
   {
-    nombre: "Lucas",
+    nombre: "Lucas Chauriye",
     rol: "Productor Ejecutivo",
     bio: "Producción ejecutiva y coordinación de proyectos. La logística se vuelve arte.",
     foto: "/imagenes/Lucas.jpg",

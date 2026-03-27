@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { fundadores, valores } from "@/lib/data";
+import { fundadores } from "@/lib/data";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,26 +68,6 @@ export default function SobreNosotros() {
         });
       });
 
-      // Valores stagger
-      gsap.utils.toArray<HTMLElement>(".valor-item").forEach((item, index) => {
-        gsap.fromTo(
-          item,
-          { opacity: 0, x: -40, borderLeftColor: "transparent" },
-          {
-            opacity: 1,
-            x: 0,
-            borderLeftColor: "#7A0012",
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".valores-grid",
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-            delay: index * 0.15,
-          }
-        );
-      });
     }, sectionRef);
 
     // 3D tilt on founder photos (desktop only)
@@ -151,14 +131,6 @@ export default function SobreNosotros() {
           ))}
         </div>
 
-        <div className="valores-grid">
-          {valores.map((v) => (
-            <div className="valor-item" key={v.titulo}>
-              <h3 className="valor-titulo">{v.titulo}</h3>
-              <p className="servicio-desc">{v.desc}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
