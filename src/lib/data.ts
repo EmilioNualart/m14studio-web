@@ -39,7 +39,7 @@ export const fundadores = [
     foto: "/imagenes/Emilio.jpg",
   },
   {
-    nombre: "Domingo Sreeter",
+    nombre: "Domingo Streeter",
     rol: "Co-founder",
     bio: "Visión creativa y dirección cinematográfica. Cada frame cuenta una historia.",
     foto: "/imagenes/Domingo.jpg",
