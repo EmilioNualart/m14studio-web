@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { portfolioItems, filterCategories } from "@/lib/data";
+import { portfolioItems, filterCategories, getThumbUrl } from "@/lib/data";
 import { useVideoModal } from "@/components/providers/VideoModalProvider";
 import { CircularGallery, GalleryItem } from "@/components/ui/circular-gallery";
 
@@ -20,7 +20,7 @@ export default function Portfolio() {
       common: item.title,
       binomial: item.category.charAt(0).toUpperCase() + item.category.slice(1),
       photo: {
-        url: `https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`,
+        url: getThumbUrl(item),
         text: item.title,
         pos: "center",
         by: "M14 Studio",
@@ -165,7 +165,7 @@ export default function Portfolio() {
                 <div
                   className="portfolio-item-image"
                   style={{
-                    background: `linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg')`,
+                    background: `linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('${getThumbUrl(item)}')`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
