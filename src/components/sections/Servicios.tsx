@@ -77,6 +77,8 @@ const serviciosTimeline = [
   },
 ];
 
+const titleWords = "Producción audiovisual completa desde la idea hasta la entrega final".split(" ");
+
 export default function Servicios() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -84,13 +86,42 @@ export default function Servicios() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      gsap.to(".servicios-header", {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: "power2.out",
-        scrollTrigger: { trigger: "#servicios", start: "top 75%" },
-      });
+      const trigger = { trigger: "#servicios", start: "top 70%" };
+
+      gsap.fromTo(
+        ".servicios-label",
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", scrollTrigger: trigger }
+      );
+
+      gsap.fromTo(
+        ".servicios-word",
+        { opacity: 0, y: 60, rotateX: -50 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.06,
+          delay: 0.15,
+          scrollTrigger: trigger,
+        }
+      );
+
+      gsap.fromTo(
+        ".orbital-wrapper",
+        { opacity: 0, scale: 0.55, filter: "blur(16px)" },
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.4,
+          ease: "back.out(1.2)",
+          delay: 0.5,
+          scrollTrigger: { trigger: "#servicios", start: "top 65%" },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -99,14 +130,45 @@ export default function Servicios() {
   return (
     <section id="servicios" ref={sectionRef}>
       <div className="container" style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
-        <div className="servicios-header" style={{ textAlign: "center" }}>
-          <div className="label">Servicios</div>
-          <h2 style={{ marginTop: "1rem", maxWidth: 800, marginLeft: "auto", marginRight: "auto" }}>
-            Producción audiovisual completa desde la idea hasta la entrega final
+        <div style={{ textAlign: "center" }}>
+          <div className="label servicios-label" style={{ opacity: 0 }}>Servicios</div>
+          <h2
+            style={{
+              marginTop: "1rem",
+              maxWidth: 800,
+              marginLeft: "auto",
+              marginRight: "auto",
+              perspective: "600px",
+              overflow: "hidden",
+            }}
+          >
+            {titleWords.map((word, i) => (
+              <span
+                key={i}
+                className="servicios-word"
+                style={{
+                  display: "inline-block",
+                  opacity: 0,
+                  marginRight: "0.3em",
+                  transformOrigin: "bottom center",
+                }}
+              >
+                {word}
+              </span>
+            ))}
           </h2>
         </div>
 
-        <div style={{ width: "100%", height: "700px", marginTop: "2rem", transform: "scale(var(--orbital-scale, 1))", transformOrigin: "center center" }} className="orbital-wrapper">
+        <div
+          className="orbital-wrapper"
+          style={{
+            width: "100%",
+            height: "700px",
+            marginTop: "2rem",
+            opacity: 0,
+            transformOrigin: "center center",
+          }}
+        >
           <RadialOrbitalTimeline timelineData={serviciosTimeline} />
         </div>
       </div>
