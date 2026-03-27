@@ -705,6 +705,25 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
   transform: translateY(30px);
 }
 
+.servicios-label {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.servicios-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(60px) rotateX(-50deg);
+  margin-right: 0.3em;
+  transform-origin: bottom center;
+}
+
+.orbital-wrapper {
+  opacity: 0;
+  transform: scale(0.55);
+  filter: blur(16px);
+}
+
 .servicios-list {
   margin-top: 3rem;
   border-top: 1px solid rgba(245, 240, 232, 0.1);
@@ -818,19 +837,23 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
   color: var(--vino);
 }
 
+.portfolio-gallery-section {
+  margin-top: 6rem;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 .portfolio-item {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  opacity: 0;
-  transform: scale(0.9);
   aspect-ratio: 16 / 9;
 }
 

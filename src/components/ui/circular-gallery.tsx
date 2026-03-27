@@ -94,7 +94,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
       };
 
       const handlePointerMove = (e: PointerEvent) => {
-        if (!isDragging) return;
+        if (!isDragging || isSliderDragging) return;
         const delta = e.clientX - dragStartRef.current;
         setRotation(dragRotationRef.current + delta * 0.3);
       };
@@ -112,7 +112,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
         window.removeEventListener('pointermove', handlePointerMove);
         window.removeEventListener('pointerup', handlePointerUp);
       };
-    }, [isDragging, rotation]);
+    }, [isDragging, isSliderDragging, rotation]);
 
     // Slider drag to rotate
     useEffect(() => {
@@ -139,6 +139,8 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
     }, [isSliderDragging]);
 
     const handleSliderDown = (e: React.PointerEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
       setIsSliderDragging(true);
       sliderDragStartRef.current = e.clientX;
       sliderRotationRef.current = rotation;

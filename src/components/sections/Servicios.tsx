@@ -86,42 +86,29 @@ export default function Servicios() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const trigger = { trigger: "#servicios", start: "top 70%" };
+      const st = {
+        trigger: "#servicios",
+        start: "top 70%",
+        toggleActions: "play none none none",
+      };
 
-      gsap.fromTo(
-        ".servicios-label",
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", scrollTrigger: trigger }
-      );
+      gsap.to(".servicios-label", {
+        opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
+        scrollTrigger: st,
+      });
 
-      gsap.fromTo(
-        ".servicios-word",
-        { opacity: 0, y: 60, rotateX: -50 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.06,
-          delay: 0.15,
-          scrollTrigger: trigger,
-        }
-      );
+      gsap.to(".servicios-word", {
+        opacity: 1, y: 0, rotateX: 0,
+        duration: 0.7, ease: "power3.out",
+        stagger: 0.06, delay: 0.15,
+        scrollTrigger: st,
+      });
 
-      gsap.fromTo(
-        ".orbital-wrapper",
-        { opacity: 0, scale: 0.55, filter: "blur(16px)" },
-        {
-          opacity: 1,
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 1.4,
-          ease: "back.out(1.2)",
-          delay: 0.5,
-          scrollTrigger: { trigger: "#servicios", start: "top 65%" },
-        }
-      );
+      gsap.to(".orbital-wrapper", {
+        opacity: 1, scale: 1, filter: "blur(0px)",
+        duration: 1.4, ease: "back.out(1.2)", delay: 0.5,
+        scrollTrigger: st,
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -131,43 +118,17 @@ export default function Servicios() {
     <section id="servicios" ref={sectionRef}>
       <div className="container" style={{ maxWidth: 1400, margin: "0 auto", width: "100%" }}>
         <div style={{ textAlign: "center" }}>
-          <div className="label servicios-label" style={{ opacity: 0 }}>Servicios</div>
-          <h2
-            style={{
-              marginTop: "1rem",
-              maxWidth: 800,
-              marginLeft: "auto",
-              marginRight: "auto",
-              perspective: "600px",
-              overflow: "hidden",
-            }}
-          >
+          <div className="label servicios-label">Servicios</div>
+          <h2 style={{ marginTop: "1rem", maxWidth: 800, marginLeft: "auto", marginRight: "auto", perspective: "600px" }}>
             {titleWords.map((word, i) => (
-              <span
-                key={i}
-                className="servicios-word"
-                style={{
-                  display: "inline-block",
-                  opacity: 0,
-                  marginRight: "0.3em",
-                  transformOrigin: "bottom center",
-                }}
-              >
-                {word}
-              </span>
+              <span key={i} className="servicios-word">{word}</span>
             ))}
           </h2>
         </div>
 
         <div
           className="orbital-wrapper"
-          style={{
-            width: "100%",
-            height: "700px",
-            marginTop: "2rem",
-            opacity: 0,
-            transformOrigin: "center center",
-          }}
+          style={{ width: "100%", height: "700px", marginTop: "2rem" }}
         >
           <RadialOrbitalTimeline timelineData={serviciosTimeline} />
         </div>
