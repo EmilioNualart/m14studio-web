@@ -6,7 +6,7 @@ export type PortfolioItem = {
 };
 
 export function getThumbUrl(item: PortfolioItem): string {
-  const quality = item.thumb === "hq" ? "hqdefault" : "maxresdefault";
+  const quality = item.thumb === "hq" ? "mqdefault" : "maxresdefault";
   return `https://img.youtube.com/vi/${item.videoId}/${quality}.jpg`;
 }
 

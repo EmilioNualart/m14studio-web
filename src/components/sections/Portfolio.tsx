@@ -165,7 +165,7 @@ export default function Portfolio() {
                 <div
                   className="portfolio-item-image"
                   style={{
-                    background: `linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('${getThumbUrl(item)}')`,
+                    backgroundImage: `linear-gradient(rgba(10, 10, 10, 0.3), rgba(10, 10, 10, 0.5)), url('${getThumbUrl(item)}')`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
