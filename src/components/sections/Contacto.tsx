@@ -70,17 +70,16 @@ export default function Contacto() {
             hagamos algo memorable juntos.
           </p>
         </div>
+        <div className="contacto-header-desktop">
+          <div className="label">Hablemos</div>
+          <h2>¿Tienes una historia que contar?</h2>
+          <p>
+            Estamos listos para escucharla. Cuéntanos sobre tu proyecto y
+            hagamos algo memorable juntos.
+          </p>
+        </div>
         <div className="contacto-split">
           <div className="contacto-info">
-            <div className="contacto-header-desktop">
-              <div className="label">Hablemos</div>
-              <h2>¿Tienes una historia que contar?</h2>
-              <p>
-                Estamos listos para escucharla. Cuéntanos sobre tu proyecto y
-                hagamos algo memorable juntos.
-              </p>
-            </div>
-
             <div className="contacto-detalles">
               <div className="contacto-item">
                 <div className="label">Email</div>

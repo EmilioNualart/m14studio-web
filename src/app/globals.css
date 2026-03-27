@@ -911,7 +911,7 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
    SOBRE NOSOTROS SECTION
    ============================================ */
 #sobre-nosotros {
-  padding: 12rem 2rem 4rem;
+  padding: 12rem 2rem 1rem;
   background: transparent;
   color: var(--crema);
   min-height: 100vh;
@@ -1110,10 +1110,9 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
    CONTACTO SECTION
    ============================================ */
 #contacto {
-  padding: 12rem 2rem;
+  padding: 8rem 2rem;
   background: transparent;
   color: var(--crema);
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1123,36 +1122,66 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
 
 #contacto a { color: var(--crema); }
 
+.contacto-header-mobile { display: none; }
+
+.contacto-header-desktop {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.contacto-header-desktop h2 {
+  margin-bottom: 1.5rem;
+  font-size: 3.5rem;
+}
+
+.contacto-header-desktop p {
+  margin: 0 auto;
+  max-width: 550px;
+  opacity: 0.7;
+  line-height: 1.7;
+}
+
 .contacto-split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
   align-items: start;
 }
 
-.contacto-header-mobile { display: none; }
-.contacto-header-desktop h2 { margin-bottom: 2rem; }
-.contacto-header-desktop p { margin-bottom: 3rem; max-width: 500px; }
-
 .contacto-detalles {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  padding-top: 1rem;
 }
 
 .contacto-item {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 8px;
+  background: rgba(245, 240, 232, 0.02);
+  transition: all 0.3s ease;
 }
 
-.contacto-item .label { margin-bottom: 0.5rem; }
+.contacto-item:hover {
+  border-color: rgba(122, 0, 18, 0.4);
+  background: rgba(122, 0, 18, 0.05);
+}
+
+.contacto-item .label { margin-bottom: 0.25rem; }
 
 .contacto-item a {
   color: var(--crema);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.05rem;
   transition: color 0.3s ease;
+}
+
+.contacto-item p {
+  font-size: 0.95rem;
 }
 
 .contacto-item a:hover { color: var(--vino); }
@@ -1160,9 +1189,13 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
 .contacto-form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   opacity: 0;
   transform: translateX(60px);
+  padding: 2.5rem;
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 12px;
+  background: rgba(245, 240, 232, 0.02);
 }
 
 .contacto-info {
@@ -1173,7 +1206,7 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .form-group label {
@@ -1187,13 +1220,14 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
 .form-group input,
 .form-group select,
 .form-group textarea {
-  background: rgba(245, 240, 232, 0.05);
-  border: 1px solid rgba(245, 240, 232, 0.2);
+  background: rgba(245, 240, 232, 0.04);
+  border: 1px solid rgba(245, 240, 232, 0.15);
   color: var(--crema);
-  padding: 1rem;
+  padding: 0.9rem 1rem;
   font-family: var(--font-body);
   font-size: 1rem;
   transition: all 0.3s ease;
+  border-radius: 6px;
 }
 
 .form-group input:focus,
@@ -1205,14 +1239,21 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
 }
 
 .form-group textarea {
-  min-height: 150px;
+  min-height: 130px;
   resize: vertical;
 }
 
-.form-submit { margin-top: 1rem; }
+.form-submit {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
 
 @media (max-width: 968px) {
-  .contacto-split { grid-template-columns: 1fr; gap: 4rem; }
+  .contacto-split { grid-template-columns: 1fr; gap: 3rem; }
+  .contacto-detalles { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 }
 
 /* ============================================
@@ -1473,26 +1514,30 @@ section.visible {
   /* 5. Contacto: title + form first, info below, less spacing */
   .contacto-header-mobile {
     display: block;
-    margin-bottom: 2rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
   }
   .contacto-header-mobile h2 { margin-bottom: 1rem; }
-  .contacto-header-mobile p { margin-bottom: 0; max-width: 100%; }
+  .contacto-header-mobile p { margin-bottom: 0; max-width: 100%; opacity: 0.7; }
   .contacto-header-desktop { display: none; }
   .contacto-split {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
   .contacto-form {
     order: 1;
+    padding: 1.5rem;
   }
   .contacto-info {
     order: 2;
   }
   .contacto-detalles {
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
   .contacto-item {
     gap: 0.25rem;
+    padding: 1rem;
   }
   .contacto-item .label {
     margin-bottom: 0;
