@@ -911,7 +911,7 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
    SOBRE NOSOTROS SECTION
    ============================================ */
 #sobre-nosotros {
-  padding: 12rem 2rem;
+  padding: 12rem 2rem 4rem;
   background: transparent;
   color: var(--crema);
   min-height: 100vh;
