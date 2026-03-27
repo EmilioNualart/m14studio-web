@@ -83,7 +83,7 @@ export default function Contacto() {
             <div className="contacto-detalles">
               <div className="contacto-item">
                 <div className="label">Email</div>
-                <a href="mailto:contacto@m14studio.com">contacto@m14studio.com</a>
+                <a href="mailto:mercedeserrazuriz@m14studio.com">mercedeserrazuriz@m14studio.com</a>
               </div>
               <div className="contacto-item">
                 <div className="label">Instagram</div>
