@@ -55,8 +55,8 @@
   --negro: #0A0A0A;
   --vino: #7A0012;
   --crema: #F5F0E8;
-  --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-display: var(--font-inter), 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body: var(--font-inter), 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -86,7 +86,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  cursor: none !important;
+}
+
+/* Custom cursor only on devices with a real mouse */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* On touch-only devices, hide cursor elements */
+@media (pointer: coarse) {
+  .cursor-dot, .cursor-circle { display: none; }
 }
 
 html {

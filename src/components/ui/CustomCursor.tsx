@@ -7,10 +7,12 @@ export default function CustomCursor() {
   const circleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const isTouchDevice =
-      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    // Use (pointer: fine) to detect real mouse — maxTouchPoints > 0 is unreliable
+    // because Windows laptops with touchscreens report touch support even when
+    // using a mouse, which would hide the cursor and leave no cursor at all.
+    const hasFineMouse = window.matchMedia("(pointer: fine)").matches;
 
-    if (isTouchDevice) {
+    if (!hasFineMouse) {
       if (dotRef.current) dotRef.current.style.display = "none";
       if (circleRef.current) circleRef.current.style.display = "none";
       return;
