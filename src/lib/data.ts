@@ -41,19 +41,19 @@ export const fundadores = [
   {
     nombre: "Emilio Nualart",
     rol: "Co-founder",
-    bio: "Gestión estratégica y relaciones con clientes. Transforma visiones en realidades producibles.",
+    bio: "Gestión estratégica y relaciones con clientes en Santiago y Barcelona. Transforma visiones en producciones audiovisuales de alto impacto.",
     foto: "/imagenes/Emilio.jpg",
   },
   {
     nombre: "Domingo Streeter",
     rol: "Co-founder",
-    bio: "Visión creativa y dirección cinematográfica. Cada frame cuenta una historia.",
+    bio: "Dirección cinematográfica y visión creativa. Lidera la producción publicitaria y de moda de M14 Studio en Chile y España.",
     foto: "/imagenes/Domingo.jpg",
   },
   {
     nombre: "Lucas Chauriye",
     rol: "Productor Ejecutivo",
-    bio: "Producción ejecutiva y coordinación de proyectos. La logística se vuelve arte.",
+    bio: "Producción ejecutiva y coordinación de proyectos audiovisuales. Garantiza que cada rodaje en Santiago se ejecute con precisión y calidad.",
     foto: "/imagenes/Lucas.jpg",
   },
 ];

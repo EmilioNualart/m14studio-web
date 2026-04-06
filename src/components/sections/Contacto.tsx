@@ -115,7 +115,7 @@ export default function Contacto() {
               </div>
               <div className="contacto-item">
                 <div className="label">Santiago, Chile</div>
-                <p style={{ opacity: 0.7 }}>Oficina disponible bajo petición</p>
+                <p style={{ opacity: 0.7 }}>Francisco de Aguirre 3630</p>
               </div>
               <div className="contacto-item">
                 <div className="label">Barcelona, España</div>

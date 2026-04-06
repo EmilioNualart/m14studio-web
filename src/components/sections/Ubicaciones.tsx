@@ -54,7 +54,7 @@ export default function Ubicaciones() {
     <section className="ubicaciones-section" id="ubicacionesSection" ref={sectionRef}>
       <div className="ubicaciones-content">
         <div className="ub-label">Presencia</div>
-        <h2 className="ub-title">Dos ciudades, una visión</h2>
+        <h2 className="ub-title">Productora audiovisual en Santiago y Barcelona</h2>
         <div className="ub-globe-wrapper" style={{ opacity: 1 }}>
           <Globe
             markers={[
@@ -83,7 +83,7 @@ export default function Ubicaciones() {
           <div className="ub-city">
             <div className="ub-city-name">Santiago</div>
             <div className="ub-city-country">Chile</div>
-            <div className="ub-city-coords">33°27&apos;S · 70°40&apos;W</div>
+            <div className="ub-city-coords">Francisco de Aguirre 3630</div>
           </div>
           <div className="ub-city">
             <div className="ub-city-name">Barcelona</div>

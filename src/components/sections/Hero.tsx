@@ -103,10 +103,10 @@ export default function Hero() {
       </div>
 
       <div className="hero-content">
-        <div className="hero-logo">
+        <h1 className="hero-logo">
           <span className="m14">M14</span>
           <span className="studio"> STUDIO</span>
-        </div>
+        </h1>
         <div className="hero-tagline">
           {taglineWords.map((word, i) => (
             <span key={i} className="word">
@@ -114,6 +114,9 @@ export default function Hero() {
             </span>
           ))}
         </div>
+        <p style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", opacity: 0, pointerEvents: "none" }}>
+          Productora audiovisual en Santiago, Chile y Barcelona, España. Producción publicitaria, moda, contenido corporativo y documentales.
+        </p>
       </div>
 
       <div className="hero-scroll-indicator">

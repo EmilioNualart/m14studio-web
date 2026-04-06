@@ -111,6 +111,7 @@ export default function SobreNosotros() {
 
         <div className="manifiesto">
           <div className="manifiesto-texto">
+            <span className="line">Somos una productora audiovisual con base en Santiago, Chile.</span>
             <span className="line">Creemos que cada marca tiene una historia única.</span>
             <span className="line">Nuestro trabajo es descubrirla, pulirla</span>
             <span className="line">y contarla de forma inolvidable.</span>
@@ -120,10 +121,13 @@ export default function SobreNosotros() {
         <div className="fundadores-grid">
           {fundadores.map((f) => (
             <div className="fundador" key={f.nombre}>
-              <div
-                className="fundador-foto"
-                style={{ backgroundImage: `url('${f.foto}')` }}
-              />
+              <div className="fundador-foto">
+                <img
+                  src={f.foto}
+                  alt={`${f.nombre} — ${f.rol} de M14 Studio, productora audiovisual en Santiago`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+              </div>
               <h3 className="fundador-nombre">{f.nombre}</h3>
               <div className="fundador-rol">{f.rol}</div>
               <p className="fundador-bio">{f.bio}</p>

@@ -33,8 +33,9 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Ubicaciones</h4>
           <ul className="footer-links">
+            <li>Francisco de Aguirre 3630</li>
             <li>Santiago, Chile</li>
-            <li>Barcelona, España</li>
+            <li style={{ marginTop: "0.5rem" }}>Barcelona, España</li>
           </ul>
         </div>
 
@@ -42,14 +43,13 @@ export default function Footer() {
           <h4>Síguenos</h4>
           <ul className="footer-links">
             <li><a href="https://www.instagram.com/m14studio/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-            <li><a href="https://vimeo.com/m14studio" target="_blank" rel="noopener noreferrer">Vimeo</a></li>
-            <li><a href="mailto:contacto@m14studio.com">Email</a></li>
+            <li><a href="mailto:mercedeserrazuriz@m14studio.com">Email</a></li>
           </ul>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <div>&copy; 2025 M14 Studio. Todos los derechos reservados.</div>
+        <div>&copy; 2026 M14 Studio. Todos los derechos reservados.</div>
         <div className="footer-social">
           <a href="https://www.instagram.com/m14studio/" target="_blank" rel="noopener noreferrer">Instagram</a>
           <a href="https://vimeo.com/m14studio" target="_blank" rel="noopener noreferrer">Vimeo</a>
