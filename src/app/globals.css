@@ -849,6 +849,12 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
   transform: translateY(30px);
 }
 
+.portfolio-carousel-wrapper {
+  width: 100%;
+  height: 600px;
+  position: relative;
+}
+
 .portfolio-filters {
   display: flex;
   justify-content: center;
@@ -941,10 +947,26 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
 
 @media (max-width: 968px) {
   .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .portfolio-carousel-wrapper { height: 350px; }
 }
 
 @media (max-width: 640px) {
   .portfolio-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .portfolio-carousel-wrapper { height: 300px; }
+  .portfolio-filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+    gap: 0.75rem;
+  }
+  .portfolio-filters::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    flex-shrink: 0;
+    padding: 0.6rem 1.5rem;
+  }
 }
 
 /* ============================================

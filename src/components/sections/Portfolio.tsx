@@ -132,7 +132,7 @@ export default function Portfolio() {
         </div>
 
         {/* Circular 3D Gallery - always shows all videos */}
-        <div style={{ width: "100%", height: "600px", position: "relative" }}>
+        <div className="portfolio-carousel-wrapper">
           <CircularGallery
             items={allGalleryItems}
             autoRotateSpeed={0.12}
