@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,6 +11,7 @@ const FORMSPREE_ID = "mjgpgvna";
 
 export default function Contacto() {
   const sectionRef = useRef<HTMLElement>(null);
+  const router = useRouter();
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   useEffect(() => {
@@ -68,9 +70,9 @@ export default function Contacto() {
       });
 
       if (res.ok) {
-        setStatus("success");
         form.reset();
-        setTimeout(() => setStatus("idle"), 5000);
+        router.push("/gracias");
+        return;
       } else {
         setStatus("error");
         setTimeout(() => setStatus("idle"), 5000);
