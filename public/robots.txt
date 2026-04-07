@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.m14studio.com/sitemap.xml
+Sitemap: https://m14studio.com/sitemap.xml
