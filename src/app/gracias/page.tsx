@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 export default function Gracias() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,6 +28,8 @@ export default function Gracias() {
   }, []);
 
   return (
+    <>
+    <CustomCursor />
     <div
       ref={containerRef}
       style={{
@@ -120,5 +123,6 @@ export default function Gracias() {
         </Link>
       </div>
     </div>
+    </>
   );
 }
