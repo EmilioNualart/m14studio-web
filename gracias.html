@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por contactarnos | M14 Studio</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --negro: #0A0A0A;
+            --vino: #7A0012;
+            --crema: #F5F0E8;
+            --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--negro);
+            color: var(--crema);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gracias-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gracias-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--vino);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.2rem;
+            color: var(--vino);
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 0.5s ease forwards 0.5s;
+        }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 200;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--vino);
+            background: transparent;
+            color: var(--vino);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-family: var(--font-body);
+        }
+
+        .btn:hover {
+            background: var(--vino);
+            color: var(--crema);
+        }
+
+        .logo {
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: var(--crema);
+            text-decoration: none;
+        }
+
+        .logo .studio {
+            color: var(--vino);
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="logo">M14 <span class="studio">STUDIO</span></a>
+
+    <div class="gracias-container">
+        <div class="gracias-icon">&#10003;</div>
+        <h1>Gracias por contactarnos</h1>
+        <p>Hemos recibido tu mensaje. Nuestro equipo se pondrá en contacto contigo a la brevedad para conversar sobre tu proyecto.</p>
+        <a href="/" class="btn">Volver al inicio</a>
+    </div>
+</body>
+</html>
