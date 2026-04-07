@@ -110,6 +110,12 @@ export default function Contacto() {
                 <a href="mailto:mercedeserrazuriz@m14studio.com">mercedeserrazuriz@m14studio.com</a>
               </div>
               <div className="contacto-item">
+                <div className="label">WhatsApp</div>
+                <a href="https://wa.me/56952254044?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20sus%20servicios" target="_blank" rel="noopener noreferrer">
+                  +56 9 5225 4044
+                </a>
+              </div>
+              <div className="contacto-item">
                 <div className="label">Instagram</div>
                 <a href="https://www.instagram.com/m14studio/" target="_blank" rel="noopener noreferrer">
                   @m14studio
