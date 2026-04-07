@@ -947,12 +947,12 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
 
 @media (max-width: 968px) {
   .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-  .portfolio-carousel-wrapper { height: 350px; }
+  .portfolio-carousel-wrapper { height: 280px; }
 }
 
 @media (max-width: 640px) {
   .portfolio-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-  .portfolio-carousel-wrapper { height: 300px; }
+  .portfolio-carousel-wrapper { height: 220px; }
   .portfolio-filters {
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -1616,7 +1616,7 @@ section.visible {
     order: 2;
   }
   .contacto-detalles {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 0.8rem;
   }
   .contacto-item {
@@ -1625,11 +1625,12 @@ section.visible {
     font-size: 0.85rem;
   }
   .contacto-item a {
-    font-size: 0.8rem;
-    word-break: break-all;
+    font-size: 0.85rem;
+    word-break: normal;
+    overflow-wrap: anywhere;
   }
   .contacto-item p {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
   .contacto-item .label {
     margin-bottom: 0;

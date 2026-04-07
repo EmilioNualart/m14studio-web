@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { ArrowRight, type LucideIcon } from "lucide-react";
 
 interface TimelineItem {
@@ -21,122 +21,68 @@ interface RadialOrbitalTimelineProps {
 export default function RadialOrbitalTimeline({
   timelineData,
 }: RadialOrbitalTimelineProps) {
-  const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>(
-    {}
-  );
-  const [viewMode, setViewMode] = useState<"orbital">("orbital");
-  const [rotationAngle, setRotationAngle] = useState<number>(0);
-  const [autoRotate, setAutoRotate] = useState<boolean>(true);
-  const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
-  const [centerOffset, setCenterOffset] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
+  const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>({});
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
+  const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
   const [mounted, setMounted] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
-  const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
-
-  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === containerRef.current || e.target === orbitRef.current) {
-      setExpandedItems({});
-      setActiveNodeId(null);
-      setPulseEffect({});
-      setAutoRotate(true);
-    }
-  };
-
-  const toggleItem = (id: number) => {
-    setExpandedItems((prev) => {
-      const newState = { ...prev };
-      Object.keys(newState).forEach((key) => {
-        if (parseInt(key) !== id) {
-          newState[parseInt(key)] = false;
-        }
-      });
-
-      newState[id] = !prev[id];
-
-      if (!prev[id]) {
-        setActiveNodeId(id);
-        setAutoRotate(false);
-
-        const relatedItems = getRelatedItems(id);
-        const newPulseEffect: Record<number, boolean> = {};
-        relatedItems.forEach((relId) => {
-          newPulseEffect[relId] = true;
-        });
-        setPulseEffect(newPulseEffect);
-
-        centerViewOnNode(id);
-      } else {
-        setActiveNodeId(null);
-        setAutoRotate(true);
-        setPulseEffect({});
-      }
-
-      return newState;
-    });
-  };
+  const nodeElsRef = useRef<Record<number, HTMLDivElement | null>>({});
+  const angleRef = useRef(0);
+  const autoRotateRef = useRef(true);
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     setMounted(true);
     setIsMobileView(window.innerWidth < 768);
   }, []);
 
+  // Direct DOM manipulation for rotation - no React re-renders
   useEffect(() => {
-    let rafId: number;
+    if (!mounted) return;
+
+    const isMobile = window.innerWidth < 768;
+    const radius = isMobile ? 130 : 280;
+    const total = timelineData.length;
     let lastTime = 0;
 
-    const rotate = (time: number) => {
-      if (autoRotate && viewMode === "orbital") {
+    const tick = (time: number) => {
+      if (autoRotateRef.current) {
         if (lastTime) {
           const delta = time - lastTime;
-          setRotationAngle((prev) => (prev + delta * 0.006) % 360);
+          angleRef.current = (angleRef.current + delta * 0.006) % 360;
         }
         lastTime = time;
-        rafId = requestAnimationFrame(rotate);
+      } else {
+        lastTime = 0;
       }
+
+      // Update each node position directly via DOM
+      for (let i = 0; i < total; i++) {
+        const item = timelineData[i];
+        const el = nodeElsRef.current[item.id];
+        if (!el) continue;
+
+        const a = ((i / total) * 360 + angleRef.current) % 360;
+        const rad = (a * Math.PI) / 180;
+        const x = radius * Math.cos(rad);
+        const y = radius * Math.sin(rad);
+        const opacity = Math.max(0.4, 0.4 + 0.6 * ((1 + Math.sin(rad)) / 2));
+        const z = Math.round(100 + 50 * Math.cos(rad));
+
+        el.style.transform = `translate(${x}px, ${y}px)`;
+        el.style.zIndex = String(z);
+        el.style.opacity = String(opacity);
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
     };
 
-    if (autoRotate && viewMode === "orbital") {
-      rafId = requestAnimationFrame(rotate);
-    }
-
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [autoRotate, viewMode]);
-
-  const centerViewOnNode = (nodeId: number) => {
-    if (viewMode !== "orbital" || !nodeRefs.current[nodeId]) return;
-
-    const nodeIndex = timelineData.findIndex((item) => item.id === nodeId);
-    const totalNodes = timelineData.length;
-    const targetAngle = (nodeIndex / totalNodes) * 360;
-
-    setRotationAngle(270 - targetAngle);
-  };
-
-  const calculateNodePosition = (index: number, total: number) => {
-    const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const radius = isMobile ? 130 : 280;
-    const radian = (angle * Math.PI) / 180;
-
-    const x = radius * Math.cos(radian) + centerOffset.x;
-    const y = radius * Math.sin(radian) + centerOffset.y;
-
-    const zIndex = Math.round(100 + 50 * Math.cos(radian));
-    const opacity = Math.max(
-      0.4,
-      Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2))
-    );
-
-    return { x, y, angle, zIndex, opacity };
-  };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [mounted, timelineData]);
 
   const getRelatedItems = (itemId: number): number[] => {
     const currentItem = timelineData.find((item) => item.id === itemId);
@@ -145,20 +91,54 @@ export default function RadialOrbitalTimeline({
 
   const isRelatedToActive = (itemId: number): boolean => {
     if (!activeNodeId) return false;
-    const relatedItems = getRelatedItems(activeNodeId);
-    return relatedItems.includes(itemId);
+    return getRelatedItems(activeNodeId).includes(itemId);
   };
 
-  const getStatusStyles = (status: TimelineItem["status"]): string => {
-    switch (status) {
-      case "completed":
-        return "text-white bg-black border-white";
-      case "in-progress":
-        return "text-black bg-white border-black";
-      case "pending":
-        return "text-white bg-black/40 border-white/50";
-      default:
-        return "text-white bg-black/40 border-white/50";
+  const centerViewOnNode = useCallback((nodeId: number) => {
+    const nodeIndex = timelineData.findIndex((item) => item.id === nodeId);
+    const total = timelineData.length;
+    const targetAngle = (nodeIndex / total) * 360;
+    angleRef.current = 270 - targetAngle;
+  }, [timelineData]);
+
+  const toggleItem = (id: number) => {
+    setExpandedItems((prev) => {
+      const newState: Record<number, boolean> = {};
+      newState[id] = !prev[id];
+
+      if (!prev[id]) {
+        setActiveNodeId(id);
+        autoRotateRef.current = false;
+
+        const related = getRelatedItems(id);
+        const pulse: Record<number, boolean> = {};
+        related.forEach((relId) => { pulse[relId] = true; });
+        setPulseEffect(pulse);
+
+        centerViewOnNode(id);
+
+        // Override opacity/zIndex for expanded node
+        const el = nodeElsRef.current[id];
+        if (el) {
+          el.style.opacity = "1";
+          el.style.zIndex = "200";
+        }
+      } else {
+        setActiveNodeId(null);
+        autoRotateRef.current = true;
+        setPulseEffect({});
+      }
+
+      return newState;
+    });
+  };
+
+  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === containerRef.current || e.target === orbitRef.current) {
+      setExpandedItems({});
+      setActiveNodeId(null);
+      setPulseEffect({});
+      autoRotateRef.current = true;
     }
   };
 
@@ -172,91 +152,58 @@ export default function RadialOrbitalTimeline({
         <div
           className="absolute w-full h-full flex items-center justify-center"
           ref={orbitRef}
-          style={{
-            perspective: "1000px",
-            transform: `translate(${centerOffset.x}px, ${centerOffset.y}px)`,
-          }}
+          style={{ perspective: "1000px" }}
         >
+          {/* Center nucleus */}
           <div className="absolute w-16 h-16 rounded-full animate-pulse flex items-center justify-center z-10" style={{ background: "linear-gradient(135deg, #7A0012, #a8192e, #4a000b)" }}>
-            <div className="absolute w-20 h-20 rounded-full border border-white/20 animate-ping opacity-70"></div>
-            <div
-              className="absolute w-24 h-24 rounded-full border border-white/10 animate-ping opacity-50"
-              style={{ animationDelay: "0.5s" }}
-            ></div>
-            <div className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md"></div>
+            <div className="absolute w-20 h-20 rounded-full border border-white/20 animate-ping opacity-70" />
+            <div className="absolute w-24 h-24 rounded-full border border-white/10 animate-ping opacity-50" style={{ animationDelay: "0.5s" }} />
+            <div className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md" />
           </div>
 
-          <div className="absolute rounded-full border border-white/10" style={{ width: isMobileView ? 260 : 560, height: isMobileView ? 260 : 560 }}></div>
+          {/* Orbit ring */}
+          <div className="absolute rounded-full border border-white/10" style={{ width: isMobileView ? 260 : 560, height: isMobileView ? 260 : 560 }} />
 
-          {mounted && timelineData.map((item, index) => {
-            const position = calculateNodePosition(index, timelineData.length);
+          {/* Nodes */}
+          {mounted && timelineData.map((item) => {
             const isExpanded = expandedItems[item.id];
             const isRelated = isRelatedToActive(item.id);
             const isPulsing = pulseEffect[item.id];
             const Icon = item.icon;
 
-            const nodeStyle = {
-              transform: `translate(${position.x}px, ${position.y}px)`,
-              zIndex: isExpanded ? 200 : position.zIndex,
-              opacity: isExpanded ? 1 : position.opacity,
-            };
-
             return (
               <div
                 key={item.id}
-                ref={(el) => { nodeRefs.current[item.id] = el; }}
-                className="absolute transition-all duration-700 cursor-pointer"
-                style={nodeStyle}
+                ref={(el) => { nodeElsRef.current[item.id] = el; }}
+                className="absolute cursor-pointer"
+                style={{ willChange: "transform" }}
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleItem(item.id);
                 }}
               >
                 <div
-                  className={`absolute rounded-full -inset-1 ${
-                    isPulsing ? "animate-pulse duration-1000" : ""
-                  }`}
+                  className={`absolute rounded-full -inset-1 ${isPulsing ? "animate-pulse duration-1000" : ""}`}
                   style={{
-                    background: `radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)`,
+                    background: "radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%)",
                     width: `${item.energy * 0.5 + 40}px`,
                     height: `${item.energy * 0.5 + 40}px`,
                     left: `-${(item.energy * 0.5 + 40 - 40) / 2}px`,
                     top: `-${(item.energy * 0.5 + 40 - 40) / 2}px`,
                   }}
-                ></div>
+                />
 
                 <div
                   className={`
-                  w-10 h-10 rounded-full flex items-center justify-center
-                  ${
-                    isExpanded
-                      ? "bg-white text-black"
-                      : isRelated
-                      ? "bg-white/50 text-black"
-                      : "bg-black text-white"
-                  }
-                  border-2
-                  ${
-                    isExpanded
-                      ? "border-white shadow-lg shadow-white/30"
-                      : isRelated
-                      ? "border-white animate-pulse"
-                      : "border-white/40"
-                  }
-                  transition-all duration-300 transform
-                  ${isExpanded ? "scale-150" : ""}
-                `}
+                    w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300
+                    ${isExpanded ? "bg-white text-black border-white shadow-lg shadow-white/30 scale-150" : isRelated ? "bg-white/50 text-black border-white animate-pulse" : "bg-black text-white border-white/40"}
+                  `}
                 >
                   <Icon size={16} strokeWidth={2} />
                 </div>
 
                 <div
-                  className={`
-                  absolute top-12  whitespace-nowrap
-                  text-xs font-semibold tracking-wider
-                  transition-all duration-300
-                  ${isExpanded ? "text-white scale-125" : "text-white/70"}
-                `}
+                  className={`absolute top-12 whitespace-nowrap text-xs font-semibold tracking-wider transition-all duration-300 ${isExpanded ? "text-white scale-125" : "text-white/70"}`}
                 >
                   {item.title}
                 </div>
@@ -299,9 +246,7 @@ export default function RadialOrbitalTimeline({
                         </div>
                         <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                           {item.relatedIds.map((relatedId) => {
-                            const relatedItem = timelineData.find(
-                              (i) => i.id === relatedId
-                            );
+                            const relatedItem = timelineData.find((i) => i.id === relatedId);
                             return (
                               <button
                                 key={relatedId}
