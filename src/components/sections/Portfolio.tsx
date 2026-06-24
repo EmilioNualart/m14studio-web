@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { portfolioItems, filterCategories, getThumbUrl } from "@/lib/data";
 import { useVideoModal } from "@/components/providers/VideoModalProvider";
-import { CircularGallery, GalleryItem } from "@/components/ui/circular-gallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,21 +12,6 @@ export default function Portfolio() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeFilter, setActiveFilter] = useState("all");
   const { openVideo } = useVideoModal();
-
-  // All items for the circular gallery (never filtered)
-  const allGalleryItems: GalleryItem[] = useMemo(() => {
-    return portfolioItems.map((item) => ({
-      common: item.title,
-      binomial: item.category.charAt(0).toUpperCase() + item.category.slice(1),
-      photo: {
-        url: getThumbUrl(item),
-        text: item.title,
-        pos: "center",
-        by: "M14 Studio",
-      },
-      onClick: () => openVideo(item.videoId),
-    }));
-  }, [openVideo]);
 
   // Filtered items for the grid gallery
   const filteredItems = useMemo(() => {
@@ -129,14 +113,6 @@ export default function Portfolio() {
         <div className="portfolio-header">
           <div className="label">Trabajos Seleccionados</div>
           <h2 style={{ marginTop: "1rem" }}>Portfolio</h2>
-        </div>
-
-        {/* Circular 3D Gallery - always shows all videos */}
-        <div className="portfolio-carousel-wrapper">
-          <CircularGallery
-            items={allGalleryItems}
-            autoRotateSpeed={0.12}
-          />
         </div>
 
         {/* Gallery section with filters + grid */}
