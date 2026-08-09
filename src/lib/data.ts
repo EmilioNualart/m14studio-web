@@ -10,8 +10,11 @@ export function getThumbUrl(item: PortfolioItem): string {
   return `https://img.youtube.com/vi/${item.videoId}/${quality}.jpg`;
 }
 
+// Orden = orden de aparición en el grid. Los videos nuevos van al INICIO de este array.
 export const portfolioItems: PortfolioItem[] = [
+  { title: "LATAM X LA BIRRA BAR", category: "publicidad", videoId: "NChAK41oQZw" },
   { title: "Black and Sand — Saville Row", category: "moda", videoId: "2qByFoSHahI" },
+  { title: "Guten Draft — Guten Brew", category: "publicidad", videoId: "uMBUVTyzXdA" },
   { title: "Bledford Residences", category: "corporativo", videoId: "NYUWsLpVlhQ" },
   { title: "Saville Row — Denim", category: "moda", videoId: "F6D0G5v2lB8" },
   { title: "La Birra Bar", category: "publicidad", videoId: "B4a6Ur85Rng" },
@@ -26,12 +29,10 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "Capasite", category: "corporativo", videoId: "pZ17GkAcsR0" },
   { title: "OSSO", category: "eventos", videoId: "M5xpDkovSJY" },
   { title: "Valle Luna", category: "eventos", videoId: "z6nIPo5FPD4" },
-  { title: "Guten Draft — Guten Brew", category: "publicidad", videoId: "uMBUVTyzXdA" },
   { title: "Guten Ice — Guten Brew", category: "publicidad", videoId: "nUlGNc_L2wI" },
   { title: "Colección RAICES — LUAU BRAND", category: "moda", videoId: "L_garDcBHmw" },
   { title: "Colección RAICES II — LUAU BRAND", category: "moda", videoId: "MPPfJsloCL0" },
   { title: "Colección RAICES III — LUAU BRAND", category: "moda", videoId: "Frqj0J17bdI" },
-  { title: "LATAM X LA BIRRA BAR", category: "publicidad", videoId: "NChAK41oQZw" },
 ];
 
 export const servicios = [
