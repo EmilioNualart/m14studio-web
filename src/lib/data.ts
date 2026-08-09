@@ -11,10 +11,10 @@ export function getThumbUrl(item: PortfolioItem): string {
 }
 
 export const portfolioItems: PortfolioItem[] = [
-  { title: "Black and Sand — Saville Row", category: "moda", videoId: "2qByFoSHahI", thumb: "hq" },
+  { title: "Black and Sand — Saville Row", category: "moda", videoId: "2qByFoSHahI" },
   { title: "Bledford Residences", category: "corporativo", videoId: "NYUWsLpVlhQ" },
   { title: "Saville Row — Denim", category: "moda", videoId: "F6D0G5v2lB8" },
-  { title: "La Birra Bar", category: "publicidad", videoId: "B4a6Ur85Rng", thumb: "hq" },
+  { title: "La Birra Bar", category: "publicidad", videoId: "B4a6Ur85Rng" },
   { title: "EMG Carina", category: "moda", videoId: "e52eqE7NLTI" },
   { title: "Saville Row — Día de la Madre", category: "publicidad", videoId: "ehPwlTP4uvs" },
   { title: "BK Servicios Financieros", category: "corporativo", videoId: "ACM5XZTjt6o" },
@@ -24,7 +24,7 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "More Amor", category: "moda", videoId: "4Ja8VoRkUbk" },
   { title: "Fika", category: "publicidad", videoId: "sW-V_S2G1VY" },
   { title: "Capasite", category: "corporativo", videoId: "pZ17GkAcsR0" },
-  { title: "OSSO", category: "eventos", videoId: "M5xpDkovSJY", thumb: "hq" },
+  { title: "OSSO", category: "eventos", videoId: "M5xpDkovSJY" },
   { title: "Valle Luna", category: "eventos", videoId: "z6nIPo5FPD4" },
   { title: "Guten Draft — Guten Brew", category: "publicidad", videoId: "uMBUVTyzXdA" },
   { title: "Guten Ice — Guten Brew", category: "publicidad", videoId: "nUlGNc_L2wI" },
