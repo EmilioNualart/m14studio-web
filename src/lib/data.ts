@@ -26,6 +26,12 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "Capasite", category: "corporativo", videoId: "pZ17GkAcsR0" },
   { title: "OSSO", category: "eventos", videoId: "M5xpDkovSJY", thumb: "hq" },
   { title: "Valle Luna", category: "eventos", videoId: "z6nIPo5FPD4" },
+  { title: "Guten Draft — Guten Brew", category: "publicidad", videoId: "uMBUVTyzXdA" },
+  { title: "Guten Ice — Guten Brew", category: "publicidad", videoId: "nUlGNc_L2wI" },
+  { title: "Colección RAICES — LUAU BRAND", category: "moda", videoId: "L_garDcBHmw" },
+  { title: "Colección RAICES II — LUAU BRAND", category: "moda", videoId: "MPPfJsloCL0" },
+  { title: "Colección RAICES III — LUAU BRAND", category: "moda", videoId: "Frqj0J17bdI" },
+  { title: "LATAM X LA BIRRA BAR", category: "publicidad", videoId: "NChAK41oQZw" },
 ];
 
 export const servicios = [
