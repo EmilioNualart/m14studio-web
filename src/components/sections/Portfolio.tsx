@@ -8,9 +8,12 @@ import { useVideoModal } from "@/components/providers/VideoModalProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const INITIAL_VISIBLE_COUNT = 10;
+
 export default function Portfolio() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeFilter, setActiveFilter] = useState("all");
+  const [showAll, setShowAll] = useState(false);
   const { openVideo } = useVideoModal();
 
   // Filtered items for the grid gallery
@@ -19,6 +22,11 @@ export default function Portfolio() {
       (item) => activeFilter === "all" || item.category === activeFilter
     );
   }, [activeFilter]);
+
+  const visibleItems = showAll
+    ? filteredItems
+    : filteredItems.slice(0, INITIAL_VISIBLE_COUNT);
+  const hasMore = filteredItems.length > INITIAL_VISIBLE_COUNT && !showAll;
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -91,6 +99,7 @@ export default function Portfolio() {
       ease: "power2.in",
       onComplete: () => {
         setActiveFilter(filter);
+        setShowAll(false);
         requestAnimationFrame(() => {
           gsap.to(grid, {
             opacity: 1,
@@ -131,7 +140,7 @@ export default function Portfolio() {
           </div>
 
           <div className="portfolio-grid">
-            {filteredItems.map((item) => (
+            {visibleItems.map((item) => (
               <div
                 key={item.videoId}
                 className="portfolio-item"
@@ -155,6 +164,14 @@ export default function Portfolio() {
               </div>
             ))}
           </div>
+
+          {hasMore && (
+            <div className="portfolio-load-more">
+              <button className="btn" onClick={() => setShowAll(true)}>
+                Ver todo
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
