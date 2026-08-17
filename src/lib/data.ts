@@ -12,6 +12,7 @@ export function getThumbUrl(item: PortfolioItem): string {
 
 // Orden = orden de aparición en el grid. Los videos nuevos van al INICIO de este array.
 export const portfolioItems: PortfolioItem[] = [
+  { title: "Echoes of the South", category: "moda", videoId: "KsT1Xe-5m9A" },
   { title: "Colección Otoño-Invierno II — Dinámica", category: "moda", videoId: "BOn7MyGUoAI" },
   { title: "Colección Otoño-Invierno — Dinámica", category: "moda", videoId: "hwsKufZDjcs" },
   { title: "LATAM X LA BIRRA BAR", category: "publicidad", videoId: "NChAK41oQZw" },
