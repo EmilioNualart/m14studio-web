@@ -90,13 +90,14 @@ export default function Hero() {
   return (
     <section id="home" ref={sectionRef}>
       <div className="hero-video-wrapper">
-        <iframe
+        <video
           className="hero-video"
-          src="https://www.youtube.com/embed/2qByFoSHahI?autoplay=1&mute=1&loop=1&playlist=2qByFoSHahI&controls=0&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          frameBorder="0"
-          title="Hero background video"
+          src="/videos/hero-reel.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
         />
         <div className="hero-video-mobile-fallback" />
         <div className="hero-overlay" />
