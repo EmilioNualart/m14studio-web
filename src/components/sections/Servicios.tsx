@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Film, Shirt, Building2, BookOpen, Music, Sparkles } from "lucide-react";
-import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,42 +13,36 @@ const servicios = [
     title: "Producción Publicitaria",
     description:
       "Campañas cinematográficas de alto impacto, desde la conceptualización creativa hasta la post-producción final.",
-    image: "/images/servicios/produccion.png",
   },
   {
     icon: Shirt,
     title: "Moda & Lifestyle",
     description:
       "Contenido editorial, lookbooks y campañas de moda con dirección de arte cuidada al detalle.",
-    image: "/images/servicios/moda.png",
   },
   {
     icon: Building2,
     title: "Contenido Corporativo",
     description:
       "Videos institucionales y piezas de comunicación que transmiten los valores de tu empresa con calidad cinematográfica.",
-    image: "/images/servicios/corporativo.png",
   },
   {
     icon: BookOpen,
     title: "Documentales",
     description:
       "Historias reales con sensibilidad cinematográfica. Narrativas que conectan con la audiencia.",
-    image: "/images/servicios/documental.png",
   },
   {
     icon: Music,
     title: "Cobertura de Eventos",
     description:
       "Festivales, conciertos y eventos corporativos con producción multi-cámara y un enfoque dinámico.",
-    image: "/images/servicios/eventos.png",
   },
   {
     icon: Sparkles,
     title: "Post-Producción & VFX",
     description:
       "Color grading, motion graphics, diseño sonoro y efectos visuales que potencian el resultado final.",
-    image: "/images/servicios/postproduccion.png",
   },
 ];
 
@@ -173,23 +166,11 @@ export default function Servicios() {
             const Icon = s.icon;
             return (
               <div key={i} className="servicio-card">
-                <div className="servicio-card-img">
-                  <Image
-                    src={s.image}
-                    alt={s.title}
-                    fill
-                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                  <div className="servicio-card-img-overlay" />
+                <div className="servicio-card-icon">
+                  <Icon size={18} strokeWidth={1.5} />
                 </div>
-                <div className="servicio-card-body">
-                  <div className="servicio-card-icon">
-                    <Icon size={20} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="servicio-card-title">{s.title}</h3>
-                  <p className="servicio-card-desc">{s.description}</p>
-                </div>
+                <h3 className="servicio-card-title">{s.title}</h3>
+                <p className="servicio-card-desc">{s.description}</p>
               </div>
             );
           })}

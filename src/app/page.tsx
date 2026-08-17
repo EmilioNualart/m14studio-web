@@ -28,9 +28,9 @@ export default function Home() {
         <CustomCursor />
         <Navbar />
         <Hero />
-        <Servicios />
-        <SectionDivider />
         <Portfolio />
+        <SectionDivider />
+        <Servicios />
         <SectionDivider />
         <SobreNosotros />
         <Ubicaciones />
