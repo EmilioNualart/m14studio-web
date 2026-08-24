@@ -3,43 +3,41 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Film, Shirt, Building2, BookOpen, Music, Sparkles } from "lucide-react";
-
 gsap.registerPlugin(ScrollTrigger);
 
 const servicios = [
   {
-    icon: Film,
+    numero: "01",
     title: "Producción Publicitaria",
     description:
       "Campañas cinematográficas de alto impacto, desde la conceptualización creativa hasta la post-producción final.",
   },
   {
-    icon: Shirt,
+    numero: "02",
     title: "Moda & Lifestyle",
     description:
       "Contenido editorial, lookbooks y campañas de moda con dirección de arte cuidada al detalle.",
   },
   {
-    icon: Building2,
+    numero: "03",
     title: "Contenido Corporativo",
     description:
       "Videos institucionales y piezas de comunicación que transmiten los valores de tu empresa con calidad cinematográfica.",
   },
   {
-    icon: BookOpen,
+    numero: "04",
     title: "Documentales",
     description:
       "Historias reales con sensibilidad cinematográfica. Narrativas que conectan con la audiencia.",
   },
   {
-    icon: Music,
+    numero: "05",
     title: "Cobertura de Eventos",
     description:
       "Festivales, conciertos y eventos corporativos con producción multi-cámara y un enfoque dinámico.",
   },
   {
-    icon: Sparkles,
+    numero: "06",
     title: "Post-Producción & VFX",
     description:
       "Color grading, motion graphics, diseño sonoro y efectos visuales que potencian el resultado final.",
@@ -115,14 +113,14 @@ export default function Servicios() {
       });
 
       gsap.utils
-        .toArray<HTMLElement>(".servicio-card")
-        .forEach((card, i) => {
-          gsap.to(card, {
+        .toArray<HTMLElement>(".servicio-row")
+        .forEach((row, i) => {
+          gsap.to(row, {
             opacity: 1,
             y: 0,
-            duration: 0.8,
+            duration: 0.7,
             ease: "power3.out",
-            delay: 0.6 + i * 0.1,
+            delay: 0.6 + i * 0.08,
             scrollTrigger: st,
           });
         });
@@ -161,19 +159,14 @@ export default function Servicios() {
           <div className="servicios-accent" />
         </div>
 
-        <div className="servicios-grid">
-          {servicios.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <div key={i} className="servicio-card">
-                <div className="servicio-card-icon">
-                  <Icon size={18} strokeWidth={1.5} />
-                </div>
-                <h3 className="servicio-card-title">{s.title}</h3>
-                <p className="servicio-card-desc">{s.description}</p>
-              </div>
-            );
-          })}
+        <div className="servicios-list">
+          {servicios.map((s, i) => (
+            <div key={i} className="servicio-row">
+              <span className="servicio-row-numero">{s.numero}</span>
+              <h3 className="servicio-row-title">{s.title}</h3>
+              <p className="servicio-row-desc">{s.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

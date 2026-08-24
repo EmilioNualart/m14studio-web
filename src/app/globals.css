@@ -756,68 +756,61 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
   opacity: 0;
 }
 
-.servicios-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+.servicios-list {
   margin-top: 2.5rem;
+  border-top: 1px solid rgba(245, 240, 232, 0.1);
 }
 
-.servicio-card {
-  padding: 1.5rem;
-  border: 1px solid rgba(245, 240, 232, 0.08);
-  border-radius: 10px;
-  background: rgba(245, 240, 232, 0.03);
-  transition: border-color 0.3s ease, transform 0.3s ease;
+.servicio-row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 1fr;
+  align-items: baseline;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
+  transition: background 0.3s ease, padding-left 0.3s ease;
 }
 
-.servicio-card:hover {
-  border-color: rgba(122, 0, 18, 0.4);
-  transform: translateY(-2px);
+.servicio-row:hover {
+  background: rgba(122, 0, 18, 0.05);
+  padding-left: 0.75rem;
 }
 
-.servicio-card-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: rgba(122, 0, 18, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--crema);
-  margin-bottom: 0.75rem;
-}
-
-.servicio-card-title {
-  font-size: 1rem;
+.servicio-row-numero {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--vino);
   font-weight: 500;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.4rem;
-  color: var(--crema);
 }
 
-.servicio-card-desc {
-  font-size: 0.85rem;
-  line-height: 1.55;
-  color: rgba(245, 240, 232, 0.75);
+.servicio-row-title {
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--crema);
   margin: 0;
 }
 
-@media (max-width: 1024px) {
-  .servicios-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.servicio-row-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(245, 240, 232, 0.65);
+  margin: 0;
+  text-align: right;
 }
 
-@media (max-width: 600px) {
-  .servicios-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+@media (max-width: 768px) {
+  .servicio-row {
+    grid-template-columns: 2.5rem 1fr;
+    padding: 1.1rem 0;
   }
-  .servicio-card {
-    padding: 1.25rem;
+  .servicio-row-title {
+    font-size: 1.05rem;
+  }
+  .servicio-row-desc {
+    display: none;
   }
 }
 
