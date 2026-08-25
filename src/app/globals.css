@@ -1234,6 +1234,8 @@ nav.scrolled .nav-menu-toggle span { background: var(--negro); }
   margin-bottom: 0;
   min-width: 120px;
   flex-shrink: 0;
+  color: var(--vino);
+  opacity: 1;
 }
 
 .contacto-item a {
