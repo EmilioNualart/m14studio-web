@@ -8,13 +8,28 @@ import { useVideoModal } from "@/components/providers/VideoModalProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const INITIAL_VISIBLE_COUNT = 10;
+const INITIAL_ROWS = 3;
+
+// Mirrors the .portfolio-grid column breakpoints in globals.css
+function getColumns(width: number) {
+  if (width <= 640) return 1;
+  if (width <= 968) return 2;
+  return 3;
+}
 
 export default function Portfolio() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeFilter, setActiveFilter] = useState("all");
   const [showAll, setShowAll] = useState(false);
+  const [columns, setColumns] = useState(3);
   const { openVideo } = useVideoModal();
+
+  useEffect(() => {
+    const update = () => setColumns(getColumns(window.innerWidth));
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   // Filtered items for the grid gallery
   const filteredItems = useMemo(() => {
@@ -23,10 +38,13 @@ export default function Portfolio() {
     );
   }, [activeFilter]);
 
+  // Round down to the nearest full row so the grid never ends on a
+  // half-empty last row when the "Ver todo" cutoff kicks in.
+  const initialVisibleCount = columns * INITIAL_ROWS;
+  const hasMore = filteredItems.length > initialVisibleCount && !showAll;
   const visibleItems = showAll
     ? filteredItems
-    : filteredItems.slice(0, INITIAL_VISIBLE_COUNT);
-  const hasMore = filteredItems.length > INITIAL_VISIBLE_COUNT && !showAll;
+    : filteredItems.slice(0, initialVisibleCount);
 
   useEffect(() => {
     if (!sectionRef.current) return;
