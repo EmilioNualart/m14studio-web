@@ -1,62 +1,69 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
+const links = [
+  { href: "#trabajo", label: "Trabajo" },
+  { href: "#quienes-somos", label: "Quiénes somos" },
+  { href: "#como-trabajamos", label: "Cómo trabajamos" },
+  { href: "#agendar", label: "Agendar reunión" },
+];
 
 export default function Navbar() {
-  const navRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const isHome = usePathname() === "/";
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (navRef.current) {
-        if (window.pageYOffset > 100) {
-          navRef.current.classList.add("scrolled");
-        } else {
-          navRef.current.classList.remove("scrolled");
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+  }, [menuOpen]);
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+    if (!isHome) return;
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const links = [
-    { href: "#home", label: "Home" },
-    { href: "#servicios", label: "Servicios" },
-    { href: "#portfolio", label: "Portfolio" },
-    { href: "#sobre-nosotros", label: "Nosotros" },
-    { href: "#contacto", label: "Contacto" },
-  ];
-
   return (
-    <nav ref={navRef} id="navbar">
-      <a href="#" className="nav-logo" onClick={(e) => handleLinkClick(e, "#home")}>
-        M14 <span className="studio-text">STUDIO</span>
+    <nav id="navbar" className={scrolled || !isHome ? "scrolled" : ""} aria-label="Principal">
+      <a
+        href={isHome ? "#home" : "/"}
+        className="nav-logo"
+        aria-label="M14 Studio, inicio"
+        onClick={(e) => handleLinkClick(e, "#home")}
+      >
+        <img src="/brand/m14-cuadrado-negativo.svg" alt="M14 Studio" />
       </a>
-      <ul className={`nav-links${menuOpen ? " active" : ""}`}>
-        {links.map((link) => (
+      <ul id="nav-links" className={`nav-links${menuOpen ? " active" : ""}`}>
+        {links.map((link, i) => (
           <li key={link.href}>
-            <a href={link.href} onClick={(e) => handleLinkClick(e, link.href)}>
+            <a
+              href={isHome ? link.href : `/${link.href}`}
+              className={`placa${i === links.length - 1 ? " acento-negro" : ""}`}
+              onClick={(e) => handleLinkClick(e, link.href)}
+            >
               {link.label}
             </a>
           </li>
         ))}
       </ul>
       <button
-        className={`nav-menu-toggle${menuOpen ? " active" : ""}`}
+        type="button"
+        className={`nav-toggle${menuOpen ? " active" : ""}`}
+        aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+        aria-expanded={menuOpen}
+        aria-controls="nav-links"
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        <span />
         <span />
         <span />
       </button>

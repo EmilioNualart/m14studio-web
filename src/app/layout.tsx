@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400"],
+  weight: ["400", "500"],
   display: "swap",
   variable: "--font-inter",
 });
 
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  display: "swap",
+  variable: "--font-archivo",
+});
+
 export const metadata: Metadata = {
-  title: "M14 Studio | Productora Audiovisual Santiago & Barcelona",
-  description: "Productora audiovisual con sede en Santiago, Chile y Barcelona, España. Producción publicitaria, moda, contenido corporativo, documentales, cobertura de eventos y post-producción VFX.",
+  title: "M14 Studio | Productora Audiovisual en Santiago",
+  description: "Productora audiovisual en Santiago de Chile. Nos hacemos cargo del proyecto completo: concepto, rodaje y entrega, con la preproducción cerrada antes del rodaje.",
   keywords: [
     "productora audiovisual Santiago",
     "productora audiovisual Chile",
@@ -19,8 +26,7 @@ export const metadata: Metadata = {
     "video corporativo Santiago",
     "producción de moda Chile",
     "video publicitario Santiago",
-    "productora audiovisual Barcelona",
-    "post producción VFX",
+    "producción audiovisual inmobiliaria",
     "M14 Studio",
   ],
   authors: [{ name: "M14 Studio" }],
@@ -31,8 +37,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://www.m14studio.com",
-    title: "M14 Studio | Productora Audiovisual Santiago & Barcelona",
-    description: "Productora audiovisual con sede en Santiago, Chile y Barcelona, España. Producción publicitaria, moda, contenido corporativo, documentales y más.",
+    title: "M14 Studio | Productora Audiovisual en Santiago",
+    description: "Productora audiovisual en Santiago de Chile. Nos hacemos cargo del proyecto completo: concepto, rodaje y entrega, con la preproducción cerrada antes del rodaje.",
     siteName: "M14 Studio",
     images: [
       {
@@ -45,8 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "M14 Studio | Productora Audiovisual Santiago & Barcelona",
-    description: "Productora audiovisual con sede en Santiago, Chile y Barcelona, España. Producción publicitaria, moda, contenido corporativo, documentales y más.",
+    title: "M14 Studio | Productora Audiovisual en Santiago",
+    description: "Productora audiovisual en Santiago de Chile. Nos hacemos cargo del proyecto completo: concepto, rodaje y entrega, con la preproducción cerrada antes del rodaje.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -67,32 +73,23 @@ const jsonLd = {
   name: "M14 Studio",
   url: "https://www.m14studio.com",
   logo: "https://www.m14studio.com/icon.png",
-  description: "Productora audiovisual con sede en Santiago, Chile y Barcelona, España.",
+  description: "Productora audiovisual en Santiago de Chile. Nos hacemos cargo del proyecto completo: concepto, rodaje y entrega, con la preproducción cerrada antes del rodaje.",
   email: "mercedeserrazuriz@m14studio.com",
   sameAs: ["https://www.instagram.com/m14studio"],
-  address: [
-    {
-      "@type": "PostalAddress",
-      streetAddress: "Francisco de Aguirre 3630",
-      addressLocality: "Santiago",
-      addressCountry: "CL",
-    },
-    {
-      "@type": "PostalAddress",
-      addressLocality: "Barcelona",
-      addressCountry: "ES",
-    },
-  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Francisco de Aguirre 3630",
+    addressLocality: "Santiago",
+    addressCountry: "CL",
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Servicios Audiovisuales",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Producción Publicitaria" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Moda & Lifestyle" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Contenido Corporativo" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Documentales" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cobertura de Eventos" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Post-Producción & VFX" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Campañas de moda" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Publicidad" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Corporativo e inmobiliario" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Producción integral" } },
     ],
   },
 };
@@ -103,7 +100,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={`${inter.variable} ${archivo.variable}`}>
       <head>
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18068665074" />
         <script

@@ -32,8 +32,8 @@ export default function VideoModal() {
       onClick={handleBackdropClick}
     >
       <div className="video-modal-content">
-        <button className="video-modal-close" onClick={closeVideo}>
-          ✕
+        <button type="button" className="video-modal-close placa" onClick={closeVideo}>
+          Cerrar
         </button>
         {videoId && (
           <iframe

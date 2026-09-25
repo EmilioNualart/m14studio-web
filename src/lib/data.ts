@@ -38,6 +38,57 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "Colección RAICES III — LUAU BRAND", category: "moda", videoId: "Frqj0J17bdI" },
 ];
 
+// Selección del home: orden por estándar, no por fecha. Lo que abre define lo que el cliente espera.
+export const featuredIds = ["2qByFoSHahI", "BOn7MyGUoAI", "NChAK41oQZw", "e52eqE7NLTI", "NYUWsLpVlhQ"];
+
+export const featuredMeta: Record<string, { titulo: string; cliente: string; categoria: string }> = {
+  "2qByFoSHahI": { titulo: "Black and Sand", cliente: "Saville Row", categoria: "Moda" },
+  "BOn7MyGUoAI": { titulo: "Otoño-Invierno II", cliente: "Dinámica", categoria: "Moda" },
+  "NChAK41oQZw": { titulo: "Latam x La Birra", cliente: "La Birra Bar", categoria: "Publicidad" },
+  "e52eqE7NLTI": { titulo: "Carina", cliente: "EMG", categoria: "Moda" },
+  "NYUWsLpVlhQ": { titulo: "Residences", cliente: "Bledford", categoria: "Inmobiliario" },
+};
+
+export const etapas = [
+  { titulo: "Brief y concepto", desc: "Cerramos contigo qué se filma y para qué canal." },
+  { titulo: "Guion narrativo y técnico", desc: "Cada plano decidido antes del set." },
+  { titulo: "Plan y presupuesto", desc: "Plan de rodaje, carta Gantt y monto cerrado." },
+  { titulo: "Rodaje", desc: "Una sola contraparte: nosotros." },
+  { titulo: "Entrega", desc: "Primera versión a los 7 días hábiles. Tres tandas de corrección." },
+];
+
+export const lineasDeServicio = [
+  { titulo: "Campañas de moda", desc: "Concepto, casting, rodaje y piezas por canal: film principal, cortes para redes y verticales." },
+  { titulo: "Publicidad", desc: "Spots para marcas y lanzamientos, con guion y plan cerrados antes de filmar." },
+  { titulo: "Corporativo e inmobiliario", desc: "Videos de proyecto y de empresa con carta Gantt y fechas de revisión acordadas." },
+  { titulo: "Producción integral", desc: "Equipo externo, locación y talento coordinados por M14, con presupuesto cerrado." },
+];
+
+export const clientesQueVuelven = [
+  { nombre: "Saville Row", nota: "6 proyectos en 2026" },
+  { nombre: "EMG" },
+  { nombre: "La Birra Bar" },
+  { nombre: "Spot Essence" },
+  { nombre: "Dinámica" },
+];
+
+export const equipo = [
+  { nombre: "Emilio Nualart", rol: "Co-founder · Estrategia y clientes", foto: "/imagenes/Emilio.jpg" },
+  { nombre: "Domingo Streeter", rol: "Co-founder · Dirección creativa", foto: "/imagenes/Domingo.jpg" },
+  { nombre: "Lucas Chauriye", rol: "Productor ejecutivo · Finanzas", foto: "/imagenes/Lucas.jpg" },
+  { nombre: "Mercedes Errázuriz", rol: "Productora ejecutiva", foto: null },
+];
+
+export const contacto = {
+  email: "mercedeserrazuriz@m14studio.com",
+  direccion: "Francisco de Aguirre 3630, Santiago",
+  instagram: "https://www.instagram.com/m14studio/",
+};
+
+// URL de la agenda (Cal.com o Google Calendar). Mientras esté vacía, el botón abre un correo a Mercedes.
+export const BOOKING_URL = "";
+
+// Legacy: lo usan componentes que ya no están en el home.
 export const servicios = [
   { numero: "01", titulo: "Producción Publicitaria", desc: "Campañas cinematográficas desde concepto hasta post-producción." },
   { numero: "02", titulo: "Moda & Lifestyle", desc: "Editorial, lookbooks y campañas con dirección de arte impecable." },

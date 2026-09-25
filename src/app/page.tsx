@@ -1,44 +1,31 @@
-"use client";
-
-import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import VideoModalProvider from "@/components/providers/VideoModalProvider";
-import ScrollProgress from "@/components/ui/ScrollProgress";
-import FilmGrain from "@/components/ui/FilmGrain";
-import MeshGradientBackground from "@/components/ui/MeshGradientBackground";
-import CustomCursor from "@/components/ui/CustomCursor";
-import SectionDivider from "@/components/ui/SectionDivider";
+import RevealProvider from "@/components/providers/RevealProvider";
 import VideoModal from "@/components/ui/VideoModal";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
-import Reel from "@/components/sections/Reel";
-import Servicios from "@/components/sections/Servicios";
 import Portfolio from "@/components/sections/Portfolio";
-import SobreNosotros from "@/components/sections/SobreNosotros";
-import Ubicaciones from "@/components/sections/Ubicaciones";
-import Contacto from "@/components/sections/Contacto";
-import Footer from "@/components/sections/Footer";
+import QuienesSomos from "@/components/sections/QuienesSomos";
+import ComoTrabajamos from "@/components/sections/ComoTrabajamos";
+import QueHacemos from "@/components/sections/QueHacemos";
+import Clientes from "@/components/sections/Clientes";
+import Agendar from "@/components/sections/Agendar";
 
 export default function Home() {
   return (
-    <SmoothScrollProvider>
-      <VideoModalProvider>
-        <ScrollProgress />
-        <FilmGrain />
-        <MeshGradientBackground />
-        <CustomCursor />
+    <VideoModalProvider>
+      <RevealProvider>
         <Navbar />
-        <Hero />
-        <Portfolio />
-        <SectionDivider />
-        <Servicios />
-        <SectionDivider />
-        <SobreNosotros />
-        <Ubicaciones />
-        <SectionDivider />
-        <Contacto />
-        <Footer />
+        <main>
+          <Hero />
+          <Portfolio />
+          <QuienesSomos />
+          <ComoTrabajamos />
+          <QueHacemos />
+          <Clientes />
+          <Agendar />
+        </main>
         <VideoModal />
-      </VideoModalProvider>
-    </SmoothScrollProvider>
+      </RevealProvider>
+    </VideoModalProvider>
   );
 }
