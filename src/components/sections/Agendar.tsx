@@ -41,6 +41,7 @@ export default function Agendar() {
         <div>
           <span className="placa">¿Prefieres escribir?</span>
           <a href={`mailto:${contacto.email}`}>{contacto.email}</a>
+          <a href={`mailto:${contacto.emailEmilio}`}>{contacto.emailEmilio}</a>
         </div>
         <div>
           <span className="placa">Oficina</span>

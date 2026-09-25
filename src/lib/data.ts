@@ -106,6 +106,7 @@ export const equipo = [
 
 export const contacto = {
   email: "mercedeserrazuriz@m14studio.com",
+  emailEmilio: "emilionualart@m14studio.com",
   direccion: "Francisco de Aguirre 3630, Santiago",
   instagram: "https://www.instagram.com/m14studio/",
   linkedin: "https://www.linkedin.com/company/145227039/",
