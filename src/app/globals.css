@@ -406,18 +406,14 @@ button {
 }
 
 .hero-firma {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  font-size: clamp(36px, 6.6vw, 104px);
+  line-height: 1;
 }
 
-.hero-firma h1 {
-  font-size: clamp(52px, 8.9vw, 128px);
-}
+.hero-firma .linea { display: block; }
 
-.hero-firma p {
-  font-size: clamp(19px, 1.8vw, 26px);
-  opacity: 0.85;
+@media (max-width: 700px) {
+  .hero-firma .linea { display: inline; }
 }
 
 .hero-meta {
@@ -451,6 +447,7 @@ button {
 
 .pieza {
   grid-column: span 4;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -458,37 +455,26 @@ button {
   margin-bottom: 56px;
 }
 
-.pieza:nth-child(2) { grid-column: span 8; }
-.pieza:nth-child(3) {
-  grid-column: span 4;
-  justify-content: flex-end;
-}
-
 .pieza-media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   background: #111;
 }
-
-.pieza:nth-child(2) .pieza-media { aspect-ratio: 16 / 9; }
-.pieza:nth-child(3) .pieza-media { aspect-ratio: 4 / 5; }
 
 .pieza-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.pieza:hover .pieza-media img {
-  transform: scale(1.03);
-}
+.pieza:hover .pieza-media img { transform: scale(1.03); }
 
 .pieza-play {
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 16px;
+  bottom: 16px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -505,26 +491,34 @@ button {
 
 .pieza-info {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
 }
 
-.pieza-info .display { font-size: 24px; }
-.pieza:nth-child(2) .pieza-info .display { font-size: 32px; }
-.pieza-info .placa { opacity: 0.6; white-space: nowrap; }
+.pieza-info .display {
+  font-size: 22px;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pieza-info .placa {
+  font-size: 11px;
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 @media (max-width: 900px) {
-  .pieza,
-  .pieza:nth-child(3) { grid-column: span 6; margin-bottom: 32px; }
-  .pieza:nth-child(2) { grid-column: 1 / -1; }
-  .pieza:nth-child(3) .pieza-media,
-  .pieza-media { aspect-ratio: 4 / 5; }
-  .pieza-info { flex-direction: column; gap: 6px; }
-  .pieza-info .display { font-size: 18px; }
-  .pieza:nth-child(2) .pieza-info .display { font-size: 26px; }
-  .pieza-info .placa { font-size: 10px; letter-spacing: 0.24em; }
+  .pieza { grid-column: span 6; margin-bottom: 40px; }
   .pieza-play { opacity: 1; transform: none; left: 12px; bottom: 12px; }
+}
+
+@media (max-width: 560px) {
+  .pieza { grid-column: 1 / -1; margin-bottom: 32px; }
 }
 
 /* ============================================
@@ -630,32 +624,92 @@ button {
    QUÉ HACEMOS
    ============================================ */
 .servicios {
-  grid-column: 4 / -1;
+  grid-column: 1 / -1;
   list-style: none;
   border-bottom: 1px solid var(--linea);
 }
 
 .servicio {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 48px;
-  row-gap: 10px;
-  padding: 32px 0;
-  border-top: 1px solid var(--linea);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: start;
+  padding: 40px 0;
+  border-top: 1px solid var(--negro);
 }
 
-.servicio .display {
-  font-size: clamp(26px, 2.5vw, 36px);
+.servicio-num {
+  grid-column: span 1;
+  padding-top: 8px;
+}
+
+.servicio-titulo {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.servicio-titulo .display {
+  font-size: clamp(28px, 2.8vw, 40px);
   line-height: 1;
 }
 
-.seccion-head.solo-placa { margin-bottom: 0; }
-.seccion-head.solo-placa > .placa { grid-column: span 3; }
+.servicio-titulo p {
+  font-size: 16px;
+  color: var(--gris);
+  max-width: 36ch;
+}
+
+.servicio-entregables {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.servicio-entregables ul { list-style: none; }
+
+.servicio-entregables li {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 0;
+  border-top: 1px solid var(--linea);
+}
+
+.servicio-media {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.servicio-media img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.servicio-media figcaption {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--gris);
+}
 
 @media (max-width: 900px) {
-  .servicios { grid-column: 1 / -1; margin-top: 16px; }
-  .servicio { grid-template-columns: 1fr; padding: 22px 0; }
-  .servicio p { font-size: 15px; }
+  .servicio {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    padding: 28px 0 36px;
+  }
+  .servicio-num,
+  .servicio-titulo,
+  .servicio-entregables,
+  .servicio-media { grid-column: 1 / -1; }
+  .servicio-media { order: -1; }
+  .servicio-num,
+  .servicio-entregables { padding-top: 0; }
 }
 
 /* ============================================
@@ -756,23 +810,32 @@ button {
 .btn-papel:hover svg { transform: translateX(4px); }
 
 .pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 32px 64px;
   margin-top: clamp(72px, 8vw, 96px);
   padding-top: 24px;
   border-top: 1px solid var(--linea-oscura);
-  row-gap: 28px;
   font-size: 15px;
 }
 
 .pie > div {
-  grid-column: span 3;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  min-width: 0;
 }
 
-.pie .placa { opacity: 0.6; }
+.pie .placa {
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.pie a,
+.pie span:not(.placa) { overflow-wrap: anywhere; }
 .pie a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.pie-logo { justify-content: flex-end; }
+.pie-logo { margin-right: auto; }
 .pie-logo img { width: 56px; height: 56px; }
 
 @media (max-width: 900px) {
@@ -780,8 +843,8 @@ button {
   .agendar-panel { grid-column: 1 / -1; }
   .agendar-panel { margin-top: 32px; }
   .agendar-embed { height: 720px; }
-  .pie > div { grid-column: 1 / -1; }
-  .pie-logo { order: 9; }
+  .pie { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .pie-logo { order: 9; margin-right: 0; }
   .pie-logo img { width: 48px; height: 48px; }
 }
 

@@ -7,7 +7,6 @@ import Portfolio from "@/components/sections/Portfolio";
 import QuienesSomos from "@/components/sections/QuienesSomos";
 import ComoTrabajamos from "@/components/sections/ComoTrabajamos";
 import QueHacemos from "@/components/sections/QueHacemos";
-import Clientes from "@/components/sections/Clientes";
 import Agendar from "@/components/sections/Agendar";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
           <QuienesSomos />
           <ComoTrabajamos />
           <QueHacemos />
-          <Clientes />
           <Agendar />
         </main>
         <VideoModal />

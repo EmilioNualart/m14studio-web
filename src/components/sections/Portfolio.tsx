@@ -23,7 +23,7 @@ export default function Portfolio() {
               videoId={id}
               thumb={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
               titulo={meta.titulo}
-              meta={id === featuredIds[0] ? `${meta.cliente} · ${meta.categoria}` : meta.cliente}
+              meta={meta.cliente === meta.titulo ? meta.categoria : `${meta.cliente} · ${meta.categoria}`}
             />
           );
         })}

@@ -15,10 +15,10 @@ export default function Hero() {
       <div className="hero-overlay" />
 
       <div className="hero-content">
-        <div className="hero-firma">
-          <h1 className="display">Nos encargamos</h1>
-          <p>de contar tu historia.</p>
-        </div>
+        <h1 className="hero-firma display">
+          <span className="linea">Nos encargamos</span>{" "}
+          <span className="linea">de contar tu historia.</span>
+        </h1>
         <div className="hero-meta placa">Reel 2026</div>
       </div>
     </section>

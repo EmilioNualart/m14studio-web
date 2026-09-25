@@ -39,13 +39,14 @@ export const portfolioItems: PortfolioItem[] = [
 ];
 
 // Selección del home: orden por estándar, no por fecha. Lo que abre define lo que el cliente espera.
-export const featuredIds = ["2qByFoSHahI", "BOn7MyGUoAI", "NChAK41oQZw", "e52eqE7NLTI", "NYUWsLpVlhQ"];
+export const featuredIds = ["2qByFoSHahI", "BOn7MyGUoAI", "NChAK41oQZw", "e52eqE7NLTI", "GxtIgjfuSls", "NYUWsLpVlhQ"];
 
 export const featuredMeta: Record<string, { titulo: string; cliente: string; categoria: string }> = {
   "2qByFoSHahI": { titulo: "Black and Sand", cliente: "Saville Row", categoria: "Moda" },
   "BOn7MyGUoAI": { titulo: "Otoño-Invierno II", cliente: "Dinámica", categoria: "Moda" },
   "NChAK41oQZw": { titulo: "Latam x La Birra", cliente: "La Birra Bar", categoria: "Publicidad" },
   "e52eqE7NLTI": { titulo: "Carina", cliente: "EMG", categoria: "Moda" },
+  "GxtIgjfuSls": { titulo: "Ochi and Co", cliente: "Ochi and Co", categoria: "Moda" },
   "NYUWsLpVlhQ": { titulo: "Residences", cliente: "Bledford", categoria: "Inmobiliario" },
 };
 
@@ -58,10 +59,34 @@ export const etapas = [
 ];
 
 export const lineasDeServicio = [
-  { titulo: "Campañas de moda", desc: "Concepto, casting, rodaje y piezas por canal: film principal, cortes para redes y verticales." },
-  { titulo: "Publicidad", desc: "Spots para marcas y lanzamientos, con guion y plan cerrados antes de filmar." },
-  { titulo: "Corporativo e inmobiliario", desc: "Videos de proyecto y de empresa con carta Gantt y fechas de revisión acordadas." },
-  { titulo: "Producción integral", desc: "Equipo externo, locación y talento coordinados por M14, con presupuesto cerrado." },
+  {
+    titulo: "Campañas de moda",
+    desc: "Concepto, casting, rodaje y piezas por canal para cada temporada.",
+    entregables: ["Film de campaña", "Cortes para redes", "Versiones verticales"],
+    videoId: "hwsKufZDjcs",
+    referencia: "Dinámica · Otoño-Invierno",
+  },
+  {
+    titulo: "Publicidad",
+    desc: "Spots para marcas y lanzamientos, con guion y plan cerrados antes de filmar.",
+    entregables: ["Spot principal", "Versiones por canal", "Guion y storyboard"],
+    videoId: "uMBUVTyzXdA",
+    referencia: "Guten Brew · Guten Draft",
+  },
+  {
+    titulo: "Corporativo e inmobiliario",
+    desc: "Videos de empresa y de proyecto, con carta Gantt y fechas de revisión acordadas.",
+    entregables: ["Video institucional", "Video de proyecto", "Cápsulas para redes"],
+    videoId: "ACM5XZTjt6o",
+    referencia: "BK Servicios Financieros",
+  },
+  {
+    titulo: "Producción integral",
+    desc: "Nos hacemos cargo de punta a punta, con una sola contraparte y presupuesto cerrado.",
+    entregables: ["Casting y locaciones", "Equipo técnico externo", "Carta Gantt"],
+    videoId: "F6D0G5v2lB8",
+    referencia: "Saville Row · Denim",
+  },
 ];
 
 export const clientesQueVuelven = [
