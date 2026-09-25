@@ -48,7 +48,8 @@ export default function Agendar() {
         </div>
         <div>
           <span className="placa">Redes</span>
-          <a href={contacto.instagram} target="_blank" rel="noopener noreferrer">@m14studio</a>
+          <a href={contacto.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href={contacto.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </footer>
     </section>

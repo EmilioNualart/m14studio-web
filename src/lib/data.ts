@@ -108,6 +108,7 @@ export const contacto = {
   email: "mercedeserrazuriz@m14studio.com",
   direccion: "Francisco de Aguirre 3630, Santiago",
   instagram: "https://www.instagram.com/m14studio/",
+  linkedin: "https://www.linkedin.com/company/145227039/",
 };
 
 // URL de la agenda (Cal.com o Google Calendar). Mientras esté vacía, el botón abre un correo a Mercedes.

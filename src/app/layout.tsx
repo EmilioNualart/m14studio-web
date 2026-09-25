@@ -75,7 +75,7 @@ const jsonLd = {
   logo: "https://www.m14studio.com/icon.png",
   description: "Productora audiovisual en Santiago de Chile. Nos hacemos cargo del proyecto completo: concepto, rodaje y entrega, con la preproducción cerrada antes del rodaje.",
   email: "mercedeserrazuriz@m14studio.com",
-  sameAs: ["https://www.instagram.com/m14studio"],
+  sameAs: ["https://www.instagram.com/m14studio", "https://www.linkedin.com/company/145227039/"],
   address: {
     "@type": "PostalAddress",
     streetAddress: "Francisco de Aguirre 3630",
