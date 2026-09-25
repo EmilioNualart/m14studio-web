@@ -115,44 +115,6 @@ export const contacto = {
 // URL de la agenda (Cal.com o Google Calendar). Mientras esté vacía, el botón abre un correo a Mercedes.
 export const BOOKING_URL = "";
 
-// Legacy: lo usan componentes que ya no están en el home.
-export const servicios = [
-  { numero: "01", titulo: "Producción Publicitaria", desc: "Campañas cinematográficas desde concepto hasta post-producción." },
-  { numero: "02", titulo: "Moda & Lifestyle", desc: "Editorial, lookbooks y campañas con dirección de arte impecable." },
-  { numero: "03", titulo: "Contenido Corporativo", desc: "Videos institucionales que elevan tu identidad de marca." },
-  { numero: "04", titulo: "Documentales", desc: "Narrativas auténticas con sensibilidad cinematográfica." },
-  { numero: "05", titulo: "Cobertura de Eventos", desc: "Producción multi-cámara en festivales, conciertos y conferencias." },
-  { numero: "06", titulo: "Post-Producción & VFX", desc: "Color grading, motion graphics y audio de nivel profesional." },
-];
-
-export const fundadores = [
-  {
-    nombre: "Emilio Nualart",
-    rol: "Co-founder",
-    bio: "Gestión estratégica y relaciones con clientes en Santiago y Barcelona. Transforma visiones en producciones audiovisuales de alto impacto.",
-    foto: "/imagenes/Emilio.jpg",
-  },
-  {
-    nombre: "Domingo Streeter",
-    rol: "Co-founder",
-    bio: "Dirección cinematográfica y visión creativa. Lidera la producción publicitaria y de moda de M14 Studio en Chile y España.",
-    foto: "/imagenes/Domingo.jpg",
-  },
-  {
-    nombre: "Lucas Chauriye",
-    rol: "Productor Ejecutivo",
-    bio: "Producción ejecutiva y coordinación de proyectos audiovisuales. Garantiza que cada rodaje en Santiago se ejecute con precisión y calidad.",
-    foto: "/imagenes/Lucas.jpg",
-  },
-];
-
-export const valores = [
-  { titulo: "Pre-producción alineada", desc: "Trabajamos mano a mano contigo desde el día uno. Tu visión es nuestro punto de partida." },
-  { titulo: "Tiempos de entrega", desc: "Cumplimos. Siempre. Porque entendemos que tu calendario es tan importante como el nuestro." },
-  { titulo: "Vanguardia tecnológica", desc: "Integramos IA, nuevas cámaras y técnicas de post-producción de última generación." },
-  { titulo: "Fácil trabajar con nosotros", desc: "Comunicación transparente, procesos claros, ambiente profesional pero humano." },
-];
-
 export const filterCategories = [
   { key: "all", label: "Todos" },
   { key: "moda", label: "Moda" },

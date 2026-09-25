@@ -8,8 +8,10 @@ export default function QuienesSomos() {
         <div className="seccion-head-body reveal">
           <h2 className="display">Dirigimos y producimos.</h2>
           <p className="texto gris">
-            Emilio y Domingo se conocen desde 2011 y filman juntos desde el colegio. M14 Studio nace el
-            14 de mayo de 2023. Hoy somos cuatro, con oficina propia en Santiago.
+            Un equipo de dirección y producción con oficina en Santiago. Trabajamos con marcas de moda,
+            retail y gastronomía, y con empresas e inmobiliarias que necesitan una sola contraparte para
+            todo el proyecto. La dirección creativa y la producción ejecutiva se sientan en la misma mesa:
+            lo que se aprueba en preproducción es lo que se filma.
           </p>
         </div>
       </div>
