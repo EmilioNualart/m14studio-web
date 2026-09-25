@@ -906,7 +906,7 @@ button {
 .pie {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 32px 64px;
   margin-top: clamp(72px, 8vw, 96px);
   padding-top: 24px;
@@ -929,7 +929,7 @@ button {
 .pie a,
 .pie span:not(.placa) { overflow-wrap: anywhere; }
 .pie a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.pie-logo { margin-right: auto; }
+.pie-logo { margin-right: auto; align-self: flex-end; }
 .pie-logo img { width: 56px; height: 56px; }
 
 @media (max-width: 900px) {
