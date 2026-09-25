@@ -101,7 +101,7 @@ export const equipo = [
   { nombre: "Emilio Nualart", rol: "Co-founder · Estrategia y clientes", foto: "/imagenes/Emilio.jpg" },
   { nombre: "Domingo Streeter", rol: "Co-founder · Dirección creativa", foto: "/imagenes/Domingo.jpg" },
   { nombre: "Lucas Chauriye", rol: "Productor ejecutivo · Finanzas", foto: "/imagenes/Lucas.jpg" },
-  { nombre: "Mercedes Errázuriz", rol: "Productora ejecutiva", foto: null },
+  { nombre: "Mercedes Errázuriz", rol: "Productora ejecutiva", foto: "/imagenes/Mercedes.jpg" },
 ];
 
 export const contacto = {
