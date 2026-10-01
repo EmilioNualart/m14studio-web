@@ -228,6 +228,7 @@ button {
 .acento-papel { color: var(--vino); }
 .acento-negro { color: var(--vino-claro); }
 
+
 @media (max-width: 900px) {
   .seccion-head > .placa,
   .seccion-head > .seccion-head-body {
@@ -527,6 +528,11 @@ button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.pieza-info .pieza-cliente {
+  font-size: 9px;
+  opacity: 0.4;
 }
 
 @media (max-width: 900px) {

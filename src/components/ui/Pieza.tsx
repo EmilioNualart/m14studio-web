@@ -7,9 +7,10 @@ type PiezaProps = {
   thumb: string;
   titulo: string;
   meta: string;
+  cliente?: string;
 };
 
-export default function Pieza({ videoId, thumb, titulo, meta }: PiezaProps) {
+export default function Pieza({ videoId, thumb, titulo, meta, cliente }: PiezaProps) {
   const { openVideo } = useVideoModal();
 
   return (
@@ -26,6 +27,7 @@ export default function Pieza({ videoId, thumb, titulo, meta }: PiezaProps) {
       <div className="pieza-info">
         <span className="display">{titulo}</span>
         <span className="placa">{meta}</span>
+        {cliente && <span className="placa pieza-cliente">{cliente}</span>}
       </div>
     </button>
   );

@@ -35,6 +35,7 @@ export default function IndiceTrabajo() {
               videoId={item.videoId}
               thumb={getThumbUrl(item)}
               titulo={item.title}
+              cliente={item.cliente}
               meta={`${item.category} · ${formatFecha(item.fecha)}`}
             />
           ))}
