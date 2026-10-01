@@ -537,7 +537,7 @@ button {
 
 .pieza-info .pieza-cliente {
   font-size: 9px;
-  opacity: 0.4;
+  opacity: 0.55;
 }
 
 @media (max-width: 900px) {
