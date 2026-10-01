@@ -29,6 +29,12 @@ export default function Portfolio() {
             />
           );
         })}
+        <Link href="/trabajo" className="btn-papel trabajo-ver">
+          <span className="placa">Ver todo el contenido</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+            <path d="M4 10h12M11 5l5 5-5 5" />
+          </svg>
+        </Link>
       </div>
     </section>
   );

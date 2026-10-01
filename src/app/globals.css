@@ -463,6 +463,11 @@ button {
 
 .trabajo-bar a:hover { text-decoration: underline; text-underline-offset: 6px; }
 
+.trabajo-ver {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+}
+
 .pieza {
   grid-column: span 4;
   min-width: 0;
