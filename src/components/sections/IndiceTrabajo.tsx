@@ -6,7 +6,7 @@ import { filterCategories, formatFecha, getThumbUrl, portfolioItems } from "@/li
 
 export default function IndiceTrabajo() {
   const [filtro, setFiltro] = useState<string>("all");
-  const items = portfolioItems.filter((item) => filtro === "all" || item.category === filtro);
+  const items = portfolioItems.filter((item) => filtro === "all" || item.category === filtro || item.tambien?.some((c) => c === filtro));
 
   return (
     <section className="indice seccion-negro">
