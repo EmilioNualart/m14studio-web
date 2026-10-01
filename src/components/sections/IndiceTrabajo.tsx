@@ -12,7 +12,7 @@ export default function IndiceTrabajo() {
     <section className="indice seccion-negro">
       <div style={{ paddingInline: "var(--gutter)" }}>
         <p className="placa acento-negro">Trabajo</p>
-        <h1 className="display" style={{ marginTop: 24 }}>Todas las piezas</h1>
+        <h1 className="display" style={{ marginTop: 24 }}>Portafolio</h1>
 
         <div className="filtros" role="group" aria-label="Filtrar por categoría">
           {filterCategories.map((cat) => (
