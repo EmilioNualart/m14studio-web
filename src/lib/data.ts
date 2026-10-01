@@ -3,7 +3,15 @@ export type PortfolioItem = {
   category: "moda" | "publicidad" | "corporativo" | "eventos";
   videoId: string;
   thumb?: "hq";
+  fecha: string; // AAAA-MM
 };
+
+const MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+export function formatFecha(fecha: string): string {
+  const [anio, mes] = fecha.split("-");
+  return `${MESES[Number(mes) - 1]}, ${anio}`;
+}
 
 export function getThumbUrl(item: PortfolioItem): string {
   const quality = item.thumb === "hq" ? "mqdefault" : "maxresdefault";
@@ -12,31 +20,31 @@ export function getThumbUrl(item: PortfolioItem): string {
 
 // Orden = orden de aparición en el grid. Los videos nuevos van al INICIO de este array.
 export const portfolioItems: PortfolioItem[] = [
-  { title: "Reforma de pensiones — Diario Financiero", category: "corporativo", videoId: "D623Qn_rhHw" },
-  { title: "Echoes of the South", category: "moda", videoId: "KsT1Xe-5m9A" },
-  { title: "Colección Otoño-Invierno II — Dinámica", category: "moda", videoId: "BOn7MyGUoAI" },
-  { title: "Colección Otoño-Invierno — Dinámica", category: "moda", videoId: "hwsKufZDjcs" },
-  { title: "LATAM X LA BIRRA BAR", category: "publicidad", videoId: "NChAK41oQZw" },
-  { title: "Black and Sand — Saville Row", category: "moda", videoId: "2qByFoSHahI" },
-  { title: "Guten Draft — Guten Brew", category: "publicidad", videoId: "uMBUVTyzXdA" },
-  { title: "Bledford Residences", category: "corporativo", videoId: "NYUWsLpVlhQ" },
-  { title: "Saville Row — Denim", category: "moda", videoId: "F6D0G5v2lB8" },
-  { title: "La Birra Bar", category: "publicidad", videoId: "B4a6Ur85Rng" },
-  { title: "EMG Carina", category: "moda", videoId: "e52eqE7NLTI" },
-  { title: "Saville Row — Día de la Madre", category: "publicidad", videoId: "ehPwlTP4uvs" },
-  { title: "BK Servicios Financieros", category: "corporativo", videoId: "ACM5XZTjt6o" },
-  { title: "Ochi and Co", category: "moda", videoId: "GxtIgjfuSls" },
-  { title: "EMG", category: "moda", videoId: "kAJUvbIvbYQ", thumb: "hq" },
-  { title: "NARISSA", category: "moda", videoId: "4WeqGIVEQfI" },
-  { title: "More Amor", category: "moda", videoId: "4Ja8VoRkUbk" },
-  { title: "Fika", category: "publicidad", videoId: "sW-V_S2G1VY" },
-  { title: "Capasite", category: "corporativo", videoId: "pZ17GkAcsR0" },
-  { title: "OSSO", category: "eventos", videoId: "M5xpDkovSJY" },
-  { title: "Valle Luna", category: "eventos", videoId: "z6nIPo5FPD4" },
-  { title: "Guten Ice — Guten Brew", category: "publicidad", videoId: "nUlGNc_L2wI" },
-  { title: "Colección RAICES — LUAU BRAND", category: "moda", videoId: "L_garDcBHmw" },
-  { title: "Colección RAICES II — LUAU BRAND", category: "moda", videoId: "MPPfJsloCL0" },
-  { title: "Colección RAICES III — LUAU BRAND", category: "moda", videoId: "Frqj0J17bdI" },
+  { title: "Reforma de pensiones — Diario Financiero", category: "corporativo", videoId: "D623Qn_rhHw", fecha: "2026-09" },
+  { title: "Echoes of the South", category: "moda", videoId: "KsT1Xe-5m9A", fecha: "2026-08" },
+  { title: "Colección Otoño-Invierno II — Dinámica", category: "moda", videoId: "BOn7MyGUoAI", fecha: "2026-08" },
+  { title: "Colección Otoño-Invierno — Dinámica", category: "moda", videoId: "hwsKufZDjcs", fecha: "2026-08" },
+  { title: "LATAM X LA BIRRA BAR", category: "publicidad", videoId: "NChAK41oQZw", fecha: "2026-08" },
+  { title: "Black and Sand — Saville Row", category: "moda", videoId: "2qByFoSHahI", fecha: "2026-03" },
+  { title: "Guten Draft — Guten Brew", category: "publicidad", videoId: "uMBUVTyzXdA", fecha: "2026-08" },
+  { title: "Bledford Residences", category: "corporativo", videoId: "NYUWsLpVlhQ", fecha: "2026-03" },
+  { title: "Saville Row — Denim", category: "moda", videoId: "F6D0G5v2lB8", fecha: "2025-10" },
+  { title: "La Birra Bar", category: "publicidad", videoId: "B4a6Ur85Rng", fecha: "2025-10" },
+  { title: "EMG Carina", category: "moda", videoId: "e52eqE7NLTI", fecha: "2026-03" },
+  { title: "Saville Row — Día de la Madre", category: "publicidad", videoId: "ehPwlTP4uvs", fecha: "2025-05" },
+  { title: "BK Servicios Financieros", category: "corporativo", videoId: "ACM5XZTjt6o", fecha: "2025-08" },
+  { title: "Ochi and Co", category: "moda", videoId: "GxtIgjfuSls", fecha: "2025-06" },
+  { title: "EMG", category: "moda", videoId: "kAJUvbIvbYQ", thumb: "hq", fecha: "2025-10" },
+  { title: "NARISSA", category: "moda", videoId: "4WeqGIVEQfI", fecha: "2024-08" },
+  { title: "More Amor", category: "moda", videoId: "4Ja8VoRkUbk", fecha: "2023-10" },
+  { title: "Fika", category: "publicidad", videoId: "sW-V_S2G1VY", fecha: "2025-03" },
+  { title: "Capasite", category: "corporativo", videoId: "pZ17GkAcsR0", fecha: "2024-10" },
+  { title: "OSSO", category: "eventos", videoId: "M5xpDkovSJY", fecha: "2025-02" },
+  { title: "Valle Luna", category: "eventos", videoId: "z6nIPo5FPD4", fecha: "2024-08" },
+  { title: "Guten Ice — Guten Brew", category: "publicidad", videoId: "nUlGNc_L2wI", fecha: "2026-08" },
+  { title: "Colección RAICES — LUAU BRAND", category: "moda", videoId: "L_garDcBHmw", fecha: "2026-04" },
+  { title: "Colección RAICES II — LUAU BRAND", category: "moda", videoId: "MPPfJsloCL0", fecha: "2026-04" },
+  { title: "Colección RAICES III — LUAU BRAND", category: "moda", videoId: "Frqj0J17bdI", fecha: "2026-04" },
 ];
 
 // Selección del home: orden por estándar, no por fecha. Lo que abre define lo que el cliente espera.

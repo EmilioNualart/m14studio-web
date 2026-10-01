@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Pieza from "@/components/ui/Pieza";
-import { featuredIds, featuredMeta, portfolioItems } from "@/lib/data";
+import { featuredIds, featuredMeta, formatFecha, portfolioItems } from "@/lib/data";
 
 export default function Portfolio() {
   return (
@@ -17,13 +17,15 @@ export default function Portfolio() {
         </div>
         {featuredIds.map((id) => {
           const meta = featuredMeta[id];
+          const fecha = portfolioItems.find((item) => item.videoId === id)?.fecha;
+          const base = meta.cliente === meta.titulo ? meta.categoria : `${meta.cliente} · ${meta.categoria}`;
           return (
             <Pieza
               key={id}
               videoId={id}
               thumb={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
               titulo={meta.titulo}
-              meta={meta.cliente === meta.titulo ? meta.categoria : `${meta.cliente} · ${meta.categoria}`}
+              meta={fecha ? `${base} · ${formatFecha(fecha)}` : base}
             />
           );
         })}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Pieza from "@/components/ui/Pieza";
-import { filterCategories, getThumbUrl, portfolioItems } from "@/lib/data";
+import { filterCategories, formatFecha, getThumbUrl, portfolioItems } from "@/lib/data";
 
 export default function IndiceTrabajo() {
   const [filtro, setFiltro] = useState<string>("all");
@@ -35,7 +35,7 @@ export default function IndiceTrabajo() {
               videoId={item.videoId}
               thumb={getThumbUrl(item)}
               titulo={item.title}
-              meta={item.category}
+              meta={`${item.category} · ${formatFecha(item.fecha)}`}
             />
           ))}
         </div>
