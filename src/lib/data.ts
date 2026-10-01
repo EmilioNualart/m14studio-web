@@ -25,7 +25,7 @@ export function getThumbUrl(item: PortfolioItem): string {
 export const portfolioItems: PortfolioItem[] = [
   { title: "Marsh — Evento corporativo fin de año", category: "corporativo", tambien: ["eventos"], videoId: "Lqf0twppM24", fecha: "2024-12" },
   { title: "Reforma de pensiones — DF", category: "corporativo", videoId: "D623Qn_rhHw", fecha: "2026-09" },
-  { title: "Echoes of the South", category: "moda", videoId: "KsT1Xe-5m9A", fecha: "2026-08" },
+  { title: "Echoes of the South — Saville Row", category: "moda", videoId: "KsT1Xe-5m9A", fecha: "2026-08" },
   { title: "Colección Otoño-Invierno II — Dinámica", category: "moda", videoId: "BOn7MyGUoAI", fecha: "2026-08" },
   { title: "Colección Otoño-Invierno — Dinámica", category: "moda", videoId: "hwsKufZDjcs", fecha: "2026-08" },
   { title: "LATAM X LA BIRRA BAR", category: "publicidad", videoId: "NChAK41oQZw", fecha: "2026-08" },
