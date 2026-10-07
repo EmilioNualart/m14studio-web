@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { formatFecha } from "@/lib/data";
 import FotoVisor from "@/components/ui/FotoVisor";
 import { categoriaLabel, filtrosFotos, fotoSrc, sesiones, type Sesion } from "@/lib/fotos";
 
@@ -38,7 +39,7 @@ export default function IndiceFotos() {
             <div className="pieza-info">
               <span className="display">{s.titulo}</span>
               <span className="placa">
-                {categoriaLabel[s.categoria]} · {s.fotos.length} fotos
+                {categoriaLabel[s.categoria]} · {formatFecha(s.fecha)} · {s.fotos.length} fotos
               </span>
               {s.cliente && s.cliente !== s.titulo && <span className="placa pieza-cliente">{s.cliente}</span>}
             </div>
