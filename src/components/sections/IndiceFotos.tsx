@@ -34,12 +34,12 @@ export default function IndiceFotos() {
           >
             <div className="sesion-media">
               <img src={fotoSrc(s.slug, s.portada, true)} alt="" loading="lazy" />
-              <span className="sesion-ver placa" aria-hidden="true">Ver fotos</span>
+              <span className="sesion-ver placa" aria-hidden="true">Ver {s.fotos.length} fotos</span>
             </div>
             <div className="pieza-info">
               <span className="display">{s.titulo}</span>
               <span className="placa">
-                {categoriaLabel[s.categoria]} · {formatFecha(s.fecha)} · {s.fotos.length} fotos
+                {categoriaLabel[s.categoria]} · {formatFecha(s.fecha)}
               </span>
               {s.cliente && s.cliente !== s.titulo && <span className="placa pieza-cliente">{s.cliente}</span>}
             </div>
