@@ -53,7 +53,7 @@ export const portfolioItems: PortfolioItem[] = [
 ];
 
 // Selección del home: orden por estándar, no por fecha. Lo que abre define lo que el cliente espera.
-export const featuredIds = ["2qByFoSHahI", "BOn7MyGUoAI", "NChAK41oQZw", "e52eqE7NLTI", "GxtIgjfuSls", "NYUWsLpVlhQ"];
+export const featuredIds = ["2qByFoSHahI", "BOn7MyGUoAI", "NChAK41oQZw", "e52eqE7NLTI", "GxtIgjfuSls", "NYUWsLpVlhQ", "KsT1Xe-5m9A", "D623Qn_rhHw", "uMBUVTyzXdA", "Lqf0twppM24", "z6nIPo5FPD4", "L_garDcBHmw"];
 
 export const featuredMeta: Record<string, { titulo: string; cliente: string; categoria: string }> = {
   "2qByFoSHahI": { titulo: "Black and Sand", cliente: "Saville Row", categoria: "Moda" },
@@ -62,6 +62,12 @@ export const featuredMeta: Record<string, { titulo: string; cliente: string; cat
   "e52eqE7NLTI": { titulo: "Carina", cliente: "EMG", categoria: "Moda" },
   "GxtIgjfuSls": { titulo: "Ochi and Co", cliente: "Ochi and Co", categoria: "Moda" },
   "NYUWsLpVlhQ": { titulo: "Residences", cliente: "Bledford", categoria: "Inmobiliario" },
+  "KsT1Xe-5m9A": { titulo: "Echoes of the South", cliente: "Saville Row", categoria: "Moda" },
+  "D623Qn_rhHw": { titulo: "Reforma de pensiones", cliente: "Diario Financiero", categoria: "Corporativo" },
+  "uMBUVTyzXdA": { titulo: "Guten Draft", cliente: "Guten Brew", categoria: "Publicidad" },
+  "Lqf0twppM24": { titulo: "Evento corporativo", cliente: "Marsh", categoria: "Corporativo" },
+  "z6nIPo5FPD4": { titulo: "Abierto Copa Valle Luna", cliente: "Valle Luna", categoria: "Eventos" },
+  "L_garDcBHmw": { titulo: "Colección RAICES", cliente: "Luau Brand", categoria: "Moda" },
 };
 
 export const etapas = [

@@ -18,14 +18,14 @@ export default function Portfolio() {
         {featuredIds.map((id) => {
           const meta = featuredMeta[id];
           const fecha = portfolioItems.find((item) => item.videoId === id)?.fecha;
-          const base = meta.cliente === meta.titulo ? meta.categoria : `${meta.cliente} · ${meta.categoria}`;
           return (
             <Pieza
               key={id}
               videoId={id}
               thumb={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
               titulo={meta.titulo}
-              meta={fecha ? `${base} · ${formatFecha(fecha)}` : base}
+              meta={fecha ? `${meta.categoria} · ${formatFecha(fecha)}` : meta.categoria}
+              cliente={meta.cliente === meta.titulo ? undefined : meta.cliente}
             />
           );
         })}
