@@ -8,13 +8,14 @@ type PiezaProps = {
   titulo: string;
   meta: string;
   cliente?: string;
+  vertical?: boolean;
 };
 
-export default function Pieza({ videoId, thumb, titulo, meta, cliente }: PiezaProps) {
+export default function Pieza({ videoId, thumb, titulo, meta, cliente, vertical }: PiezaProps) {
   const { openVideo } = useVideoModal();
 
   return (
-    <button type="button" className="pieza reveal" onClick={() => openVideo(videoId)}>
+    <button type="button" className="pieza reveal" onClick={() => openVideo(videoId, vertical)}>
       <div className="pieza-media">
         <img src={thumb} alt="" loading="lazy" />
         <span className="pieza-play placa" aria-hidden="true">

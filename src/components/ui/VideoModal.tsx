@@ -4,7 +4,7 @@ import { useEffect, useCallback } from "react";
 import { useVideoModal } from "@/components/providers/VideoModalProvider";
 
 export default function VideoModal() {
-  const { videoId, closeVideo } = useVideoModal();
+  const { videoId, vertical, closeVideo } = useVideoModal();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -31,7 +31,7 @@ export default function VideoModal() {
       className={`video-modal${videoId ? " active" : ""}`}
       onClick={handleBackdropClick}
     >
-      <div className="video-modal-content">
+      <div className={`video-modal-content${vertical ? " vertical" : ""}`}>
         <button type="button" className="video-modal-close placa" onClick={closeVideo}>
           Cerrar
         </button>

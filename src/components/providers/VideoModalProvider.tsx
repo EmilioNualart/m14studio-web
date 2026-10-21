@@ -4,12 +4,14 @@ import { createContext, useContext, useState, useCallback, type ReactNode } from
 
 type VideoModalContextType = {
   videoId: string | null;
-  openVideo: (id: string) => void;
+  vertical: boolean;
+  openVideo: (id: string, vertical?: boolean) => void;
   closeVideo: () => void;
 };
 
 const VideoModalContext = createContext<VideoModalContextType>({
   videoId: null,
+  vertical: false,
   openVideo: () => {},
   closeVideo: () => {},
 });
@@ -20,9 +22,11 @@ export function useVideoModal() {
 
 export default function VideoModalProvider({ children }: { children: ReactNode }) {
   const [videoId, setVideoId] = useState<string | null>(null);
+  const [vertical, setVertical] = useState(false);
 
-  const openVideo = useCallback((id: string) => {
+  const openVideo = useCallback((id: string, esVertical = false) => {
     setVideoId(id);
+    setVertical(esVertical);
   }, []);
 
   const closeVideo = useCallback(() => {
@@ -30,7 +34,7 @@ export default function VideoModalProvider({ children }: { children: ReactNode }
   }, []);
 
   return (
-    <VideoModalContext.Provider value={{ videoId, openVideo, closeVideo }}>
+    <VideoModalContext.Provider value={{ videoId, vertical, openVideo, closeVideo }}>
       {children}
     </VideoModalContext.Provider>
   );

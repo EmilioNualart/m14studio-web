@@ -59,6 +59,7 @@ export default function IndiceTrabajo() {
               thumb={getThumbUrl(item)}
               titulo={item.title}
               cliente={item.cliente}
+              vertical={item.vertical}
               meta={`${item.category} · ${formatFecha(item.fecha)}`}
             />
           ))}

@@ -4,6 +4,7 @@ export type PortfolioItem = {
   title: string;
   cliente?: string;
   category: Category;
+  vertical?: boolean; // YouTube Short: se abre en reproductor vertical
   tambien?: Category[]; // categorías extra donde también aparece al filtrar
   videoId: string;
   thumb?: "hq";
@@ -24,7 +25,6 @@ export function getThumbUrl(item: PortfolioItem): string {
 
 // Orden = orden de aparición en el grid. Los videos nuevos van al INICIO de este array.
 export const portfolioItems: PortfolioItem[] = [
-  { title: "Desafío Rugby", cliente: "Saville Row", category: "publicidad", videoId: "X1ZDWboJgUE", fecha: "2026-10" },
   { title: "Evento corporativo", cliente: "Marsh", category: "corporativo", tambien: ["eventos"], videoId: "Lqf0twppM24", fecha: "2024-12" },
   { title: "Reforma de pensiones", cliente: "Diario Financiero", category: "corporativo", videoId: "D623Qn_rhHw", fecha: "2026-09" },
   { title: "Echoes of the South", cliente: "Saville Row", category: "moda", videoId: "KsT1Xe-5m9A", fecha: "2026-08" },
@@ -51,6 +51,7 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "Colección RAICES", cliente: "Luau Brand", category: "moda", videoId: "L_garDcBHmw", fecha: "2026-04" },
   { title: "Colección RAICES II", cliente: "Luau Brand", category: "moda", videoId: "MPPfJsloCL0", fecha: "2026-04" },
   { title: "Colección RAICES III", cliente: "Luau Brand", category: "moda", videoId: "Frqj0J17bdI", fecha: "2026-04" },
+  { title: "Desafío Rugby", cliente: "Saville Row", category: "publicidad", vertical: true, videoId: "X1ZDWboJgUE", fecha: "2026-10" },
 ];
 
 // Selección del home: orden por estándar, no por fecha. Lo que abre define lo que el cliente espera.
