@@ -17,7 +17,8 @@ export default function Portfolio() {
         </div>
         {featuredIds.map((id) => {
           const meta = featuredMeta[id];
-          const fecha = portfolioItems.find((item) => item.videoId === id)?.fecha;
+          const item = portfolioItems.find((it) => it.videoId === id);
+          const fecha = item?.fecha;
           return (
             <Pieza
               key={id}
@@ -26,6 +27,7 @@ export default function Portfolio() {
               titulo={meta.titulo}
               meta={fecha ? `${meta.categoria} · ${formatFecha(fecha)}` : meta.categoria}
               cliente={meta.cliente === meta.titulo ? undefined : meta.cliente}
+              vertical={item?.vertical}
             />
           );
         })}

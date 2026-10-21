@@ -48,9 +48,9 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "Hacienda Las Varas", cliente: "OSSO", category: "eventos", videoId: "M5xpDkovSJY", fecha: "2025-02" },
   { title: "Abierto Copa Valle Luna", cliente: "Valle Luna", category: "eventos", videoId: "z6nIPo5FPD4", fecha: "2024-08" },
   { title: "Guten Ice", cliente: "Guten Brew", category: "publicidad", videoId: "nUlGNc_L2wI", fecha: "2026-08" },
-  { title: "Colección RAICES", cliente: "Luau Brand", category: "moda", videoId: "L_garDcBHmw", fecha: "2026-04" },
-  { title: "Colección RAICES II", cliente: "Luau Brand", category: "moda", videoId: "MPPfJsloCL0", fecha: "2026-04" },
-  { title: "Colección RAICES III", cliente: "Luau Brand", category: "moda", videoId: "Frqj0J17bdI", fecha: "2026-04" },
+  { title: "Colección RAICES", cliente: "Luau Brand", category: "moda", vertical: true, videoId: "L_garDcBHmw", fecha: "2026-04" },
+  { title: "Colección RAICES II", cliente: "Luau Brand", category: "moda", vertical: true, videoId: "MPPfJsloCL0", fecha: "2026-04" },
+  { title: "Colección RAICES III", cliente: "Luau Brand", category: "moda", vertical: true, videoId: "Frqj0J17bdI", fecha: "2026-04" },
   { title: "Desafío Rugby", cliente: "Saville Row", category: "publicidad", vertical: true, videoId: "X1ZDWboJgUE", fecha: "2026-10" },
 ];
 
