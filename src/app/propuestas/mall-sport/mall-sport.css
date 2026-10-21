@@ -193,7 +193,14 @@
 .ms-tabs button { border: 1px solid var(--raya); padding: 10px 14px; font-size: 11px; transition: background 0.25s, color 0.25s, border-color 0.25s; }
 .ms-tabs button:hover { border-color: var(--tinta); }
 .ms-tabs button[aria-selected="true"] { background: var(--tinta); color: var(--fondo); border-color: var(--tinta); }
-.ms-comparador { position: relative; aspect-ratio: 16 / 9; margin-top: 16px; overflow: hidden; background: #111; }
+.ms-comparador {
+  position: relative;
+  /* 16:9, pero nunca más alto que la pantalla (con las pestañas a la vista) */
+  height: min(calc((100vw - 2 * var(--gutter)) * 9 / 16), calc(100svh - 150px));
+  margin-top: 16px;
+  overflow: hidden;
+  background: #111;
+}
 .ms-comparador input {
   position: absolute;
   inset: 0;
@@ -223,11 +230,12 @@
 .ms-viene { height: 460vh; }
 .ms-viene .ms-fijo { justify-content: space-between; gap: 24px; padding-inline: 0; }
 .ms-viene-cabeza { padding-inline: var(--gutter); }
-.ms-viene-cabeza .ms-h2 { margin-top: 16px; max-width: 16ch; font-size: clamp(36px, 5vw, 76px); }
+.ms-viene-cabeza .ms-h2 { margin-top: 16px; max-width: 24ch; font-size: clamp(32px, min(4.4vw, 7svh), 68px); }
 .ms-pista { display: flex; gap: var(--col-gap); padding-inline: var(--gutter); width: max-content; will-change: transform; }
 .ms-espacio {
   width: min(80vw, 460px);
-  height: min(58svh, 560px);
+  height: min(calc(100svh - 300px), 560px);
+  min-height: 340px;
   border: 1px solid var(--raya);
   display: flex;
   flex-direction: column;
@@ -350,9 +358,9 @@ button.ms-gantt-fila:hover, .ms-gantt-fila.elegida { background: var(--velo); }
   .ms-pantalla { order: -1; aspect-ratio: 16 / 9; }
   .ms-acto { justify-content: flex-start; }
   .ms-acto h3 { font-size: clamp(28px, 7.4vw, 44px); }
-  .ms-comparador { aspect-ratio: 4 / 3; }
+  .ms-comparador { height: auto; aspect-ratio: 4 / 3; }
   .ms-viene-cabeza .ms-h2 { font-size: clamp(30px, 8.4vw, 44px); }
-  .ms-espacio { height: min(56svh, 520px); }
+  .ms-espacio { height: min(56svh, 520px); min-height: 0; }
 
 
   .ms-gantt-estado { grid-template-columns: 1fr; gap: 6px; }
