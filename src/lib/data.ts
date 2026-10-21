@@ -52,6 +52,7 @@ export const portfolioItems: PortfolioItem[] = [
   { title: "Colección RAICES II", cliente: "Luau Brand", category: "moda", vertical: true, videoId: "MPPfJsloCL0", fecha: "2026-04" },
   { title: "Colección RAICES III", cliente: "Luau Brand", category: "moda", vertical: true, videoId: "Frqj0J17bdI", fecha: "2026-04" },
   { title: "Desafío Rugby", cliente: "Saville Row", category: "publicidad", vertical: true, videoId: "X1ZDWboJgUE", fecha: "2026-10" },
+  { title: "Club de Polo", cliente: "Saville Row", category: "eventos", vertical: true, videoId: "eDE3zQ5G03k", fecha: "2026-10" },
 ];
 
 // Selección del home: orden por estándar, no por fecha. Lo que abre define lo que el cliente espera.
