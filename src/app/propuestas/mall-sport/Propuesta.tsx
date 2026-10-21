@@ -528,8 +528,8 @@ function Tiempos() {
                   key={g.tarea}
                   type="button"
                   className={`ms-gantt-fila ${estado}${elegida === i ? " elegida" : ""}`}
-                  onMouseEnter={() => setSobre(i)}
-                  onMouseLeave={() => setSobre(null)}
+                  onPointerEnter={(e) => e.pointerType === "mouse" && setSobre(i)}
+                  onPointerLeave={() => setSobre(null)}
                   onClick={() => setFija(fija === i ? null : i)}
                   aria-pressed={fija === i}
                 >
