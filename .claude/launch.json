@@ -12,8 +12,10 @@
     },
     {
       "name": "m14-start",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "env",
       "runtimeArgs": [
+        "PROPUESTAS_CLAVE=prueba-local-m14",
+        "npm",
         "run",
         "start",
         "--",

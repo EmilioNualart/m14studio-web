@@ -1,0 +1,31 @@
+/* Pantalla de clave de /propuestas · libro de marca M14 */
+.acceso {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 40px var(--gutter);
+}
+.acceso-cuerpo { display: flex; flex-direction: column; gap: 24px; max-width: 640px; }
+.acceso h1 { font-size: clamp(44px, 7vw, 104px); }
+.acceso-texto { font-size: 17px; opacity: 0.75; max-width: 44ch; }
+.acceso-form { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.acceso-fila { display: flex; gap: 12px; flex-wrap: wrap; }
+.acceso-fila input {
+  flex: 1 1 260px;
+  min-height: 56px;
+  padding: 0 18px;
+  background: transparent;
+  border: 1px solid var(--linea-oscura);
+  color: var(--papel);
+  font: inherit;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+}
+.acceso-fila input:focus { outline: none; border-color: var(--papel); }
+.acceso-fila input[aria-invalid="true"] { border-color: var(--vino-claro); }
+.acceso-fila .btn-papel { min-width: 180px; }
+.acceso-fila .btn-papel:disabled { opacity: 0.6; cursor: wait; }
+.acceso-error { color: var(--vino-claro); font-size: 15px; }
+.acceso-pie { opacity: 0.5; font-size: 10px; }
