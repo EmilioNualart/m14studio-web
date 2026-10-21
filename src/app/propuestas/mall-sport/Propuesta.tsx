@@ -139,17 +139,6 @@ const espacios = [
   { nombre: "La Arena", que: "Juego y competencia, niveles −1 y −2", cifra: 1260, unidad: "m²", video: "Cumpleaños, trampolines y videojuegos", foto: "arena-trampolines" },
 ];
 
-// El flujo contado como un día: qué toma lo muestra en el video.
-const momentos = [
-  { ini: 7, fin: 8, quien: "Ciclistas", toma: "Dron siguiendo al grupo que sale a la montaña.", foto: "hub-ciclista" },
-  { ini: 8, fin: 10, quien: "Colegios", toma: "Dron sobre los accesos y los colegios del sector.", foto: "hoy-centro" },
-  { ini: 12.5, fin: 15, quien: "Almuerzo", toma: "La Laguna llena a mediodía, en render animado.", foto: "laguna-dia" },
-  { ini: 15, fin: 18, quien: "Familias", toma: "Niños a Happyland, la mamá a la Galería Wellness.", foto: "wellness-interior" },
-  { ini: 19.5, fin: 23, quien: "Tercer tiempo", toma: "La Laguna de noche: cena y happy hour.", foto: "laguna-noche" },
-];
-const H_INI = 6;
-const H_FIN = 24;
-
 const materiales = [
   { titulo: "Stock y archivo de Mall Sport", para: "Mostrar la cultura del mall: deporte, montaña y comunidad." },
   { titulo: "Grabación y time lapse", para: "El mall hoy y el flujo que ya tiene." },
@@ -459,82 +448,9 @@ function LosEspacios() {
   );
 }
 
-function ElFlujo() {
-  const [ref, p] = useProgreso<HTMLElement>();
-  const h = H_INI + p * (H_FIN - H_INI);
-  const hh = Math.min(23, Math.floor(h));
-  const mm = Math.floor((h - Math.floor(h)) * 60 / 15) * 15;
-  const pos = (x: number) => `${((x - H_INI) / (H_FIN - H_INI)) * 100}%`;
-  const activo = [...momentos].reverse().find((m) => h >= m.ini);
-
-  return (
-    <>
-      <section className="ms-seccion ms-seccion-intro tono-negro">
-        <div className="ms-envoltura">
-          <Intro
-            placa="Cómo mostramos el flujo"
-            titulo="El flujo, contado como un día."
-            bajada="En vez de cifras en pantalla, seguimos un día en Mall Sport: cada hora tiene su toma."
-          />
-        </div>
-      </section>
-      <section ref={ref} className="ms-flujo tono-negro" aria-label="Cómo mostramos el flujo">
-        <div className="ms-fijo">
-          <p className="placa ms-acento">Un día en Mall Sport</p>
-          <div className="ms-flujo-centro">
-            <p className="display ms-reloj" aria-hidden="true">
-              {String(hh).padStart(2, "0")}:{String(h >= H_FIN ? 59 : mm).padStart(2, "0")}
-            </p>
-            <div className="ms-flujo-derecha">
-              <div className="ms-flujo-foto" aria-hidden="true">
-                {momentos.map((m) => (
-                  <img key={m.quien} src={img(m.foto)} alt="" className={m === activo ? "activo" : ""} />
-                ))}
-                <img src={img("hoy-laguna")} alt="" className={!activo ? "activo" : ""} />
-              </div>
-              <div className="ms-flujo-texto">
-                {momentos.map((m) => (
-                  <div key={m.quien} className={`ms-momento${m === activo ? " activo" : ""}`}>
-                    <h3 className="display ms-acento">{m.quien}</h3>
-                    <p><span className="placa">La toma</span>{m.toma}</p>
-                  </div>
-                ))}
-                {!activo && (
-                  <div className="ms-momento activo">
-                    <h3 className="display ms-acento">Amanece.</h3>
-                    <p>Baja para avanzar el día.</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="ms-dia" aria-hidden="true">
-            <span className="ms-dia-avance" style={{ width: pos(h) }} />
-            {momentos.map((m) => (
-              <span
-                key={m.quien}
-                className={`ms-dia-tramo${h >= m.ini ? " encendido" : ""}`}
-                style={{ left: pos(m.ini), width: `calc(${pos(m.fin)} - ${pos(m.ini)})` }}
-              />
-            ))}
-            {[6, 12, 18, 24].map((x) => (
-              <small key={x} style={{ left: pos(x) }}>{String(x === 24 ? 0 : x).padStart(2, "0")}:00</small>
-            ))}
-          </div>
-
-          <p className="placa ms-seguridad" style={{ opacity: clamp(p * 4 - 3) }}>
-            La seguridad también se ve: accesos, luz y gente.
-          </p>
-        </div>
-      </section>
-    </>
-  );
-}
-
 function Materiales() {
   return (
-    <section className="tono-papel ms-seccion">
+    <section className="tono-negro ms-seccion">
       <div className="ms-envoltura">
         <Intro
           placa="Cómo lo hacemos"
@@ -543,7 +459,7 @@ function Materiales() {
         />
         <ol className="ms-materiales">
           {materiales.map((x, i) => (
-            <li key={x.titulo} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
+            <li key={x.titulo} className="reveal">
               <span className="placa ms-acento">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="display">{x.titulo}</h3>
               <p><span aria-hidden="true">→ </span>{x.para}</p>
@@ -568,7 +484,7 @@ function Tiempos() {
 
   return (
     <>
-      <section className="ms-seccion ms-seccion-intro tono-negro">
+      <section className="ms-seccion ms-seccion-intro tono-papel">
         <div className="ms-envoltura">
           <Intro
             placa="Tiempos"
@@ -577,7 +493,7 @@ function Tiempos() {
           />
         </div>
       </section>
-      <section ref={ref} className="ms-tiempos tono-negro" aria-label="Carta Gantt">
+      <section ref={ref} className="ms-tiempos tono-papel" aria-label="Carta Gantt">
         <div className="ms-fijo">
           <div className="ms-gantt-estado">
             <div>
@@ -652,7 +568,7 @@ function Cierre() {
         Una nueva etapa merece una buena historia<span className="ms-acento">.</span>
       </p>
       <div className="ms-cierre-pie">
-        <img src="/brand/m14-cuadrado-negativo.svg" alt="M14 Studio" width={56} height={56} />
+        <img src="/brand/m14-cuadrado.svg" alt="M14 Studio" width={56} height={56} />
         <div>
           <span className="placa">Emilio Nualart · M14 Studio</span>
           <a href={`mailto:${contacto.emailEmilio}`}>{contacto.emailEmilio}</a>
@@ -690,7 +606,6 @@ export default function Propuesta() {
         <LaHistoria />
         <AntesDespues />
         <LosEspacios />
-        <ElFlujo />
         <Materiales />
         <Tiempos />
         <Cierre />
