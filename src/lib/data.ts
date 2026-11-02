@@ -25,6 +25,7 @@ export function getThumbUrl(item: PortfolioItem): string {
 
 // Orden = orden de aparición en el grid. Los videos nuevos van al INICIO de este array.
 export const portfolioItems: PortfolioItem[] = [
+  { title: "Forward 26'", cliente: "Toku", category: "corporativo", videoId: "p75QHW8xJD8", fecha: "2026-11" },
   { title: "Evento corporativo", cliente: "Marsh", category: "corporativo", tambien: ["eventos"], videoId: "Lqf0twppM24", fecha: "2024-12" },
   { title: "Reforma de pensiones", cliente: "Diario Financiero", category: "corporativo", videoId: "D623Qn_rhHw", fecha: "2026-09" },
   { title: "Echoes of the South", cliente: "Saville Row", category: "moda", videoId: "KsT1Xe-5m9A", fecha: "2026-08" },
