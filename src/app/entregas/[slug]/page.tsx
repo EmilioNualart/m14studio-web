@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { entregaDe, entregas } from "@/lib/entregas";
+import { entregaDe } from "@/lib/entregas";
 import "../entregas.css";
 
-// Páginas estáticas: una por entrega. El middleware exige la clave antes de mostrarlas
+// Una página por entrega. El middleware exige la clave antes de mostrarla
 // y los archivos salen de R2 con links firmados (/entregas/[slug]/archivo/N).
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return entregas.map((e) => ({ slug: e.slug }));
-}
+// Ruta dinámica → runtime edge, que es lo único que acepta Cloudflare Pages.
+export const runtime = "edge";
 
 export async function generateMetadata({ params }: PageProps<"/entregas/[slug]">): Promise<Metadata> {
   const { slug } = await params;
