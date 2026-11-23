@@ -5,8 +5,6 @@ import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import Portfolio from "@/components/sections/Portfolio";
 import QuienesSomos from "@/components/sections/QuienesSomos";
-import ComoTrabajamos from "@/components/sections/ComoTrabajamos";
-import QueHacemos from "@/components/sections/QueHacemos";
 import Agendar from "@/components/sections/Agendar";
 
 export default function Home() {
@@ -18,8 +16,6 @@ export default function Home() {
           <Hero />
           <Portfolio />
           <QuienesSomos />
-          <ComoTrabajamos />
-          <QueHacemos />
           <Agendar />
         </main>
         <VideoModal />
