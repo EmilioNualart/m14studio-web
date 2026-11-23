@@ -1,0 +1,55 @@
+/* /entregas/[slug] · libro de marca M14 (Negro y Papel) */
+.entrega {
+  min-height: 100svh;
+  padding: 40px var(--gutter) 48px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 8vw, 112px);
+}
+.entrega-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.entrega-fecha { opacity: 0.6; font-size: 10px; text-align: right; }
+
+.entrega-head { display: flex; flex-direction: column; gap: 20px; max-width: 1100px; }
+.entrega-head h1 { font-size: clamp(44px, 8vw, 128px); }
+.entrega-nota { font-size: 17px; line-height: 1.6; opacity: 0.75; max-width: 56ch; }
+
+.entrega-archivos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.entrega-archivo {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: 24px clamp(24px, 4vw, 64px);
+  padding: 32px 0;
+  border-top: 1px solid var(--linea-oscura);
+}
+
+.entrega-video { background: #0d0d0d; }
+.entrega-video video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0d0d0d; }
+.entrega-archivo.vertical .entrega-video,
+.entrega-archivo.cuadrado .entrega-video { display: flex; justify-content: center; }
+.entrega-archivo.vertical .entrega-video video { aspect-ratio: 9 / 16; width: auto; height: min(78svh, 720px); max-width: 100%; }
+.entrega-archivo.cuadrado .entrega-video video { aspect-ratio: 1; width: auto; height: min(78svh, 640px); max-width: 100%; }
+
+.entrega-info { display: flex; flex-direction: column; gap: 12px; align-self: end; }
+.entrega-info > .placa { opacity: 0.5; font-size: 10px; }
+.entrega-info h2 { font-size: clamp(24px, 2.6vw, 36px); line-height: 1.05; }
+.entrega-meta { font-size: 14px; opacity: 0.6; letter-spacing: 0.04em; }
+.entrega-descargar { margin-top: 16px; }
+
+.entrega-pie {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--linea-oscura);
+}
+.entrega-pie .placa { opacity: 0.5; font-size: 10px; }
+.entrega-pie-texto { font-size: 15px; opacity: 0.75; }
+.entrega-pie-texto a { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 820px) {
+  .entrega-archivo { grid-template-columns: 1fr; }
+  .entrega-info { align-self: start; }
+  .entrega-fecha { max-width: 24ch; line-height: 1.8; }
+}
